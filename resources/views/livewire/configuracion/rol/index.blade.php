@@ -185,7 +185,7 @@
         </div>
     </div>
     {{-- modal rol --}}
-    <div class="modal" id="modal-rol" tabindex="-1" wire:ignore.self>
+    <div class="modal fade modal-blur" id="modal-rol" tabindex="-1" wire:ignore.self>
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
