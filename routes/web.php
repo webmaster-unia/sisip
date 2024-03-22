@@ -35,12 +35,12 @@ Route::prefix('configuracion')->group(function () {
         ->middleware('auth')
         ->name('configuracion.permiso.index');
 
-});
-//ruta para IP
-Route::get('/ip',IpIndex::class)
-    ->middleware('auth')
-    ->name('ip.index');
-//Ruta para area
-Route::get('/area', AreaIndex::class)
-    ->middleware('auth')
-    ->name('area.index');
+        //ruta para IP
+        Route::get('/ip',IpIndex::class)
+        ->middleware('auth')
+        ->name('ip.index');
+        //Ruta para area
+        Route::get('/area', AreaIndex::class)
+        ->middleware('auth')
+        ->name('area.index');
+    });
