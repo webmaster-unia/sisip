@@ -25,7 +25,7 @@
                                 <path d="M12 5l0 14" />
                                 <path d="M5 12l14 0" />
                             </svg>
-                            Crear usuario
+                            Crear
                         </button>
                         <button type="button" class="btn btn-teal d-sm-none btn-icon" data-bs-toggle="modal"
                             wire:click="create" data-bs-target="#modal-usuario" aria-label="Crear usuario">
