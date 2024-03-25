@@ -35,8 +35,9 @@ Route::prefix('configuracion')->group(function () {
     Route::get('/permisos', ConfiguracionPermisoIndex::class)
         ->middleware('auth')
         ->name('configuracion.permiso.index');
+
         //ruta para IP
-        Route::get('/ip', IpIndex::class)
+        Route::get('/ip',IpIndex::class)
         ->middleware('auth')
         ->name('ip.index');
         //Ruta para area
@@ -47,4 +48,6 @@ Route::prefix('configuracion')->group(function () {
         Route::get('/cargo', CargoIndex::class)
         ->middleware('auth')
         ->name('cargo.index');
-    });
+
+});
+

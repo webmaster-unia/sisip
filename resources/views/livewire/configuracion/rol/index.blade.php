@@ -120,11 +120,7 @@
                                         </td>
                                         <td>
                                             <div class="btn-list flex-nowrap justify-content-end">
-                                                {{-- <button type="button" class="btn btn-sm btn-outline"
-                                                    data-bs-toggle="modal" data-bs-target="#modal-ciclo-ver"
-                                                    wire:click="show({{ $item->id }})">
-                                                    Ver
-                                                </button> --}}
+                                                
                                                 <button type="button" class="btn btn-sm btn-outline-azure"
                                                     data-bs-toggle="modal" data-bs-target="#modal-usuario"
                                                     wire:click="edit({{ $item->id }})">
