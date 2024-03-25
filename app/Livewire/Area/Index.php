@@ -38,7 +38,7 @@ class Index extends Component
     public $cantidad;
     public $ip_inicio;
     public $ip_fin;
-    public $id_active;
+    public $is_active;
 
 
     //crear rol
@@ -51,6 +51,19 @@ class Index extends Component
         $this->resetValidation();
     }
 
+    public function limpiar_modal(){
+        $this->reset([
+            'name',
+            'slug',
+            'abreviation',
+            'cantidad',
+            'ip_inicio',
+            'ip_fin',
+            'is_active'
+        ]);
+        $this->resetErrorBag();
+        $this->resetValidation();
+    }
 
     public function render()
     {
