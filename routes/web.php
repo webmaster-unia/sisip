@@ -7,8 +7,9 @@ use App\Livewire\Home\Index as HomeIndex;
 use App\Livewire\Configuracion\Usuario\Index as ConfiguracionUsuarioIndex;
 use App\Livewire\Configuracion\Rol\Index as ConfiguracionRolIndex;
 use App\Livewire\Configuracion\Permiso\Index as ConfiguracionPermisoIndex;
+use App\Livewire\Cargo\Index as CargoIndex;
 use App\Livewire\Ip\Index as IpIndex;
-use App\Livewire\Configuracion\Permiso\Index as AreaIndex;
+use App\Livewire\Area\Index as AreaIndex;
 
 // ruta que redirige al home
 Route::redirect('/', '/home');
@@ -35,6 +36,7 @@ Route::prefix('configuracion')->group(function () {
         ->middleware('auth')
         ->name('configuracion.permiso.index');
 
+
         //ruta para IP
         Route::get('/ip',IpIndex::class)
         ->middleware('auth')
@@ -43,4 +45,10 @@ Route::prefix('configuracion')->group(function () {
         Route::get('/area', AreaIndex::class)
         ->middleware('auth')
         ->name('area.index');
-    });
+        //ruta para cargos
+        Route::get('/cargo', CargoIndex::class)
+        ->middleware('auth')
+        ->name('cargo.index');
+});
+
+
