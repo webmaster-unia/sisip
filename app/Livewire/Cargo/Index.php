@@ -12,6 +12,7 @@ use Livewire\Component;
 
 class Index extends Component
 {
+    public $button_Cargo='Crear Cargo';
     public function render()
     {
         return view('livewire.cargo.index');

@@ -224,7 +224,8 @@
                             Cancelar
                         </button>
                         <button type="submit" class="btn btn-cyan ms-auto">
-                            Boton Cargo
+                            {{ $button_Cargo }}
+
                         </button>
                     </div>
                 </form>
