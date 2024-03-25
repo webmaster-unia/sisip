@@ -36,7 +36,6 @@ Route::prefix('configuracion')->group(function () {
         ->middleware('auth')
         ->name('configuracion.permiso.index');
 
-
         //ruta para IP
         Route::get('/ip',IpIndex::class)
         ->middleware('auth')
@@ -49,6 +48,6 @@ Route::prefix('configuracion')->group(function () {
         Route::get('/cargo', CargoIndex::class)
         ->middleware('auth')
         ->name('cargo.index');
-});
 
+});
 
