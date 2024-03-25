@@ -224,7 +224,7 @@
                             Cancelar
                         </button>
                         <button type="submit" class="btn btn-cyan ms-auto">
-                            Crear
+                            {{$button_modal}}
                         </button>
                     </div>
                 </form>
