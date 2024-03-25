@@ -6,9 +6,7 @@
                     <div class="page-pretitle">
                         <ol class="breadcrumb breadcrumb-arrows" aria-label="breadcrumbs">
                             <li class="breadcrumb-item"><a href="{{ route('home.index') }}">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page"><a href="#">Configuración</a>
-                            </li>
-                            <li class="breadcrumb-item active" aria-current="page"><a href="#">Roles</a></li>
+                            <li class="breadcrumb-item active" aria-current="page"><a href="#">Cargo</a></li>
                         </ol>
                     </div>
                     <h2 class="page-title text-uppercase">
