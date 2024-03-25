@@ -6,8 +6,7 @@
                     <div class="page-pretitle">
                         <ol class="breadcrumb breadcrumb-arrows" aria-label="breadcrumbs">
                             <li class="breadcrumb-item"><a href="{{ route('home.index') }}">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page"><a href="#">Configuración</a></li>
-                            <li class="breadcrumb-item active" aria-current="page"><a href="#">Roles</a></li>
+                            <li class="breadcrumb-item active" aria-current="page"><a href="#">IP</a></li>
                         </ol>
                     </div>
                     <h2 class="page-title text-uppercase">
@@ -195,7 +194,7 @@
                                         Nombre
                                     </label>
                                     <input type="text" class="form-control @error('nombre') is-invalid @enderror"
-                                        id="nombre" wire:model.live="nombre" placeholder="Ingrese su nombre" />
+                                        id="nombre" wire:model.live="nombre" placeholder="Ingrese el IP" />
                                     @error('nombre')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -209,7 +208,7 @@
                                         Descripcion
                                     </label>
                                     <input type="text" class="form-control @error('descripcion') is-invalid @enderror"
-                                        id="descripcion" wire:model.live="descripcion" placeholder="Ingrese la descripcion del rol" />
+                                        id="descripcion" wire:model.live="descripcion" placeholder="Ingrese la descripcion" />
                                     @error('descripcion')
                                     <div class="invalid-feedback">
                                         {{ $message }}
