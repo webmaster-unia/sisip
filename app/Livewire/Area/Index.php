@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Area;
 
+use App\Models\Area;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Url;
@@ -67,6 +68,11 @@ class Index extends Component
 
     public function render()
     {
-        return view('livewire.area.index');
+        $areas = Area::search($this->search)
+        ->orderBy('created_at', 'desc')
+        ->paginate($this->mostrar_paginate);
+        return view('livewire.area.index',[
+            'areas'=>$areas,
+        ]);
     }
 }

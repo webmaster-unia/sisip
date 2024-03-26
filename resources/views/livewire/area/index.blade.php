@@ -135,25 +135,28 @@
                                     </tr>
 
 
-                                    <tr>
-                                        <td colspan="7">
-                                            <div class="text-center" style="padding-bottom: 5rem; padding-top: 5rem;">
-                                                <span class="text-secondary">
-                                                    No se encontraron resultados para "<strong></strong>"
-                                                </span>
-                                            </div>
-                                        </td>
-                                    </tr>
 
+                                    @if ($areas->count() == 0 && $search != '')
                                     <tr>
                                         <td colspan="7">
                                             <div class="text-center" style="padding-bottom: 5rem; padding-top: 5rem;">
                                                 <span class="text-secondary">
-                                                    No hay roles registrados
+                                                    No se encontraron resultados para "<strong>{{ $search }}</strong>"
                                                 </span>
                                             </div>
                                         </td>
                                     </tr>
+                                    @else
+                                    <tr>
+                                        <td colspan="7">
+                                            <div class="text-center" style="padding-bottom: 5rem; padding-top: 5rem;">
+                                                <span class="text-secondary">
+                                                    No hay areas registradas
+                                                </span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    @endif
 
                                 </tbody>
                             </table>
@@ -198,7 +201,7 @@
                             <div class="col-lg-12">
                                 <div class="mb-3">
                                     <label for="nombre" class="form-label required">
-                                        Nombre
+                                        Nombre del Area
                                     </label>
                                     <input type="text" class="form-control @error('nombre') is-invalid @enderror"
                                         id="nombre" wire:model.live="nombre" placeholder="Ingrese su nombre" />
@@ -239,3 +242,7 @@
         </div>
     </div>
 </div>
+
+
+
+
