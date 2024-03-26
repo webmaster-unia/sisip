@@ -66,6 +66,8 @@ class Index extends Component
         $this->resetValidation();
     }
 
+
+
     public function render()
     {
         $areas = Area::search($this->search)

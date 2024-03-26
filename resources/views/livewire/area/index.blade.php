@@ -163,23 +163,25 @@
 
                             </table>
                         </div>
-                        <div class="card-footer">
-
+                        <div class="card-footer {{ $areas->hasPages() ? 'py-0' : '' }}">
+                            @if ($areas->hasPages())
                             <div class="d-flex justify-content-between">
                                 <div class="d-flex align-items-center text-secondary">
-                                    Mostrando registros
+                                    Mostrando {{ $areas->firstItem() }} - {{ $areas->lastItem() }} de {{
+                                        $areas->total()}} registros
                                 </div>
                                 <div class="mt-3">
-
+                                    {{ $areas->links() }}
                                 </div>
                             </div>
-
+                            @else
                             <div class="d-flex justify-content-between">
                                 <div class="d-flex align-items-center text-secondary">
-                                    Mostrando registros
+                                    Mostrando {{ $areas->firstItem() }} - {{ $areas->lastItem() }} de {{
+                                        $areas->total()}} registros
                                 </div>
                             </div>
-
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -217,7 +219,7 @@
                             <div class="col-lg-12">
                                 <div class="mb-3">
                                     <label for="descripcion" class="form-label">
-                                        Descripcion
+
                                     </label>
                                     <input type="text"
                                         class="form-control @error('descripcion') is-invalid @enderror"
