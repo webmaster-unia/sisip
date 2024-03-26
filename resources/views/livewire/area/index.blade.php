@@ -80,6 +80,8 @@
                                         <th>Slug</th>
                                         <th>Abreviation</th>
                                         <th>Cantidad</th>
+                                        <th>Ip Inicio</th>
+                                        <th>Ip Fin</th>
                                         <th>Estado</th>
                                         <th></th>
                                     </tr>
@@ -101,6 +103,12 @@
                                         </td>
                                         <td>
                                             {{$item->cantidad}}
+                                        </td>
+                                        <td>
+                                            {{$item->ip_inicio}}
+                                        </td>
+                                        <td>
+                                            {{$item->ip_fin}}
                                         </td>
                                         <td>
                                             @if ($item->is_active == 1)
@@ -207,9 +215,9 @@
                                     <label for="nombre" class="form-label required">
                                         Nombre del Area
                                     </label>
-                                    <input type="text" class="form-control @error('nombre') is-invalid @enderror"
-                                        id="nombre" wire:model.live="nombre" placeholder="Ingrese su nombre" />
-                                    @error('nombre')
+                                    <input type="text" class="form-control @error('name') is-invalid @enderror"
+                                        id="nombre" wire:model.live="name" placeholder="Ingrese su nombre" />
+                                    @error('name')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>
@@ -219,19 +227,83 @@
                             <div class="col-lg-12">
                                 <div class="mb-3">
                                     <label for="descripcion" class="form-label">
-
+                                        Slug
                                     </label>
                                     <input type="text"
-                                        class="form-control @error('descripcion') is-invalid @enderror"
-                                        id="descripcion" wire:model.live="descripcion"
+                                        class="form-control @error('slug') is-invalid @enderror"
+                                        id="slug" wire:model.live="slug"
                                         placeholder="Ingrese la descripcion del rol" />
-                                    @error('descripcion')
+                                    @error('slug')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>
                                     @enderror
                                 </div>
                             </div>
+
+                            <div class="col-lg-12">
+                                <div class="mb-3">
+                                    <label for="nombre" class="form-label">
+                                        Abreviation
+                                    </label>
+                                    <input type="text" class="form-control @error('name') is-invalid @enderror"
+                                        id="abreviation" wire:model.live="abreviation" placeholder="Ingrese su nombre" />
+                                    @error('abreviation')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12">
+                                <div class="mb-3">
+                                    <label for="nombre" class="form-label">
+                                        cantidad
+                                    </label>
+                                    <input type="text" class="form-control @error('cantidad') is-invalid @enderror"
+                                        id="cantidad" wire:model.live="cantidad" placeholder="Ingrese su nombre" />
+                                    @error('cantidad')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+
+
+                            <div class="col-lg-12">
+                                <div class="mb-3">
+                                    <label for="nombre" class="form-label">
+                                        IP Inicio
+                                    </label>
+                                    <input type="text" class="form-control @error('ip_inicio') is-invalid @enderror"
+                                        id="ip_inicio" wire:model.live="ip_inicio" placeholder="Ingrese su nombre" />
+                                    @error('ip_inicio')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12">
+                                <div class="mb-3">
+                                    <label for="nombre" class="form-label">
+                                        IP Fin
+                                    </label>
+                                    <input type="text" class="form-control @error('ip_fin') is-invalid @enderror"
+                                        id="ip_fin" wire:model.live="ip_fin" placeholder="Ingrese su nombre" />
+                                    @error('ip_fin')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+
+
+
                         </div>
                     </div>
                     <div class="modal-footer">

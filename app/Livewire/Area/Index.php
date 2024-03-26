@@ -67,6 +67,26 @@ class Index extends Component
     }
 
 
+    public function guardar_ciclo()
+    {
+        $validatedData = $this->validate([
+            'name' => 'required|string|max:255',
+            'slug' => 'nullable|string|max:255',
+            'abreviation' => 'nullable|string|max:255',
+            'cantidad' => 'nullable|numeric',
+            'ip_inicio' =>'nullable|string|max:100',
+            'ip_fin' =>'nullable|string|max:100'
+        ]);
+        $area = new Area();
+        $area->name = $this->name;
+        $area->slug = $this->slug;
+        $area->abreviation = $this->abreviation;
+        $area->cantidad = $this->cantidad;
+        $area->ip_inicio = $this->ip_inicio;
+        $area->ip_fin = $this->ip_fin;
+        $area->save();
+        $this->limpiar_modal();
+    }
 
     public function render()
     {
