@@ -67,6 +67,8 @@ class Index extends Component
     }
 
 
+
+    //guardar crear
     public function guardar_ciclo()
     {
         $validatedData = $this->validate([
@@ -86,6 +88,14 @@ class Index extends Component
         $area->ip_fin = $this->ip_fin;
         $area->save();
         $this->limpiar_modal();
+    }
+
+    //eliminar
+    public function eliminar_area($id)
+    {
+
+        Area::findOrFail($id)->delete();
+        return $this->render();
     }
 
     public function render()

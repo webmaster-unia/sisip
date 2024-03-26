@@ -131,11 +131,16 @@
                                                     wire:click="show({{ $item->id }})">
                                                     Ver
                                                 </button> --}}
+
+                                                <form wire:submit.prevent="eliminar_area({{ $item->id }})" style="display: inline;" class="d-inline">
+                                                    <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('¿Estás seguro de que quieres eliminar esta area?')">Eliminar</button>
+                                                </form>
                                                 <button type="button" class="btn btn-sm btn-outline-azure"
                                                     data-bs-toggle="modal" data-bs-target="#modal-usuario"
                                                     wire:click="edit()">
                                                     Editar
                                                 </button>
+
                                             </div>
                                         </td>
                                     </tr>
