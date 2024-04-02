@@ -8,6 +8,7 @@ use Livewire\Component;
 
 #[Title('Home - IP OTI')]
 #[Layout('components.layouts.app')]
+
 class Index extends Component
 {
     public function render()
@@ -15,3 +16,8 @@ class Index extends Component
         return view('livewire.home.index');
     }
 }
+
+
+
+
+
