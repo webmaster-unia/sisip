@@ -136,8 +136,8 @@
                                                     <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('¿Estás seguro de que quieres eliminar esta area?')">Eliminar</button>
                                                 </form>
                                                 <button type="button" class="btn btn-sm btn-outline-azure"
-                                                    data-bs-toggle="modal" data-bs-target="#modal-usuario"
-                                                    wire:click="edit()">
+                                                    data-bs-toggle="modal" data-bs-target="#modal-rol"
+                                                    wire:click="edit({{ $item->id }})">
                                                     Editar
                                                 </button>
 
@@ -207,12 +207,12 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">
-
+                        {{ $title_modal }}
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                         wire:click="limpiar_modal"></button>
                 </div>
-                <form autocomplete="off" novalidate wire:submit="guardar_ciclo">
+                <form autocomplete="off" novalidate wire:submit.prevent="{{ $modo === 'edit' ? 'actualizar_area' : 'guardar_ciclo' }}" >
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-lg-12">
