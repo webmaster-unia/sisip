@@ -4,6 +4,7 @@ namespace App\Livewire\Ip;
 
 use App\Models\Ip;
 use Livewire\Attributes\Url;
+use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\Features\SupportFileUploads\WithFileUploads;
 use Livewire\WithPagination;
@@ -25,13 +26,17 @@ class Index extends Component
     public $title_modal='Crear Nuevo IP';
     public $modo = 'create';
 
+    #[Validate( 'required|string|max:255')]
     public $ip;
+    #[Validate('nullable|string|max:80')]
     public $is_active;
 
+    public $ip_id;
+    //variable para el formulario
 
 
 
-    //crear modal
+    //crear rol
     public function create()
     {
         $this->limpiar_modal();
@@ -54,14 +59,31 @@ class Index extends Component
         $this->resetValidation();
     }
 
-    //editar modal
+    //guardar crear
+
+    public function guardar_ciclo()
+    {
+        if(empty($this->ip)){
+            session()->flash('ERROR!!!','Porfavor, complete todos lo campos');
+            return;
+        }
+        $ip = new Ip();
+        $ip->ip = $this->ip;
+        $ip->save();
+        $this->limpiar_modal();
+    }
+    //editar prueba almacenar
 
     public function edit($id){
         $id= Ip::findOrFail($id);
-        $this->ip=$id;
+        $this->ip_id=$id;
+        $this->ip= $id->ip;
         $this->modo = 'edit';
         $this->title_modal = 'Editar IP';
         $this->button_modal = 'Actualizar Ip';
+
+        $this->resetErrorBag();
+        $this->resetValidation();
 
     }
 
@@ -71,21 +93,13 @@ class Index extends Component
         if($this->modo == 'create'){
             $ip = new Ip();
         }elseif($this->modo == 'edit'){
-            $ip =Ip::findOrFail($this->ip);
+            $ip =Ip::findOrFail($this->ip_id);
         }
+        $ip->ip=$this->ip;
         $ip->save();
         $this->limpiar_modal();
     }
-    //guardar registros
 
-    public function guardar_ciclo()
-    {
-        $ip = new Ip();
-        $ip->ip = $this->ip;
-        $ip->is_active = $this->is_active;
-        $ip->save();
-        $this->limpiar_modal();
-    }
 
     //eliminar registros
     public function eliminar_area($id)
@@ -97,7 +111,7 @@ class Index extends Component
     public function render()
     {
         $ips = Ip::search($this->search)
-        ->orderBy('ip','desc')
+        ->orderBy('ip','asc')
         ->paginate($this->mostrar_paginate);
         return view('livewire.ip.index',[
             'ips'=>$ips,
