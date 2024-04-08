@@ -49,7 +49,7 @@
                 </div>
                 <div class="row g-3">
                     <div class="col-12">
-                        < class="card animate__animated animate__fadeIn animate__faster">
+                        <div class="card animate__animated animate__fadeIn animate__faster">
                             <div class="card-body border-bottom py-3">
                                 <div class="d-flex">
                                     <div class="text-secondary">
@@ -438,7 +438,7 @@
                                                 <label for="descripcion" class="form-label">
                                                     Mac Dispositivo
                                                 </label>
-                                                <input type="text"
+                                                <input type="text" 
                                                     class="form-control @error('descripcion') is-invalid @enderror"
                                                     id="descripcion" wire:model.live="Mac Dispositivo"
                                                     placeholder="Ingrese Mac Dispositivo" />
@@ -448,20 +448,6 @@
                                                     </div>
                                                 @enderror
                                             </div>
-                                            <div class="col-lg-12">
-                                                <div class="mb-3">
-                                                    <label for="descripcion" class="form-label">
-                                                        Is Active
-                                                    </label>
-                                                    <input type="text"
-                                                        class="form-control @error('descripcion') is-invalid @enderror"
-                                                        id="descripcion" wire:model.live="Is Active"
-                                                        placeholder="Ingrese Is Active" />
-                                                    @error('Is Active')
-                                                        <div class="invalid-feedback">
-                                                            {{ $message }}
-                                                        </div>
-                                                    @enderror
                                                 </div>
                                             </div>
                                         </div>
