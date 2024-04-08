@@ -214,6 +214,11 @@
                 </div>
                 <form autocomplete="off" novalidate wire:submit.prevent="{{ $modo === 'edit' ? 'actualizar_area' : 'guardar_ciclo' }}" >
                     <div class="modal-body">
+                        @if(session()->has('error'))
+                            <div class="alert alert-danger">
+                                {{ session('error') }}
+                            </div>
+                        @endif
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="mb-3">
@@ -221,7 +226,7 @@
                                         Nombre del Area
                                     </label>
                                     <input type="text" class="form-control @error('name') is-invalid @enderror"
-                                        id="nombre" wire:model.live="name" placeholder="Ingrese su nombre" />
+                                        id="nombre" wire:model.live="name" placeholder="Ingrese nombre del Area" />
                                     @error('name')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -231,13 +236,13 @@
                             </div>
                             <div class="col-lg-12">
                                 <div class="mb-3">
-                                    <label for="descripcion" class="form-label">
+                                    <label for="slug" class="form-label">
                                         Slug
                                     </label>
                                     <input type="text"
                                         class="form-control @error('slug') is-invalid @enderror"
                                         id="slug" wire:model.live="slug"
-                                        placeholder="Ingrese la descripcion del rol" />
+                                        placeholder="Ingrese Slug" />
                                     @error('slug')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -248,11 +253,11 @@
 
                             <div class="col-lg-12">
                                 <div class="mb-3">
-                                    <label for="nombre" class="form-label">
+                                    <label for="abreviation" class="form-label">
                                         Abreviation
                                     </label>
                                     <input type="text" class="form-control @error('name') is-invalid @enderror"
-                                        id="abreviation" wire:model.live="abreviation" placeholder="Ingrese su nombre" />
+                                        id="abreviation" wire:model.live="abreviation" placeholder="Ingrese abreviacion" />
                                     @error('abreviation')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -263,11 +268,11 @@
 
                             <div class="col-lg-12">
                                 <div class="mb-3">
-                                    <label for="nombre" class="form-label">
+                                    <label for="cantidad" class="form-label">
                                         cantidad
                                     </label>
                                     <input type="text" class="form-control @error('cantidad') is-invalid @enderror"
-                                        id="cantidad" wire:model.live="cantidad" placeholder="Ingrese su nombre" />
+                                        id="cantidad" wire:model.live="cantidad" placeholder="Ingrese cantidad" />
                                     @error('cantidad')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -279,11 +284,11 @@
 
                             <div class="col-lg-12">
                                 <div class="mb-3">
-                                    <label for="nombre" class="form-label">
+                                    <label for="ip_inicio" class="form-label">
                                         IP Inicio
                                     </label>
                                     <input type="text" class="form-control @error('ip_inicio') is-invalid @enderror"
-                                        id="ip_inicio" wire:model.live="ip_inicio" placeholder="Ingrese su nombre" />
+                                        id="ip_inicio" wire:model.live="ip_inicio" placeholder="Ingrese inicio del IP" />
                                     @error('ip_inicio')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -294,11 +299,11 @@
 
                             <div class="col-lg-12">
                                 <div class="mb-3">
-                                    <label for="nombre" class="form-label">
+                                    <label for="ip_fin" class="form-label">
                                         IP Fin
                                     </label>
                                     <input type="text" class="form-control @error('ip_fin') is-invalid @enderror"
-                                        id="ip_fin" wire:model.live="ip_fin" placeholder="Ingrese su nombre" />
+                                        id="ip_fin" wire:model.live="ip_fin" placeholder="Ingrese fin del ip" />
                                     @error('ip_fin')
                                         <div class="invalid-feedback">
                                             {{ $message }}

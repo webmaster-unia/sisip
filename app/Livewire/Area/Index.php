@@ -81,6 +81,11 @@ class Index extends Component
     //guardar crear
     public function guardar_ciclo()
     {
+        if (empty($this->name) || empty($this->cantidad) || empty($this->ip_inicio) || empty($this->ip_fin)) {
+            session()->flash('error', 'Por favor, complete todos los campos.');
+            return;
+        }
+
         $area = new Area();
         $area->name = $this->name;
         $area->slug = $this->slug;

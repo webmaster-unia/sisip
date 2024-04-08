@@ -28,11 +28,11 @@ class Index extends Component {
 
     // variables para el formulario
     #[Validate('required|max:255')]
-    public $nombre;
+    public $name;
     #[Validate('max:255')]
     public $slug;
     #[Validate('required|max:255')]
-    public $descripcion;
+    public $description;
     #[Validate('nullable|boolean')]
     public $is_active;
 
@@ -47,13 +47,29 @@ class Index extends Component {
 
     public function limpiar_modal() {
         $this->reset([
-            'nombre',
+            'name',
             'slug',
-            'descripcion',
+            'description',
             'is_active',
         ]);
         $this->resetErrorBag();
         $this->resetValidation();
+    }
+
+
+    public function guardar_ciclo()
+    {
+        $rol = new Role();
+        $rol->name = $this->name;
+        $rol->slug = $this->slug;
+        $rol->description = $this->description;
+        $rol->save();
+        $this->limpiar_modal();
+    }
+
+    public function eliminar_rol($id){
+        Role::findOrFail($id)->delete();
+        return $this->render();
     }
 
     public function render() {

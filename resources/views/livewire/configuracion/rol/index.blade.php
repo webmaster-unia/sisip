@@ -78,8 +78,8 @@
                                     <tr>
                                         <th class="w-1">No.</th>
                                         <th>Rol</th>
+                                        <th>slug</th>
                                         <th>Descripcion</th>
-                                        <th>Slug</th>
                                         <th>F. Creación</th>
                                         <th>Estado</th>
                                         <th></th>
@@ -97,10 +97,10 @@
                                             </span>
                                         </td>
                                         <td>
-                                            {{ $item->description }}
+                                            {{ $item->slug }}
                                         </td>
                                         <td>
-                                            {{ $item->slug }}
+                                            {{ $item->description }}
                                         </td>
                                         <td>
                                             {{ $item->created_at }}
@@ -120,7 +120,11 @@
                                         </td>
                                         <td>
                                             <div class="btn-list flex-nowrap justify-content-end">
-                                                
+
+                                                <form wire:submit.prevent="eliminar_rol({{ $item->id }})" style="display: inline;" class="d-inline">
+                                                    <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('¿Estás seguro de que quieres eliminar esta area?')">Eliminar</button>
+                                                </form>
+
                                                 <button type="button" class="btn btn-sm btn-outline-azure"
                                                     data-bs-toggle="modal" data-bs-target="#modal-usuario"
                                                     wire:click="edit({{ $item->id }})">
@@ -196,32 +200,51 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="mb-3">
-                                    <label for="nombre" class="form-label required">
-                                        Nombre
+                                    <label for="name" class="form-label required">
+                                        Rol
                                     </label>
-                                    <input type="text" class="form-control @error('nombre') is-invalid @enderror"
-                                        id="nombre" wire:model.live="nombre" placeholder="Ingrese su nombre" />
-                                    @error('nombre')
+                                    <input type="text" class="form-control @error('name') is-invalid @enderror"
+                                        id="name" wire:model.live="name" placeholder="Ingrese su rol" />
+                                    @error('name')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
                                     @enderror
                                 </div>
                             </div>
+
+                            <div class="col-lg-12">
+                                <div class="mb-3">
+                                    <label for="slug" class="form-label">
+                                        Slug
+                                    </label>
+                                    <input type="text" class="form-control @error('slug') is-invalid @enderror"
+                                        id="slug" wire:model.live="slug" placeholder="Ingrese Slug" />
+                                    @error('slug')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div>
+                            </div>
+
+
                             <div class="col-lg-12">
                                 <div class="mb-3">
                                     <label for="descripcion" class="form-label">
                                         Descripcion
                                     </label>
-                                    <input type="text" class="form-control @error('descripcion') is-invalid @enderror"
-                                        id="descripcion" wire:model.live="descripcion" placeholder="Ingrese la descripcion del rol" />
-                                    @error('descripcion')
+                                    <input type="text" class="form-control @error('description') is-invalid @enderror"
+                                        id="description" wire:model.live="descripcion" placeholder="Ingrese la descripcion del rol" />
+                                    @error('description')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
                                     @enderror
                                 </div>
                             </div>
+
+
                         </div>
                     </div>
                     <div class="modal-footer">
