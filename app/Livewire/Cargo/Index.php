@@ -4,21 +4,30 @@ namespace App\Livewire\Cargo;
 
 use App\Models\Cargo;
 use Livewire\Attributes\Layout;
+use Livewire\Attributes\Url;
+use Livewire\Features\SupportFileUploads\WithFileUploads;
+use Livewire\WithPagination;
 use Livewire\Attributes\Title;
 use Livewire\Component;
-
 
 #[Title ('Cargo - IP OTI')]
 #[Layout ('components.layouts.app')]
 
 class Index extends Component
 {
+    use WithPagination;
+    use WithFileUploads;
+
+    #[Url('Mostrar')]
+    public $mostrar_paginate = '10';
+
+    #[Url('Buscar')]
+    public $search='';
+
+        //variables Cargo
     public $button_Cargo='Crear Cargo';
 
     public $title_modal='Editar Cargo';
-
-    public $limpiar_moda='';
-
     public $modo='create';
 
     public $name_cargo;
@@ -49,7 +58,8 @@ class Index extends Component
 
     public $is_active;
 
-    public function create(){
+    public function create()
+    {
         $this->limpiar_moda();
         $this->modo ='create';
         $this->button_Cargo='crear cargo';
@@ -155,6 +165,12 @@ class Index extends Component
 
     public function render()
     {
-        return view('livewire.cargo.index');
+        $cargos= Cargo::search($this->search)
+        ->orderBy('created_at', 'desc')
+        ->paginate($this->mostrar_paginate);
+        return view('livewire.cargo.index',[
+            'cargos'=>$cargos,
+
+        ]);
     }
 }
