@@ -4,6 +4,8 @@ namespace App\Livewire\Configuracion\Usuario;
 
 use App\Models\Role;
 use App\Models\User;
+use Dotenv\Validator;
+use Illuminate\Support\Facades\Hash;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Url;
@@ -28,6 +30,7 @@ class Index extends Component {
     public $title_modal = 'Crear nuevo usuario';
     public $button_modal = 'Crear usuario';
     public $modo = 'create';
+    public $user_id;
 
     // variables para el formulario
     #[Validate('required|max:255')]
@@ -64,6 +67,59 @@ class Index extends Component {
         $this->resetValidation();
     }
 
+
+
+    public function guardar_ciclo() {
+
+        $user = new User();
+        $user->name = $this->nombre;
+        $user->email = $this->correo_electronico;
+        $user->password = $this->contraseña;
+        $user->avatar = $this->avatar;
+        $user->save();
+        $this->limpiar_modal();
+
+    }
+
+
+    public function edit_user($id)
+    {
+        $user = User::findOrFail($id);
+        $this->user_id = $user->id;
+        $this->nombre = $user->name;
+        $this->correo_electronico = $user->email;
+        $this->modo = 'edit';
+        $this->title_modal = 'Editar User';
+        $this->button_modal = 'Actualizar User';
+
+        $this->resetErrorBag();
+        $this->resetValidation();
+    }
+
+    //ahora actualizarlo
+    public function actualizar_user()
+    {
+        if ($this->modo == 'create') {
+            $user = new User();
+        } elseif ($this->modo == 'edit') {
+            $user = User::findOrFail($this->user_id);
+        }
+
+        $user->nombre = $this->name;
+        $user->correo_electronico = $this->email;
+        $user->save();
+
+        $this->limpiar_modal();
+    }
+
+
+public function eliminar_user($id)
+    {
+
+        User::findOrFail($id)->delete();
+        return $this->render();
+    }
+
     public function render() {
         $usuarios = User::search($this->search)
             ->orderBy('created_at', 'desc')
@@ -75,3 +131,11 @@ class Index extends Component {
         ]);
     }
 }
+
+
+
+
+
+
+
+

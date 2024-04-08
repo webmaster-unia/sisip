@@ -133,7 +133,6 @@ class Index extends Component
         $area->ip_inicio = $this->ip_inicio;
         $area->ip_fin = $this->ip_fin;
         $area->save();
-
         $this->limpiar_modal();
     }
 
