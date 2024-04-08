@@ -438,7 +438,7 @@
                                                 <label for="descripcion" class="form-label">
                                                     Mac Dispositivo
                                                 </label>
-                                                <input type="text" 
+                                                <input type="text"
                                                     class="form-control @error('descripcion') is-invalid @enderror"
                                                     id="descripcion" wire:model.live="Mac Dispositivo"
                                                     placeholder="Ingrese Mac Dispositivo" />
