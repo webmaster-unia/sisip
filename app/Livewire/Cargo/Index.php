@@ -8,6 +8,7 @@ use Livewire\Attributes\Url;
 use Livewire\Features\SupportFileUploads\WithFileUploads;
 use Livewire\WithPagination;
 use Livewire\Attributes\Title;
+use Livewire\Attributes\Validate;
 use Livewire\Component;
 
 #[Title ('Cargo - IP OTI')]
@@ -30,43 +31,44 @@ class Index extends Component
     public $title_modal='Editar Cargo';
     public $modo='create';
 
+    #[Validate('nullable|string|max:50')]
     public $name_cargo;
 
     public $area_ip_id;
-
+    #[Validate('nullable|string|max:50')]
     public $apellido_paterno;
-
+    #[Validate('nullable|string|max:50')]
     public $apellido_materno;
-
+    #[Validate('nullable|string|max:50')]
     public $nombre;
-
+    #[Validate('nullable|string|max:50')]
     public $dni;
-
+    #[Validate('nullable|string|max:50')]
     public $correo_institucional;
-
+    #[Validate('nullable|string|max:50')]
     public $nombre_equipo;
-
+    #[Validate('nullable|string|max:50')]
     public $usuario_red;
-
+    #[Validate('nullable|string|max:50')]
     public $procesador;
-
+    #[Validate('nullable|string|max:50')]
     public $memoria;
-
+    #[Validate('nullable|string|max:50')]
     public $sistema_opreativo;
-
+    #[Validate('nullable|string|max:50')]
     public $mac_dispositivo;
-
+    #[Validate('nullable|string|max:50')]
     public $is_active;
 
     public function create()
     {
-        $this->limpiar_moda();
+        $this->limpiar_modal();
         $this->modo ='create';
         $this->button_Cargo='crear cargo';
         $this->resetErrorBag();
         $this->resetValidation();
     }
-    public function limpiar_moda(){
+    public function limpiar_modal(){
         $this->reset([
             'name_cargo',
             'area_ip_id',
@@ -82,6 +84,7 @@ class Index extends Component
             'sistema_opreativo',
             'mac_dispositivo',
             'is_active'
+
         ]);
         $this->resetErrorBag();
         $this->resetValidation();
@@ -92,9 +95,12 @@ class Index extends Component
 
      public function guardar_cargo()
      {
+        if(empty($this->name_cargo)){
+            session()->flash('Error','Porfavor, complete todos los campos');
+            return;
+        }
         $cargo = new Cargo();
         $cargo->name_cargo = $this->name_cargo;
-        $cargo->area_ip_id = $this->area_ip_id;
         $cargo->apellido_paterno = $this->apellido_paterno;
         $cargo->apellido_materno = $this->apellido_materno;
         $cargo->nombre = $this->nombre;
@@ -106,7 +112,6 @@ class Index extends Component
         $cargo->memoria = $this->memoria;
         $cargo->sistema_opreativo = $this->sistema_opreativo;
         $cargo->mac_dispositivo = $this->mac_dispositivo;
-        $cargo->is_active = $this->is_active;
         $cargo->save();
         $this->limpiar_modal();
      }
@@ -116,7 +121,6 @@ class Index extends Component
     {
         $cargo = Cargo::findOrFail($id);
         $this->name_cargo = $id;
-        $this->area_ip_id->name;
         $this->apellido_paterno = $cargo->apellido_paterno;
         $this->apellido_materno = $cargo->apellido_materno;
         $this->nombre = $cargo->nombre;
@@ -128,7 +132,6 @@ class Index extends Component
         $this->memoria  = $cargo->memoria;
         $this->sistema_opreativo  = $cargo->sistema_opreativo;
         $this->mac_dispositivo  = $cargo->mac_dispositivo;
-        $this->is_active  = $cargo->is_active ;
         $this->modo = 'edit';
         $this->title_modal = 'Editar Cargo';
         $this->button_Cargo = 'Actualizar Cargo';
@@ -146,7 +149,6 @@ class Index extends Component
         }
 
         $cargo->name_cargo = $this->name_cargo;
-        $cargo->area_ip_id = $this->area_ip_id;
         $cargo->apellido_paterno = $this->apellido_paterno;
         $cargo->apellido_materno = $this->apellido_materno;
         $cargo->nombre = $this->nombre;
@@ -158,7 +160,6 @@ class Index extends Component
         $cargo->memoria  = $this->memoria;
         $cargo->sistema_opreativo = $this->sistema_opreativo;
         $cargo->mac_dispositivo = $this->mac_dispositivo;
-        $cargo->is_active = $this->is_active;
         $cargo->save();
         $this->limpiar_modal();
     }
