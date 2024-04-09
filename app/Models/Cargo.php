@@ -59,4 +59,11 @@ class Cargo extends Model
             $model->save();
         });
     }
+
+    public function scopeSearch($query, $search) {
+        if ($search) {
+            return $query->where('name_cargo', 'LIKE', "%{$search}%")
+                ->orWhere('nombre', 'LIKE', "%{$search}%");
+        }
+    }
 }
