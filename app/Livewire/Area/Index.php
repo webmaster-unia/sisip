@@ -81,6 +81,8 @@ class Index extends Component
     //guardar crear
     public function guardar_ciclo()
     {
+
+        //para hacer que no ingrese campos vacios
         if (empty($this->name) || empty($this->cantidad) || empty($this->ip_inicio) || empty($this->ip_fin)) {
             session()->flash('error', 'Por favor, complete todos los campos.');
             return;

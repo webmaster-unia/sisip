@@ -214,6 +214,8 @@
                 </div>
                 <form autocomplete="off" novalidate wire:submit.prevent="{{ $modo === 'edit' ? 'actualizar_area' : 'guardar_ciclo' }}" >
                     <div class="modal-body">
+
+                        <!-- error si intenta crear un campo vacio-->
                         @if(session()->has('error'))
                             <div class="alert alert-danger">
                                 {{ session('error') }}
