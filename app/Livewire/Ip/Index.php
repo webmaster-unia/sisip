@@ -71,6 +71,7 @@ class Index extends Component
         $ip->ip = $this->ip;
         $ip->save();
         $this->limpiar_modal();
+        return redirect()->route('ip.index');
     }
     //editar prueba almacenar
 
@@ -98,6 +99,7 @@ class Index extends Component
         $IP->ip=$this->ip;
         $IP->save();
         $this->limpiar_modal();
+        return redirect()->route('ip.index');
     }
 
 
