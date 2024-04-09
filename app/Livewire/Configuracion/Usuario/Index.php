@@ -67,19 +67,23 @@ class Index extends Component {
         $this->resetValidation();
     }
 
+    public function guardar_ciclo()
+{
+    $user = new User();
+    $user->name = $this->nombre;
+    $user->email = $this->correo_electronico;
+
+    // Asignar una contraseña predeterminada si no se proporciona una
+    $user->password = $this->contraseña ?? 'defaultpassword';
+
+    $user->avatar = $this->avatar;
+    $user->save();
+
+    $this->limpiar_modal();
+    return redirect()->route('configuracion.usuario.index');
+}
 
 
-    public function guardar_ciclo() {
-
-        $user = new User();
-        $user->name = $this->nombre;
-        $user->email = $this->correo_electronico;
-        $user->password = $this->contraseña;
-        $user->avatar = $this->avatar;
-        $user->save();
-        $this->limpiar_modal();
-
-    }
 
 
     public function edit_user($id)
@@ -97,20 +101,26 @@ class Index extends Component {
     }
 
     //ahora actualizarlo
-    public function actualizar_user()
-    {
+    public function actualizar_user(){
         if ($this->modo == 'create') {
             $user = new User();
         } elseif ($this->modo == 'edit') {
             $user = User::findOrFail($this->user_id);
         }
+    if ($this->modo == 'edit') {
+        $user = User::findOrFail($this->user_id);
 
-        $user->nombre = $this->name;
-        $user->correo_electronico = $this->email;
+        $user->name = $this->nombre;
+        $user->email = $this->correo_electronico;
+
         $user->save();
-
-        $this->limpiar_modal();
     }
+
+    $this->limpiar_modal();
+    return redirect()->route('configuracion.usuario.index');
+}
+
+
 
 
 public function eliminar_user($id)
