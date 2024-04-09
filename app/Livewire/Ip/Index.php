@@ -75,9 +75,9 @@ class Index extends Component
     //editar prueba almacenar
 
     public function edit($id){
-        $id= Ip::findOrFail($id);
+        $IP= Ip::findOrFail($id);
         $this->ip_id=$id;
-        $this->ip= $id->ip;
+        $this->ip= $IP->ip;
         $this->modo = 'edit';
         $this->title_modal = 'Editar IP';
         $this->button_modal = 'Actualizar Ip';
@@ -91,12 +91,12 @@ class Index extends Component
 
     public function actualizar_ip(){
         if($this->modo == 'create'){
-            $ip = new Ip();
+            $IP = new Ip();
         }elseif($this->modo == 'edit'){
-            $ip =Ip::findOrFail($this->ip_id);
+            $IP =Ip::findOrFail($this->ip_id);
         }
-        $ip->ip=$this->ip;
-        $ip->save();
+        $IP->ip=$this->ip;
+        $IP->save();
         $this->limpiar_modal();
     }
 
