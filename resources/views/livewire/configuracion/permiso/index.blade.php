@@ -77,8 +77,7 @@
                                 <thead>
                                     <tr>
                                         <th class="w-1">No.</th>
-                                        <th>Permiso</th>
-                                        <th>Descripcion</th>
+                                        <th>Nombre</th>
                                         <th>Slug</th>
                                         <th>F. Creación</th>
                                         <th>Estado</th>
@@ -89,12 +88,7 @@
 
                                     <tr>
                                         <td>
-                                            <span class="text-secondary"></span>
-                                        </td>
-                                        <td>
-                                            <span class="fw-bold">
-
-                                            </span>
+                                            
                                         </td>
                                         <td>
 
@@ -120,11 +114,11 @@
                                         </td>
                                         <td>
                                             <div class="btn-list flex-nowrap justify-content-end">
-                                                {{-- <button type="button" class="btn btn-sm btn-outline"
+                                                <button type="button" class="btn btn-sm btn-outline-azure"
                                                     data-bs-toggle="modal" data-bs-target="#modal-ciclo-ver"
-                                                    wire:click="show({{ $item->id }})">
+                                                    wire:click="#">
                                                     Ver
-                                                </button> --}}
+                                                </button> 
                                                 <button type="button" class="btn btn-sm btn-outline-azure"
                                                     data-bs-toggle="modal" data-bs-target="#modal-usuario"
                                                     wire:click="edit">
@@ -226,6 +220,35 @@
 
                                 </div>
                             </div>
+                            <div class="col-lg-12">
+            <div class="mb-3">
+                <label class="form-label">Permisos</label><br>
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="permiso1" wire:model="permisos" value="permiso1">
+                    <label class="form-check-label" for="permiso1">Usuario</label>
+                </div>
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="permiso2" wire:model="permisos" value="permiso2">
+                    <label class="form-check-label" for="permiso2">Roles</label>
+                </div>
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="permiso3" wire:model="permisos" value="permiso3">
+                    <label class="form-check-label" for="permiso3">Permiso</label>
+                </div>
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="permiso4" wire:model="permisos" value="permiso4">
+                    <label class="form-check-label" for="permiso4">Area</label>
+                </div>
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="permiso5" wire:model="permisos" value="permiso5">
+                    <label class="form-check-label" for="permiso5">IP</label>
+                </div>
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="permiso6" wire:model="permisos" value="permiso6">
+                    <label class="form-check-label" for="permiso6">Cargo</label>
+                </div>
+            </div>
+        </div>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -233,7 +256,8 @@
                             wire:click="limpiar_modal">
                             Cancelar
                         </button>
-                        <button type="submit" class="btn btn-cyan ms-auto"> 
+                        <button type="submit" class="btn btn-cyan ms-auto">
+                            {{$button_modal}} 
 
                         </button>
                     </div>
