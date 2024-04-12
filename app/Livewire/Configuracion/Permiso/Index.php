@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Configuracion\Permiso;
 
+use App\Models\User;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Features\SupportFileUploads\WithFileUploads;
@@ -55,11 +56,26 @@ class Index extends Component
         $this->resetErrorBag();
         $this->resetValidation();
     }
+
+
     
+    public $mostrar_paginate = 10;
 
 
     public function render()
     {
-        return view('livewire.configuracion.permiso.index');
+
+        // Obtén usuarios paginados con búsqueda si está presente, de lo contrario, obtén todos los usuarios
+        $usuarios = $this->search
+            ? User::where('name', 'like', '%' . $this->search . '%')->paginate($this->mostrar_paginate)
+            : User::paginate($this->mostrar_paginate);
+
+        return view('livewire.configuracion.permiso.index', [
+            'usuarios' => $usuarios,
+        ]);
     }
+
+
 }
+
+

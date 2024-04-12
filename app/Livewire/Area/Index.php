@@ -3,6 +3,7 @@
 namespace App\Livewire\Area;
 
 use App\Models\Area;
+use App\Models\User;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Url;
@@ -157,4 +158,21 @@ class Index extends Component
             'areas'=>$areas,
         ]);
     }
+
+
+    public $users; // Propiedad para almacenar los usuarios
+
+    public function renderUsers()
+    {
+        // Obtener todos los usuarios
+        $this->users = User::all();
+
+        return view('livewire.configuracion.permiso.index', [
+            'users' => $this->users,
+        ]);
+    }
+
+    
+
+    
 }
