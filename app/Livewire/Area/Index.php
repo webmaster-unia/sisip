@@ -98,6 +98,7 @@ class Index extends Component
         $area->ip_fin = $this->ip_fin;
         $area->save();
         $this->limpiar_modal();
+        return redirect()->route('area.index');
     }
 
 
@@ -137,6 +138,7 @@ class Index extends Component
         $area->ip_fin = $this->ip_fin;
         $area->save();
         $this->limpiar_modal();
+        return redirect()->route('area.index');
     }
 
 
@@ -156,19 +158,6 @@ class Index extends Component
         ->paginate($this->mostrar_paginate);
         return view('livewire.area.index',[
             'areas'=>$areas,
-        ]);
-    }
-
-
-    public $users; // Propiedad para almacenar los usuarios
-
-    public function renderUsers()
-    {
-        // Obtener todos los usuarios
-        $this->users = User::all();
-
-        return view('livewire.configuracion.permiso.index', [
-            'users' => $this->users,
         ]);
     }
 

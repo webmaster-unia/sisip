@@ -56,6 +56,19 @@ class Index extends Component
         $this->resetErrorBag();
         $this->resetValidation();
     }
+    
+
+    public $users; // Propiedad para almacenar los usuarios
+
+    public function renderUsers()
+    {
+        // Obtener todos los usuarios
+        $this->users = User::all();
+
+        return view('livewire.configuracion.permiso.index', [
+            'users' => $this->users,
+        ]);
+    }
 
 
     

@@ -84,12 +84,8 @@
                                         <td>
                                             <div class="btn-list flex-nowrap justify-content-end">
                                                 <button type="button" class="btn btn-sm btn-outline-azure"
-                                                    data-bs-toggle="modal" data-bs-target="#modal-usuario" wire:click="ver_user({{ $item->id }})">
-                                                    Ver
-                                                </button>
-                                                <button type="button" class="btn btn-sm btn-outline-azure"
-                                                    data-bs-toggle="modal" data-bs-target="#modal-usuario"
-                                                    wire:click="edit_user({{ $item->id }})">
+                                                    data-bs-toggle="modal" data-bs-target="#modal-rol"
+                                                    wire:click="#">
                                                     Editar
                                                 </button>
                                             </div>
@@ -156,10 +152,10 @@
                             <div class="col-lg-12">
                                 <div class="mb-3">
                                     <label for="descripcion" class="form-label">
-                                        Descripcion
+                                        Slug
                                     </label>
                                     <input type="text" class="form-control"
-                                        id="descripcion" wire:model.live="descripcion" placeholder="Ingrese la descripcion del rol" />
+                                        id="descripcion" wire:model.live="descripcion" placeholder="Ingrese en minuscula" />
 
                                     <div class="invalid-feedback">
 
