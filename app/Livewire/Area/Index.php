@@ -97,6 +97,7 @@ class Index extends Component
         $area->ip_fin = $this->ip_fin;
         $area->save();
         $this->limpiar_modal();
+        return redirect()->route('area.index');
     }
 
 
@@ -136,6 +137,7 @@ class Index extends Component
         $area->ip_fin = $this->ip_fin;
         $area->save();
         $this->limpiar_modal();
+        return redirect()->route('area.index');
     }
 
 
