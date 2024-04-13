@@ -3,6 +3,7 @@
 namespace App\Livewire\Area;
 
 use App\Models\Area;
+use App\Models\User;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Url;
@@ -159,4 +160,8 @@ class Index extends Component
             'areas'=>$areas,
         ]);
     }
+
+    
+
+    
 }
