@@ -87,6 +87,20 @@ class Index extends Component
         $this->resetValidation();
 
     }
+    // cambir el estado
+
+    public function cambiar_estado($id,$value)
+    {
+        $is_active = Ip::find($id);
+        if ($is_active) {
+            if ($value == true) {
+                $is_active->is_active = false;
+            }else {
+                $is_active->is_active = true;
+            }
+            $is_active ->save();
+        }
+    }
 
     //actualizar el editar
 
