@@ -136,25 +136,11 @@
                                                     <a href="#" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#confirmarEliminarModal{{ $item->id }}">Eliminar</a>
 
                                                     <!-- Modal de Confirmación -->
-                                                    <div wire:ignore.self class="modal fade" id="confirmarEliminarModal{{ $item->id }}" tabindex="-1">
-                                                        <div class="modal-dialog">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h5 class="modal-title">Confirmar Eliminación</h5>
-                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    <p>¿Estás seguro de que quieres eliminar esta área?</p>
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal"
-                                                                        wire:click="limpiar_modal">
-                                                                        Cancelar
-                                                                    </button>
-
-                                                                    <button type="button" class="btn btn-danger" wire:click="eliminar_area({{ $item->id }})" data-bs-dismiss="modal">Eliminar</button>
-                                                                </div>
-                                                            </div>
+                                                    <div wire:model="showModal" class="modal">
+                                                        <div class="modal-content">
+                                                        
+                                                            <p>¿Estás seguro de que quieres eliminar esta área?</p>
+                                                            <button wire:click="eliminar_area">Eliminar</button>
                                                         </div>
                                                     </div>
                                                 </div>
