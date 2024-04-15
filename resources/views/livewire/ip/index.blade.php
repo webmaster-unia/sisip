@@ -112,10 +112,10 @@
                                                     Ver
                                                 </button> --}}
 
-                                                    <form wire:submit.prevent="eliminar_area({{ $item->id }})"
+                                                    <form wire:submit.prevent="eliminar_ip({{ $item->id }})"
                                                         style="display: inline;" class="d-inline">
                                                         <button type="submit" class="btn btn-sm btn-outline-danger"
-                                                            onclick="return confirm('¿Estás seguro de que quieres eliminar esta area?')">Eliminar</button>
+                                                            onclick="return confirm('¿Estás seguro que desea eliminar éste IP?')">Eliminar</button>
                                                     </form>
                                                     <button type="button" class="btn btn-sm btn-outline-azure"
                                                         data-bs-toggle="modal" data-bs-target="#modal-rol"

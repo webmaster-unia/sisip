@@ -104,7 +104,7 @@ class Index extends Component
 
 
     //eliminar registros
-    public function eliminar_area($id)
+    public function eliminar_ip($id)
     {
 
         Ip::findOrFail($id)->delete();
@@ -113,7 +113,7 @@ class Index extends Component
     public function render()
     {
         $ips = Ip::search($this->search)
-        ->orderBy('ip','asc')
+        ->orderBy('id','asc')
         ->paginate($this->mostrar_paginate);
         return view('livewire.ip.index',[
             'ips'=>$ips,
