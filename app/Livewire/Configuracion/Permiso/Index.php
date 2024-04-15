@@ -5,6 +5,8 @@ namespace App\Livewire\Configuracion\Permiso;
 use App\Models\User;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
+use Livewire\Attributes\Url;
+use Livewire\Attributes\Validate;
 use Livewire\Features\SupportFileUploads\WithFileUploads;
 use Livewire\WithPagination;
 use Livewire\Component;
@@ -18,7 +20,7 @@ class Index extends Component
     use WithPagination;
     use WithFileUploads;
 
-    
+
 
     #[Url('buscar')]
     public $search = '';
@@ -56,7 +58,7 @@ class Index extends Component
         $this->resetErrorBag();
         $this->resetValidation();
     }
-    
+
 
     public $users; // Propiedad para almacenar los usuarios
 
@@ -71,7 +73,7 @@ class Index extends Component
     }
 
 
-    
+
     public $mostrar_paginate = 10;
 
 

@@ -31,6 +31,7 @@ class Index extends Component
     //Varibles Modal
     public $title_modal = 'Crear nueva Area';
     public $button_modal = 'Crear area';
+
     public $modo = 'create';
 
 
@@ -146,10 +147,13 @@ class Index extends Component
     //eliminar
     public function eliminar_area($id)
     {
-
-        Area::findOrFail($id)->delete();
-        return $this->render();
+        // Encuentra y elimina el área
+        $area = Area::findOrFail($id);
+        $area->delete();
+        session()->flash('mensaje', 'El área ha sido eliminada exitosamente.');
+        $this->emit('areaEliminada');
     }
+
 
     public function render()
     {
@@ -161,7 +165,7 @@ class Index extends Component
         ]);
     }
 
-    
 
-    
+
+
 }
