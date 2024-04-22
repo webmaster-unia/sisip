@@ -132,24 +132,8 @@
                                                     Ver
                                                 </button> --}}
 
-
-                                                <div>
-                                                    <a href="#" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#confirmarEliminarModal{{ $item->id }}">Eliminar</a>
-
-                                                    <!-- Modal de Confirmación -->
-                                                    <div wire:model="showModal" class="modal">
-                                                        <div class="modal-content">
-
-                                                            <p>¿Estás seguro de que quieres eliminar esta área?</p>
-                                                            <button wire:click="eliminar_area">Eliminar</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-
-
                                                     <button type="button" class="btn btn-sm btn-outline-danger"
-                                                        wire:confirm="¿Estas seguro que quieres eliminar?"
+                                                        wire:confirm="¿Estas seguro  que quieres eliminar?"
                                                         wire:click="eliminar_area({{ $item->id }})"
                                                         >Eliminar
                                                     </button>
