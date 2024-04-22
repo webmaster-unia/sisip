@@ -77,9 +77,6 @@ class Index extends Component
         $this->resetErrorBag();
         $this->resetValidation();
     }
-
-
-
     //guardar crear
     public function guardar_ciclo()
     {
