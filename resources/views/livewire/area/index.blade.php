@@ -133,9 +133,12 @@
                                                 </button> --}}
 
 
+                                        
+
+
 
                                                     <button type="button" class="btn btn-sm btn-outline-danger"
-                                                        wire:confirm="¿Estas seguro que quieres eliminar?"
+                                                        wire:confirm="¿Estas seguro  que quieres eliminar?"
                                                         wire:click="eliminar_area({{ $item->id }})"
                                                         >Eliminar
                                                     </button>
