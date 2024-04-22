@@ -3,10 +3,13 @@
 namespace App\Livewire\Cargo;
 
 use App\Models\Cargo;
+use Illuminate\Http\Request;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Url;
 use Livewire\Features\SupportFileUploads\WithFileUploads;
 use Livewire\WithPagination;
+use App\Area;
+use App\DireccionIP;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
@@ -27,7 +30,7 @@ class Index extends Component
 
         //variables Cargo
     public $button_Cargo='Crear Cargo';
-
+    
     public $title_modal='Editar Cargo';
     public $modo='create';
 
@@ -91,8 +94,20 @@ class Index extends Component
 
     }
 
-     //guardar crear
+    //seleccionar las Areas y las ips:
+    public function GuardarDatos(Request $request)
+    {
+        //validacion de los datos si es necesario
+        $areaId = $request->input('area_id');
+        $direccionIPId = $request->input('direccion_ip');
 
+
+    }
+
+    //hacer una busqueda las ID de por medio de las id:
+
+
+     //guardar crear
      public function guardar_cargo()
      {
         if(empty($this->name_cargo)){

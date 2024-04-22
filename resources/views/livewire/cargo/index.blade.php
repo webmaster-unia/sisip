@@ -306,6 +306,23 @@
                                             @enderror
                                         </div>
                                     </div>
+                                    <form method="POST" action="{{ route('GuardarDatos') }}">
+                                        @csrf
+
+                                        <select name="area_id">
+                                            <option value="">Selecciona un área</option>
+                                            @foreach($areas as $area)
+                                            <option value="{{ $area->id }}">{{ $area->name }}{{ $area->cantidad }}{{ $area->ip_inicio }}{{ $area->ip_fin }}</option>
+                                            @endforeach
+                                        </select>
+                                        <select name="direccion_ip">
+                                            <option value="">Selecciona una dirección IP</option>
+                                            @foreach($direccionesIP as $ip)
+                                                <option value="{{ $ip->id }}">{{ $ip->ip }}</option>
+                                            @endforeach
+                                        </select>
+                                        <button type="submit">Guardar</button>
+                                    </form>
                                     <div class="col-lg-12">
                                         <div class="mb-3">
                                             <label for="descripcion" class="form-label">

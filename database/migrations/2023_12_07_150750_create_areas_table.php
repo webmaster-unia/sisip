@@ -27,6 +27,7 @@ return new class extends Migration
             $table->bigInteger('deleted_by')->nullable();
         });
     }
+    
 
     /**
      * Reverse the migrations.
