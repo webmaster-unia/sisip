@@ -87,6 +87,20 @@ class Index extends Component
         $this->resetValidation();
 
     }
+    // cambir el estado
+
+    public function cambiar_estado($id,$value)
+    {
+        $is_active = Ip::find($id);
+        if ($is_active) {
+            if ($value == true) {
+                $is_active->is_active = false;
+            }else {
+                $is_active->is_active = true;
+            }
+            $is_active ->save();
+        }
+    }
 
     //actualizar el editar
 
@@ -104,7 +118,7 @@ class Index extends Component
 
 
     //eliminar registros
-    public function eliminar_area($id)
+    public function eliminar_ip($id)
     {
 
         Ip::findOrFail($id)->delete();
@@ -113,7 +127,7 @@ class Index extends Component
     public function render()
     {
         $ips = Ip::search($this->search)
-        ->orderBy('ip','asc')
+        ->orderBy('id','asc')
         ->paginate($this->mostrar_paginate);
         return view('livewire.ip.index',[
             'ips'=>$ips,

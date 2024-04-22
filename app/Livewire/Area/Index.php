@@ -206,10 +206,19 @@ class Index extends Component
     public function eliminar_area($id)
     {
 
+
         $areas = Area::find($id);
         if($areas){
             $areas->delete();
         }
+
+        // Encuentra y elimina el área
+        Area::findOrFail($id)->delete();
+        $this->emit('elementoEliminado');
+        session()->flash('message', 'Elemento eliminado exitosamente.');
+
+        return $this->render();
+
     }
     public function render()
     {

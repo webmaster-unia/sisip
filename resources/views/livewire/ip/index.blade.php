@@ -92,17 +92,17 @@
                                             </td>
                                             <td>
                                                 @if ($item->is_active == 1)
-                                                    <span class="status status-teal px-3 py-2">
-                                                        <span class="status-dot status-dot-animated"></span>
-                                                        Activo
-                                                    </span>
-                                                @else
-                                                    <span class="status status-red px-3 py-2">
-                                                        <span class="status-dot status-dot-animated"></span>
-                                                        Inactivo
-                                                    </span>
-                                                @endif
 
+                                                    <span class="badge bg-green-lt" wire:confirm="¿ Estás seguro que desea cambiar el estado?"
+                                                    wire:click="cambiar_estado({{ $item->id }}, true)" style="cursor: pointer;">
+                                                    <span class="status-dot status-dot-animated"></span>
+                                                    Activo</span>
+                                                @else
+                                                    <span class="badge bg-red-lt" wire:confirm="¿ Estás seguro que desea cambiar el estado?"
+                                                    wire:click="cambiar_estado({{ $item->id }}, false)" style="cursor: pointer;">
+                                                    <span class="status-dot status-dot-animated"></span>
+                                                    Inactivo</span>
+                                                @endif
                                             </td>
                                             <td>
                                                 <div class="btn-list flex-nowrap justify-content-end">
@@ -112,10 +112,10 @@
                                                     Ver
                                                 </button> --}}
 
-                                                    <form wire:submit.prevent="eliminar_area({{ $item->id }})"
+                                                    <form wire:submit.prevent="eliminar_ip({{ $item->id }})"
                                                         style="display: inline;" class="d-inline">
                                                         <button type="submit" class="btn btn-sm btn-outline-danger"
-                                                            onclick="return confirm('¿Estás seguro de que quieres eliminar esta area?')">Eliminar</button>
+                                                            onclick="return confirm('¿Estás seguro que desea eliminar éste IP?')">Eliminar</button>
                                                     </form>
                                                     <button type="button" class="btn btn-sm btn-outline-azure"
                                                         data-bs-toggle="modal" data-bs-target="#modal-rol"
