@@ -3,6 +3,7 @@
 namespace App\Livewire\Area;
 
 use App\Models\Area;
+use App\Models\Ip;
 use App\Models\User;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
@@ -29,6 +30,12 @@ class Index extends Component
 
 
     //Varibles Modal
+
+    //para modal de asignar IP
+    public $title_modal_ip = 'Asignar IP';
+    public $button_modal_ip ='Asignar IP';
+
+    //para modal de crear y editar
     public $title_modal = 'Crear nueva Area';
     public $button_modal = 'Crear area';
 
@@ -48,6 +55,14 @@ class Index extends Component
     #[Validate('nullable|string|max:100')]
     public $ip_inicio;
     #[Validate('nullable|string|max:100')]
+
+
+    //para almacenar las ip
+    public $selectedIps = [];
+
+    public $alm_ip;
+    public $ips;
+    public $mensaje='';
     public $ip_fin;
     public $is_active;
 
@@ -78,7 +93,7 @@ class Index extends Component
         $this->resetValidation();
     }
     //guardar crear
-    public function guardar_ciclo()
+    public function guardar_area()
     {
 
         //para hacer que no ingrese campos vacios
@@ -95,6 +110,7 @@ class Index extends Component
         $area->ip_inicio = $this->ip_inicio;
         $area->ip_fin = $this->ip_fin;
         $area->save();
+        $this->mensaje='El area se ah creado correctamente';
         $this->limpiar_modal();
         return redirect()->route('area.index');
     }
@@ -140,19 +156,70 @@ class Index extends Component
     }
 
 
+    //agregar (boton) para asignar una ip
+    //abrir um modal
+    //lista de checkbox de ips disponibles
+    //se guarde en la tabla area_ip
+
+
+
+    //obtener las ip param ostar en mi modal
+    public function mount()
+    {
+        $this->getAllIp();
+    }
+
+    public function getAllIp()
+    {
+        $this->ips = Ip::all();
+    }
+
+
+
+
+    public function asignar_ip()
+    {
+
+        if (empty($this->selectedIps)) {
+            session()->flash('error', 'Por favor, selecciona al menos una IP.');
+            return;
+        }
+
+        $area = Area::findOrFail($this->area_id);
+
+        foreach ($this->selectedIps as $ipId => $isSelected) {
+            if ($isSelected) {
+                $ip = Ip::findOrFail($ipId);
+                // Asigna el área a la IP
+                $ip->area_id = $area->id;
+                $ip->save();
+            }
+        }
+
+        $this->limpiar_modal();
+        session()->flash('success', 'Las IPs se han asignado correctamente al área.');
+    }
+
+
 
     //eliminar
     public function eliminar_area($id)
     {
+
+
+        $areas = Area::find($id);
+        if($areas){
+            $areas->delete();
+        }
+
         // Encuentra y elimina el área
         Area::findOrFail($id)->delete();
         $this->emit('elementoEliminado');
         session()->flash('message', 'Elemento eliminado exitosamente.');
 
         return $this->render();
+
     }
-
-
     public function render()
     {
         $areas = Area::search($this->search)
@@ -161,9 +228,7 @@ class Index extends Component
         return view('livewire.area.index',[
             'areas'=>$areas,
         ]);
+
     }
-
-
-
 
 }

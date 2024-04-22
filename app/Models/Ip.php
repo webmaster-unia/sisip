@@ -42,5 +42,10 @@ class Ip extends Model
                 ->orWhere('created_at','LIKE',"%{$search}%");
         }
     }
+
+    //para tener realcion area
+
+
+
 }
 
