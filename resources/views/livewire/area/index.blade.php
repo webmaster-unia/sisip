@@ -16,7 +16,7 @@
                 <div class="col-auto ms-auto d-print-none">
                     <div class="btn-list">
                         <button type="button" class="btn btn-cyan d-none d-sm-inline-block" data-bs-toggle="modal"
-                            wire:click="create" data-bs-target="#modal-rol">
+                            wire:click="create" data-bs-target="#modal-area">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
                                 viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                                 stroke-linecap="round" stroke-linejoin="round">
@@ -132,41 +132,24 @@
                                                     Ver
                                                 </button> --}}
 
-                                                <div>
-                                                    <a href="#" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#confirmarEliminarModal{{ $item->id }}">Eliminar</a>
-
-                                                    <!-- Modal de Confirmación -->
-                                                    <div wire:ignore.self class="modal fade" id="confirmarEliminarModal{{ $item->id }}" tabindex="-1">
-                                                        <div class="modal-dialog">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h5 class="modal-title">Confirmar Eliminación</h5>
-                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    <p>¿Estás seguro de que quieres eliminar esta área?</p>
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal"
-                                                                        wire:click="limpiar_modal">
-                                                                        Cancelar
-                                                                    </button>
-
-                                                                    <button type="button" class="btn btn-danger" wire:click="eliminar_area({{ $item->id }})" data-bs-dismiss="modal">Eliminar</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
 
 
+                                                    <button type="button" class="btn btn-sm btn-outline-danger"
+                                                        wire:confirm="¿Estas seguro que quieres eliminar?"
+                                                        wire:click="eliminar_area({{ $item->id }})"
+                                                        >Eliminar
+                                                    </button>
 
-
-                                                <button type="button" class="btn btn-sm btn-outline-azure"
-                                                    data-bs-toggle="modal" data-bs-target="#modal-rol"
+                                                <button type="button" class="btn btn-sm btn-outline-azure "
+                                                    data-bs-toggle="modal" data-bs-target="#modal-area"
                                                     wire:click="edit({{ $item->id }})">
                                                     Editar
                                                 </button>
+                                                <button wire:click="({{$item->id}})" class="btn btn-sm btn-outline-warning"
+                                                    data-bs-toggle="modal" data-bs-target="#modal-ip" >
+                                                    Asignar IP
+                                                </button>
+
 
                                             </div>
                                         </td>
@@ -203,6 +186,7 @@
                                 @endforelse
                                 </tbody>
 
+
                             </table>
                         </div>
                         <div class="card-footer {{ $areas->hasPages() ? 'py-0' : '' }}">
@@ -231,7 +215,7 @@
         </div>
     </div>
     {{-- modal rol --}}
-    <div class="modal fade modal-blur" id="modal-rol" tabindex="-1" wire:ignore.self>
+    <div class="modal fade modal-blur" id="modal-area" tabindex="-1" wire:ignore.self>
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -241,7 +225,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                         wire:click="limpiar_modal"></button>
                 </div>
-                <form autocomplete="off" novalidate wire:submit.prevent="{{ $modo === 'edit' ? 'actualizar_area' : 'guardar_ciclo' }}" >
+                <form autocomplete="off" novalidate wire:submit.prevent="{{ $modo === 'edit' ? 'actualizar_area' : 'guardar_area' }}" >
                     <div class="modal-body">
 
                         <!-- error si intenta crear un campo vacio-->
@@ -360,4 +344,50 @@
             </div>
         </div>
     </div>
+
+    {{-- Modal Para asignar IP --}}
+    <div class="modal fade modal-blur" id="modal-ip" tabindex="-1" wire:ignore.self>
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        {{ $title_modal_ip }}
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                        wire:click="limpiar_modal"></button>
+                </div>
+                <form autocomplete="off" novalidate wire:submit.prevent="asignar_ip" >
+                    <div class="modal-body">
+                        <!-- error si intenta crear un campo vacio-->
+                        @if(session()->has('error'))
+                            <div class="alert alert-danger">
+                                {{ session('error') }}
+                            </div>
+                        @endif
+
+                    </div>
+                    <div class="row">
+                        @foreach($ips as $ip)
+                            <div class="col-md-4">
+                                <label>
+                                    <input type="checkbox" wire:model="selectedIps.{{ $ip->id }}">
+                                    {{ $ip->ip }}
+                                </label>
+                            </div>
+                        @endforeach
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal"
+                            wire:click="limpiar_modal">
+                            Cancelar
+                        </button>
+                        <button type="submit" class="btn btn-cyan ms-auto">
+                            {{ $button_modal_ip }}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
 </div>
