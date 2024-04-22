@@ -93,12 +93,12 @@
                                             <td>
                                                 @if ($item->is_active == 1)
 
-                                                    <span class="badge bg-green-lt" wire:confirm="¿ Estás seguro que desea cambiar el estado?"
+                                                    <span class="status status-teal px-3 py-2" wire:confirm="¿ Estás seguro que desea cambiar el estado?"
                                                     wire:click="cambiar_estado({{ $item->id }}, true)" style="cursor: pointer;">
                                                     <span class="status-dot status-dot-animated"></span>
                                                     Activo</span>
                                                 @else
-                                                    <span class="badge bg-red-lt" wire:confirm="¿ Estás seguro que desea cambiar el estado?"
+                                                    <span class="status status-teal px-3 py-2" wire:confirm="¿ Estás seguro que desea cambiar el estado?"
                                                     wire:click="cambiar_estado({{ $item->id }}, false)" style="cursor: pointer;">
                                                     <span class="status-dot status-dot-animated"></span>
                                                     Inactivo</span>
