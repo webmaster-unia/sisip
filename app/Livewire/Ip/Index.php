@@ -121,8 +121,10 @@ class Index extends Component
     public function eliminar_ip($id)
     {
 
-        Ip::findOrFail($id)->delete();
-        return $this->render();
+        $ip = Ip::find($id);
+        if ($ip) {
+            $ip->delete();
+        }
     }
     public function render()
     {

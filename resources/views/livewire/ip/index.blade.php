@@ -112,11 +112,13 @@
                                                     Ver
                                                 </button> --}}
 
-                                                    <form wire:submit.prevent="eliminar_ip({{ $item->id }})"
-                                                        style="display: inline;" class="d-inline">
-                                                        <button type="submit" class="btn btn-sm btn-outline-danger"
-                                                            onclick="return confirm('¿Estás seguro que desea eliminar éste IP?')">Eliminar</button>
-                                                    </form>
+                                                <button type="button"
+                                                wire:confirm="¿Estás seguro que desea eliminar este ip?"
+                                                wire:click="eliminar_ip({{ $item->id }})"
+                                                class="btn btn-danger btn-sm px-2">
+                                                Eliminar
+
+                                            </button>
                                                     <button type="button" class="btn btn-sm btn-outline-azure"
                                                         data-bs-toggle="modal" data-bs-target="#modal-rol"
                                                         wire:click="edit({{ $item->id }})">
