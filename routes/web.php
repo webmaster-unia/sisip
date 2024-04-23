@@ -40,6 +40,10 @@ Route::prefix('configuracion')->group(function () {
         Route::get('/ip',IpIndex::class)
         ->middleware('auth')
         ->name('ip.index');
+
+        Route::post('/generar-ips', [IpIndex::class, 'generarYGuardarIPs'])
+        ->middleware('auth')
+        ->name('ip.generar_ips');
         //Ruta para area
         Route::get('/area', AreaIndex::class)
         ->middleware('auth')

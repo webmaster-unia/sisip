@@ -23,6 +23,7 @@ class Index extends Component
 
     //variables del modal
     public $button_modal = 'crear ip';
+    public $button_modal2= 'crear IPS';
     public $title_modal='Crear Nuevo IP';
     public $modo = 'create';
 
@@ -34,7 +35,7 @@ class Index extends Component
     public $ip_id;
     //variable para el formulario
 
-    
+
 
     //crear rol
     public function create()
@@ -45,6 +46,35 @@ class Index extends Component
         $this->resetErrorBag();
         $this->resetValidation();
     }
+
+    //generar ip en masa
+    public function generarYGuardarIPs()
+{
+    // Puedes utilizar el script proporcionado anteriormente
+    $inicio = '172.16.3.1';
+    $fin = '172.16.3.225';
+
+    // Convertir las cadenas de inicio y fin en arrays
+    $inicioArray = explode('.', $inicio);
+    $finArray = explode('.', $fin);
+
+    // Iterar desde el número inicial hasta el número final
+    for ($i = $inicioArray[3]; $i <= $finArray[3]; $i++) {
+        // Construir la dirección IP actual
+        $ip = $inicioArray[0] . '.' . $inicioArray[1] . '.' . $inicioArray[2] . '.' . $i;
+
+        // Crear una nueva instancia del modelo
+        $nuevoDato = new Ip();
+        // Asignar los valores
+        $nuevoDato->ip = $ip;
+        // Guardar en la base de datos
+        $nuevoDato->save();
+    }
+
+    // Redireccionar después de que todas las IPs hayan sido generadas y guardadas
+    return redirect()->route('ip.index');
+}
+
 
     //limpiar modal
 
