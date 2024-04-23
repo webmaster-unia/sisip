@@ -161,7 +161,7 @@ class Index extends Component
     //agregar (boton) para asignar una ip
     //abrir um modal
     //lista de checkbox de ips disponibles
-    //se guarde en la tabla area_ip
+    //se guarde en la tabla area_ip, solo guardar los ID
 
 
 
