@@ -55,9 +55,13 @@
                                     Mostrar
                                     <div class="mx-2 d-inline-block">
                                         <select wire:model.live="mostrar_paginate" class="form-select form-select-sm">
-                                            <option value="5">5</option>
                                             <option value="10">10</option>
                                             <option value="20">20</option>
+                                            <option value="50">50</option>
+                                            <option value="100">100</option>
+                                            <option value="200">200</option>
+                                            <option value="300">300</option>
+                                            <option value="900">Todas</option>
                                         </select>
                                     </div>
                                     entradas
@@ -93,12 +97,12 @@
                                             <td>
                                                 @if ($item->is_active == 1)
 
-                                                    <span class="badge bg-green-lt" wire:confirm="¿ Estás seguro que desea cambiar el estado?"
+                                                    <span class="status status-teal px-3 py-2" wire:confirm="¿ Estás seguro que desea cambiar el estado?"
                                                     wire:click="cambiar_estado({{ $item->id }}, true)" style="cursor: pointer;">
                                                     <span class="status-dot status-dot-animated"></span>
                                                     Activo</span>
                                                 @else
-                                                    <span class="badge bg-red-lt" wire:confirm="¿ Estás seguro que desea cambiar el estado?"
+                                                    <span class="status status-teal px-3 py-2" wire:confirm="¿ Estás seguro que desea cambiar el estado?"
                                                     wire:click="cambiar_estado({{ $item->id }}, false)" style="cursor: pointer;">
                                                     <span class="status-dot status-dot-animated"></span>
                                                     Inactivo</span>
@@ -161,22 +165,22 @@
                         </div>
                         <div class="card-footer {{ $ips->hasPages() ? 'py-0' : '' }}">
                             @if ($ips->hasPages())
-                                <div class="d-flex justify-content-between">
-                                    <div class="d-flex align-items-center text-secondary">
-                                        Mostrando {{ $ips->firstItem() }} - {{ $ips->lastItem() }} de {{ $ips->total() }}
-                                        registros
-                                    </div>
-                                    <div class="mt-3">
-                                        {{ $ips->links() }}
-                                    </div>
+                            <div class="d-flex justify-content-between">
+                                <div class="d-flex align-items-center text-secondary">
+                                    Mostrando {{ $ips->firstItem() }} - {{ $ips->lastItem() }} de {{
+                                        $ips->total()}} registros
                                 </div>
+                                <div class="mt-3">
+                                    {{ $ips->links() }}
+                                </div>
+                            </div>
                             @else
-                                <div class="d-flex justify-content-between">
-                                    <div class="d-flex align-items-center text-secondary">
-                                        Mostrando {{ $ips->firstItem() }} - {{ $ips->lastItem() }} de
-                                        {{ $ips->total() }} registros
-                                    </div>
+                            <div class="d-flex justify-content-between">
+                                <div class="d-flex align-items-center text-secondary">
+                                    Mostrando {{ $ips->firstItem() }} - {{ $ips->lastItem() }} de {{
+                                        $ips->total()}} registros
                                 </div>
+                            </div>
                             @endif
                         </div>
                     </div>
@@ -190,7 +194,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">
-                        ip
+                        IP
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                         wire:click="limpiar_modal"></button>
@@ -222,8 +226,17 @@
                         <button type="submit" class="btn btn-cyan ms-auto">
                             {{ $button_modal }}
                         </button>
+
                     </div>
                 </form>
+
+                <!--
+                    PARA INGRESAR IPS MASIVOS
+                <form method="POST" action=" ">
+                    
+                    <button type="submit" class="btn btn-cyan ms-auto"></button>
+                </form>
+                -->
             </div>
         </div>
     </div>

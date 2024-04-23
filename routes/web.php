@@ -40,6 +40,13 @@ Route::prefix('configuracion')->group(function () {
         Route::get('/ip',IpIndex::class)
         ->middleware('auth')
         ->name('ip.index');
+
+        /*
+        ---Ruta para a creacion de ips en masa-----
+        Route::post('/generar-ips', [IpIndex::class, 'generarYGuardarIPs'])
+        ->middleware('auth')
+        ->name('ip.generar_ips');*/
+
         //Ruta para area
         Route::get('/area', AreaIndex::class)
         ->middleware('auth')
@@ -48,10 +55,5 @@ Route::prefix('configuracion')->group(function () {
         Route::get('/cargo', CargoIndex::class)
         ->middleware('auth')
         ->name('cargo.index');
-
-
-
-
-
 });
 
