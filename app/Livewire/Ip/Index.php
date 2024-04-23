@@ -23,7 +23,7 @@ class Index extends Component
 
     //variables del modal
     public $button_modal = 'crear ip';
-    public $button_modal2= 'crear IPS';
+    public $button_modal2= '';
     public $title_modal='Crear Nuevo IP';
     public $modo = 'create';
 
