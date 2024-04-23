@@ -133,13 +133,13 @@
                                                 </button> --}}
 
 
-                                        
+
 
 
 
                                                     <button type="button" class="btn btn-sm btn-outline-danger"
-                                                        wire:confirm="¿Estas seguro  que quieres eliminar?"
-                                                        wire:click="eliminar_area({{ $item->id }})"
+                                                         data-bs-toggle="modal" data-bs-target="#modal-eliminar"
+                                                         wire:click="#"
                                                         >Eliminar
                                                     </button>
 
@@ -386,6 +386,38 @@
                         </button>
                         <button type="submit" class="btn btn-cyan ms-auto">
                             {{ $button_modal_ip }}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    {{-- modal para eliminar --}}
+    <div class="modal fade modal-blur" id="modal-eliminar" tabindex="-1" wire:ignore.self>
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        Eliminar Una area
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                        wire:click="limpiar_modal"></button>
+                </div>
+                <form autocomplete="off" novalidate wire:submit.prevent="confirmar_eliminar" >
+                    <div class="modal-body">
+                    </div>
+                    <div>
+                        <h4>¿Estas Seguro que quieres eliminar esta Area?</h4>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal"
+                            wire:click="limpiar_modal">
+                            Cancelar
+                        </button>
+                        <button type="button" class="btn btn-cyan ms-auto">
+                            {{ $button_modal_eliminar }}
                         </button>
                     </div>
                 </form>

@@ -39,6 +39,8 @@ class Index extends Component
     public $title_modal = 'Crear nueva Area';
     public $button_modal = 'Crear area';
 
+    //para eliminar
+    public $button_modal_eliminar = "Eliminar Area";
     public $modo = 'create';
 
 
@@ -59,7 +61,7 @@ class Index extends Component
 
     //para almacenar las ip
     public $selectedIps = [];
-
+    public $id_eliminar;
     public $alm_ip;
     public $ips;
     public $mensaje='';
@@ -159,7 +161,7 @@ class Index extends Component
     //agregar (boton) para asignar una ip
     //abrir um modal
     //lista de checkbox de ips disponibles
-    //se guarde en la tabla area_ip
+    //se guarde en la tabla area_ip, solo guardar los ID
 
 
 
@@ -203,13 +205,26 @@ class Index extends Component
 
 
     //eliminar
-    public function eliminar_area($id)
+
+
+    public function delete($id)
+{
+    $this->id_eliminar = $id;
+    $this->title_modal = 'Eliminar Área';
+    $this->button_modal = 'Eliminar Area';
+}
+    public function confirmar_eliminar()
     {
 
-        $areas = Area::find($id);
-        if($areas){
+        $areas = Area::find($this->id_eliminar);
+        if ($areas) {
             $areas->delete();
+            $this->mensaje = 'El área se ha eliminado correctamente';
+        } else {
+            $this->mensaje = 'No se pudo eliminar el área';
         }
+
+        $this->limpiar_modal();
     }
     public function render()
     {
