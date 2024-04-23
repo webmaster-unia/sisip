@@ -232,9 +232,9 @@
 
                 <!--
                     PARA INGRESAR IPS MASIVOS
-                <form method="POST" action="{{ route('ip.generar_ips') }}">
-                    @csrf
-                    <button type="submit" class="btn btn-cyan ms-auto">{{ $button_modal2 }}</button>
+                <form method="POST" action=" ">
+                    
+                    <button type="submit" class="btn btn-cyan ms-auto"></button>
                 </form>
                 -->
             </div>
