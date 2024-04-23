@@ -126,7 +126,7 @@
                                                 </form>
 
                                                 <button type="button" class="btn btn-sm btn-outline-azure"
-                                                    data-bs-toggle="modal" data-bs-target="#modal-usuario"
+                                                    data-bs-toggle="modal" data-bs-target="#modal-rol"
                                                     wire:click="edit({{ $item->id }})">
                                                     Editar
                                                 </button>
@@ -195,8 +195,14 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                         wire:click="limpiar_modal"></button>
                 </div>
-                <form autocomplete="off" novalidate wire:submit="guardar_ciclo">
+                <form autocomplete="off" novalidate wire:submit.prevent="{{ $modo === 'edit' ? 'actualizar_rol' : 'guardar_rol' }}" >
                     <div class="modal-body">
+                        <!-- error si intenta crear un campo vacio-->
+                        @if(session()->has('error'))
+                            <div class="alert alert-danger">
+                                {{ session('error') }}
+                            </div>
+                        @endif
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="mb-3">
