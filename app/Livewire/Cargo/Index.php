@@ -30,7 +30,7 @@ class Index extends Component
 
         //variables Cargo
     public $button_Cargo='Crear Cargo';
-    
+
     public $title_modal='Editar Cargo';
     public $modo='create';
 
@@ -95,14 +95,8 @@ class Index extends Component
     }
 
     //seleccionar las Areas y las ips:
-    public function GuardarDatos(Request $request)
-    {
-        //validacion de los datos si es necesario
-        $areaId = $request->input('area_id');
-        $direccionIPId = $request->input('direccion_ip');
 
 
-    }
 
     //hacer una busqueda las ID de por medio de las id:
 
@@ -181,11 +175,12 @@ class Index extends Component
 
     public function render()
     {
-        $cargos= Cargo::search($this->search)
-        ->orderBy('created_at', 'desc')
-        ->paginate($this->mostrar_paginate);
+        $Cargos = $this->search
+        ? Cargo::where('name_cargo', 'like', '%' . $this-> search . '%')->paginate($this->mostrar_paginate)
+        : Cargo::paginate($this->mostrar_paginate);
+
         return view('livewire.cargo.index',[
-            'cargos'=>$cargos,
+            'cargos'=>$Cargos,
 
         ]);
     }
