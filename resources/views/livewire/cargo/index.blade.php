@@ -174,8 +174,6 @@
                                                 </div>
                                             </td>
                                         </tr>
-
-
                                         @empty
                                         @if ($cargos->count() == 0 && $search != '')
                                             <tr>
@@ -205,26 +203,6 @@
                                     </tbody>
 
                                 </table>
-                            </div>
-                            <div class="card-footer {{ $cargos->hasPages() ? 'py-0' : '' }}">
-                                @if ($cargos->hasPages())
-                                <div class="d-flex justify-content-between">
-                                    <div class="d-flex align-items-center text-secondary">
-                                        Mostrando {{ $cargos->firstItem() }} - {{ $cargos->lastItem() }} de {{
-                                            $cargos->total()}} registros
-                                    </div>
-                                    <div class="mt-3">
-                                        {{ $cargos->links() }}
-                                    </div>
-                                </div>
-                                @else
-                                <div class="d-flex justify-content-between">
-                                    <div class="d-flex align-items-center text-secondary">
-                                        Mostrando {{ $cargos->firstItem() }} - {{ $cargos->lastItem() }} de {{
-                                            $cargos->total()}} registros
-                                    </div>
-                                </div>
-                                @endif
                             </div>
                     </div>
                 </div>
@@ -306,21 +284,8 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <form method="POST" action="{{ route('GuardarDatos') }}">
-                                        @csrf
 
-                                        <select name="area_id">
-                                            <option value="">Selecciona un área</option>
-                                            @foreach($areas as $area)
-                                            <option value="{{ $area->id }}">{{ $area->name }}{{ $area->cantidad }}{{ $area->ip_inicio }}{{ $area->ip_fin }}</option>
-                                            @endforeach
-                                        </select>
-                                        <select name="direccion_ip">
-                                            <option value="">Selecciona una dirección IP</option>
-                                            @foreach($direccionesIP as $ip)
-                                                <option value="{{ $ip->id }}">{{ $ip->ip }}</option>
-                                            @endforeach
-                                        </select>
+
                                         <button type="submit">Guardar</button>
                                     </form>
                                     <div class="col-lg-12">

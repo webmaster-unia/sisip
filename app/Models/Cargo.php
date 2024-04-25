@@ -43,6 +43,7 @@ class Cargo extends Model
         return $this->belongsTo(AreaIp::class, 'area_ip_id', 'id');
     }
 
+
     protected static function boot() {
         parent::boot();
 
@@ -66,4 +67,6 @@ class Cargo extends Model
                 ->orWhere('nombre', 'LIKE', "%{$search}%");
         }
     }
+
+
 }
