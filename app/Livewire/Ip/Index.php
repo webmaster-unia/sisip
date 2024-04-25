@@ -23,7 +23,7 @@ class Index extends Component
 
     //variables del modal
     public $button_modal = 'crear ip';
-    //public $button_modal2= 'Crear IPS EN MASA';
+    public $button_modal2= 'Crear IPS EN MASA';
     public $title_modal='Crear Nuevo IP';
     public $modo = 'create';
 
@@ -46,12 +46,12 @@ class Index extends Component
         $this->resetErrorBag();
         $this->resetValidation();
     }
-    /*
+
     //generar ip en masa
     public function generarYGuardarIPs()
 {
     // Puedes utilizar el script proporcionado anteriormente
-    $inicio = '172.16.3.1';
+    $inicio = '172.16.0.1';
     $fin = '172.16.3.225';
 
     // Convertir las cadenas de inicio y fin en arrays
@@ -74,7 +74,7 @@ class Index extends Component
     // Redireccionar después de que todas las IPs hayan sido generadas y guardadas
     return redirect()->route('ip.index');
 }
-*/
+
 
     //limpiar modal
 

@@ -3,6 +3,7 @@
 namespace App\Livewire\Area;
 
 use App\Models\Area;
+use App\Models\AreaIp;
 use App\Models\Ip;
 use App\Models\User;
 use Livewire\Attributes\Layout;
@@ -69,6 +70,8 @@ class Index extends Component
     public $is_active;
 
     public $area_id;
+
+    public $filteredIps=[];
 
 
     //crear rol
@@ -176,35 +179,75 @@ class Index extends Component
         $this->ips = Ip::all();
     }
 
-
-
-
-    public function asignar_ip()
+    public function filtrarIps($filtro)
     {
+        // Verificar si el filtro seleccionado es opcion 0,1,2 o  3
+        if ($filtro === '172.16.0.1') {
+            // Filtrar todas las IPs que tengan el número 0 como penúltimo número yasi sucesivamente hasta el 3
+            $this->filteredIps = Ip::whereRaw("substring_index(substring_index(ip, '.', -2), '.', 1) = '0'")->get();
+        } elseif ($filtro === '172.16.0.2') {
 
-        if (empty($this->selectedIps)) {
-            session()->flash('error', 'Por favor, selecciona al menos una IP.');
-            return;
+            $this->filteredIps = Ip::whereRaw("substring_index(substring_index(ip, '.', -2), '.', 1) = '1'")->get();
+        } elseif ($filtro === '172.16.0.3') {
+
+            $this->filteredIps = Ip::whereRaw("substring_index(substring_index(ip, '.', -2), '.', 1) = '2'")->get();
+        } elseif ($filtro === '172.16.0.4') {
+
+            $this->filteredIps = Ip::whereRaw("substring_index(substring_index(ip, '.', -2), '.', 1) = '3'")->get();
+        } else {
+
+            $this->filteredIps = Ip::where('ip', 'like', "$filtro%")->get();
         }
-
-        $area = Area::findOrFail($this->area_id);
-
-        foreach ($this->selectedIps as $ipId => $isSelected) {
-            if ($isSelected) {
-                $ip = Ip::findOrFail($ipId);
-                // Asigna el área a la IP
-                $ip->area_id = $area->id;
-                $ip->save();
-            }
-        }
-
-        $this->limpiar_modal();
-        session()->flash('success', 'Las IPs se han asignado correctamente al área.');
     }
 
 
 
+
+
+
+
+
+
+
+    public function asignar_ip()
+{
+    if (empty($this->selectedIps)) {
+        session()->flash('error', 'Por favor, selecciona al menos una IP.');
+        return redirect()->route('area.index');
+    }
+
+    $area = Area::findOrFail($this->area_id);
+
+    foreach ($this->selectedIps as $ipId => $isSelected) {
+        if ($isSelected) {
+            $ip = Ip::findOrFail($ipId);
+            // Asigna el área a la IP
+            $ip->area_id = $area->id;
+            $ip->save();
+            // Guarda la asociación en la tabla intermedia
+            AreaIp::create([
+                'area_id' => $area->id,
+                'ip_id' => $ipId,
+                'is_active' => true, // o cualquier otro valor por defecto
+            ]);
+        }
+    }
+
+    session()->flash('success', 'Las IPs se han asignado correctamente al área.');
+    return redirect()->route('area.index');
+}
+
+
+
+
+
     //eliminar
+
+
+    //separar por columnas de 5
+    //que exista 5 opciones
+    //cada opcion que selecccione me muestre la columna que se selcciono
+    //sepracion 0 1 2 3 de yapa uno mas para el 3
 
 
     public function delete($id)

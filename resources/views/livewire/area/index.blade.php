@@ -349,7 +349,11 @@
     </div>
 
     {{-- Modal Para asignar IP --}}
-    <div class="modal fade modal-blur" id="modal-ip" tabindex="-1" wire:ignore.self>
+
+
+<div>
+    <!-- Modal -->
+    <div class="modal fade modal-blur" id="modal-ip" tabindex="-1" wire:ignore.self wire:model="showModal">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -368,9 +372,18 @@
                             </div>
                         @endif
 
+                        <!-- Opciones de filtrado -->
+                        <div class="mb-3">
+                            <button type="button" class="btn btn-primary" wire:click="filtrarIps('172.16.0.1')">Opción 1</button>
+                            <button type="button" class="btn btn-primary" wire:click="filtrarIps('172.16.0.2')">Opción 2</button>
+                            <button type="button" class="btn btn-primary" wire:click="filtrarIps('172.16.0.3')">Opción 3</button>
+                            <button type="button" class="btn btn-primary" wire:click="filtrarIps('172.16.0.4')">Opción 4</button>
+                        </div>
+
                     </div>
+                    <!-- Checkboxes -->
                     <div class="row">
-                        @foreach($ips as $ip)
+                        @foreach($filteredIps as $ip)
                             <div class="col-md-4">
                                 <label>
                                     <input type="checkbox" wire:model="selectedIps.{{ $ip->id }}">
@@ -392,6 +405,8 @@
             </div>
         </div>
     </div>
+</div>
+
 
 
     {{-- modal para eliminar --}}

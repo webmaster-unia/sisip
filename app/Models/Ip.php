@@ -43,7 +43,7 @@ class Ip extends Model
         }
     }
 
-    //para tener realcion area
+
 
 
 
