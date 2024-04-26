@@ -111,7 +111,8 @@ class Index extends Component
 
         $area = new Area();
         $area->name = $this->name;
-        $area->slug = $this->slug;
+        $slug = strtolower(str_replace(' ', '-', $this->name));
+        $area->slug = $slug;
         $area->abreviation = $this->abreviation;
         $area->cantidad = $this->cantidad;
         $area->ip_inicio = $this->ip_inicio;
