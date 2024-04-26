@@ -96,8 +96,7 @@
                                 </tbody>
                             </table>
                         </div>
-
-                        
+           
                         <div class="card-footer {{ $usuarios->hasPages() ? 'py-0' : '' }}">
                             @if ($usuarios->hasPages())
                             <div class="d-flex justify-content-between">
@@ -135,45 +134,23 @@
                 <form autocomplete="off" novalidate wire:submit="guardar_ciclo">
                     <div class="modal-body">
                         <div class="row">
+                            
+                            
                             <div class="col-lg-12">
-                                <div class="mb-3">
-                                    <label for="nombre" class="form-label required">
-                                        Nombre
-                                    </label>
-                                    <input type="text" class="form-control"
-                                        id="nombre" wire:model.live="nombre" placeholder="Ingrese su nombre" />
-
-                                    <div class="invalid-feedback">
-
-                                    </div>
-
-                                </div>
-                            </div>
-                            <div class="col-lg-12">
-                                <div class="mb-3">
-                                    <label for="descripcion" class="form-label">
-                                        Slug
-                                    </label>
-                                    <input type="text" class="form-control"
-                                        id="descripcion" wire:model.live="descripcion" placeholder="Ingrese en minuscula" />
-
-                                    <div class="invalid-feedback">
-
-                                    </div>
-
-                                </div>
-                            </div>
-                            <div class="col-lg-12">
-            <div class="mb-3">
-                <label class="form-label">Permisos</label><br>
-                <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" id="permiso1" wire:model="permisos" value="permiso1">
+                <div class="mb-3">
+                    <label class="form-label">Permisos</label><br>
+                    <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="permiso1" wire:model="permisos" value="permiso1" wire:click="togglePermission($item->id, 'permiso1')">
                     <label class="form-check-label" for="permiso1">Usuario</label>
                 </div>
-                <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" id="permiso2" wire:model="permisos" value="permiso2">
+    <!-- Repite esto para cada checkbox de permiso -->
+
+                <div class="mb-3">
+                    <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="permiso2" wire:model="permisos" value="permiso2" wire:click="togglePermission($item->id, 'permiso2')">
                     <label class="form-check-label" for="permiso2">Roles</label>
                 </div>
+
                 <div class="form-check form-switch">
                     <input class="form-check-input" type="checkbox" id="permiso3" wire:model="permisos" value="permiso3">
                     <label class="form-check-label" for="permiso3">Permiso</label>
@@ -201,7 +178,6 @@
                         </button>
                         <button type="submit" class="btn btn-cyan ms-auto">
                             {{$button_modal}} 
-
                         </button>
                     </div>
                 </form>

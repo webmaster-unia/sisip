@@ -89,6 +89,19 @@ class Index extends Component
             'usuarios' => $usuarios,
         ]);
     }
+    
+
+        public function togglePermission($userId, $permission)
+    {
+        $user = User::findOrFail($userId);
+
+        if ($user->hasPermission($permission)) {
+            $user->revokePermission($permission);
+        } else {
+            $user->givePermissionTo($permission);
+        }
+    }
+
 
 
 }
