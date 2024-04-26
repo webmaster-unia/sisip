@@ -153,6 +153,8 @@ class Index extends Component
     {
 
         $ip = Ip::find($id);
+        $this->modo='delete';
+        $this->title_modal = 'Eliminar IP';
         if ($ip) {
             $ip->delete();
         }
