@@ -140,6 +140,42 @@ public function eliminar_user($id)
             'roles' => $roles,
         ]);
     }
+
+
+
+    
+     // Relación con roles
+     public function roles()
+     {
+         return $this->belongsToMany(Role::class);
+     }
+ 
+     // Verificar si el usuario tiene un permiso específico
+     public function hasPermission($permission)
+     {
+         foreach ($this->roles as $role) {
+             if ($role->hasPermission($permission)) {
+                 return true;
+             }
+         }
+         return false;
+     }
+ 
+     // Otorgar un permiso al usuario
+     public function givePermissionTo($permission)
+     {
+         foreach ($this->roles as $role) {
+             $role->givePermissionTo($permission);
+         }
+     }
+ 
+     // Revocar un permiso al usuario
+     public function revokePermission($permission)
+     {
+         foreach ($this->roles as $role) {
+             $role->revokePermission($permission);
+         }
+     }
 }
 
 

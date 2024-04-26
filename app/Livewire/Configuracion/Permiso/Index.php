@@ -71,7 +71,6 @@ class Index extends Component
         $permiso->name = $this->name;
         $permiso->slug = $this->slug;
         $permiso->save();
-        $this->mensaje='El permiso se ah creado correctamente';
         $this->limpiar_modal();
         return redirect()->route('configuracion.permiso.index');
     }
@@ -81,13 +80,15 @@ class Index extends Component
     public function render()
     {
 
-        $usuarios = User::search($this->search)
-        ->orderBy('created_at', 'desc')
+        $permisos = Permission::search($this->search)
+        ->orderBy('id', 'asc')
         ->paginate($this->mostrar_paginate);
         return view('livewire.configuracion.permiso.index',[
-            'usuarios'=>$usuarios,
+            'permisos'=>$permisos,
         ]);
     }
+
+
 }
 
 
