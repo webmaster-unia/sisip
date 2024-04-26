@@ -87,46 +87,46 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse ($areas as $item )
-                                    <tr>
-                                        <td>
-                                            {{$item->id}}
-                                        </td>
-                                        <td>
-                                            {{$item->name}}
-                                        </td>
-                                        <td>
-                                            {{$item->slug}}
-                                        </td>
-                                        <td>
-                                            {{$item->abreviation}}
-                                        </td>
-                                        <td>
-                                            {{$item->cantidad}}
-                                        </td>
-                                        <td>
-                                            {{$item->ip_inicio}}
-                                        </td>
-                                        <td>
-                                            {{$item->ip_fin}}
-                                        </td>
-                                        <td>
-                                            @if ($item->is_active == 1)
-                                            <span class="status status-teal px-3 py-2">
-                                                <span class="status-dot status-dot-animated"></span>
-                                                Activo
-                                            </span>
-                                            @else
-                                            <span class="status status-red px-3 py-2">
-                                                <span class="status-dot status-dot-animated"></span>
-                                                Inactivo
-                                            </span>
-                                            @endif
+                                    @forelse ($areas as $item)
+                                        <tr>
+                                            <td>
+                                                {{ $item->id }}
+                                            </td>
+                                            <td>
+                                                {{ $item->name }}
+                                            </td>
+                                            <td>
+                                                {{ $item->slug }}
+                                            </td>
+                                            <td>
+                                                {{ $item->abreviation }}
+                                            </td>
+                                            <td>
+                                                {{ $item->cantidad }}
+                                            </td>
+                                            <td>
+                                                {{ $item->ip_inicio }}
+                                            </td>
+                                            <td>
+                                                {{ $item->ip_fin }}
+                                            </td>
+                                            <td>
+                                                @if ($item->is_active == 1)
+                                                    <span class="status status-teal px-3 py-2">
+                                                        <span class="status-dot status-dot-animated"></span>
+                                                        Activo
+                                                    </span>
+                                                @else
+                                                    <span class="status status-red px-3 py-2">
+                                                        <span class="status-dot status-dot-animated"></span>
+                                                        Inactivo
+                                                    </span>
+                                                @endif
 
-                                        </td>
-                                        <td>
-                                            <div class="btn-list flex-nowrap justify-content-end">
-                                                {{-- <button type="button" class="btn btn-sm btn-outline"
+                                            </td>
+                                            <td>
+                                                <div class="btn-list flex-nowrap justify-content-end">
+                                                    {{-- <button type="button" class="btn btn-sm btn-outline"
                                                     data-bs-toggle="modal" data-bs-target="#modal-ciclo-ver"
                                                     wire:click="show({{ $item->id }})">
                                                     Ver
@@ -138,55 +138,54 @@
 
 
                                                     <button type="button" class="btn btn-sm btn-outline-danger"
-                                                         data-bs-toggle="modal" data-bs-target="#modal-eliminar"
-                                                         wire:click="#"
-                                                        >Eliminar
+                                                        data-bs-toggle="modal" data-bs-target="#modal-eliminar"
+                                                        wire:click="#">Eliminar
                                                     </button>
 
-                                                <button type="button" class="btn btn-sm btn-outline-azure "
-                                                    data-bs-toggle="modal" data-bs-target="#modal-area"
-                                                    wire:click="edit({{ $item->id }})">
-                                                    Editar
-                                                </button>
-                                                <button wire:click="({{$item->id}})" class="btn btn-sm btn-outline-warning"
-                                                    data-bs-toggle="modal" data-bs-target="#modal-ip" >
-                                                    Asignar IP
-                                                </button>
+                                                    <button type="button" class="btn btn-sm btn-outline-azure "
+                                                        data-bs-toggle="modal" data-bs-target="#modal-area"
+                                                        wire:click="edit({{ $item->id }})">
+                                                        Editar
+                                                    </button>
+                                                    <button wire:click="({{ $item->id }})"
+                                                        class="btn btn-sm btn-outline-warning" data-bs-toggle="modal"
+                                                        data-bs-target="#modal-ip">
+                                                        Asignar IP
+                                                    </button>
 
 
-                                            </div>
-                                        </td>
-                                    </tr>
+                                                </div>
+                                            </td>
+                                        </tr>
 
 
 
                                     @empty
-                                    @if ($areas->count() == 0 && $search != '')
-                                        <tr>
-                                            <td colspan="7">
-                                                <div class="text-center"
-                                                    style="padding-bottom: 5rem; padding-top: 5rem;">
-                                                    <span class="text-secondary">
-                                                        No se encontraron resultados para
-                                                        "<strong>{{ $search }}</strong>"
-                                                    </span>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    @else
-                                        <tr>
-                                            <td colspan="7">
-                                                <div class="text-center"
-                                                    style="padding-bottom: 5rem; padding-top: 5rem;">
-                                                    <span class="text-secondary">
-                                                        No hay areas registradas
-                                                    </span>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    @endif
-
-                                @endforelse
+                                        @if ($areas->count() == 0 && $search != '')
+                                            <tr>
+                                                <td colspan="7">
+                                                    <div class="text-center"
+                                                        style="padding-bottom: 5rem; padding-top: 5rem;">
+                                                        <span class="text-secondary">
+                                                            No se encontraron resultados para
+                                                            "<strong>{{ $search }}</strong>"
+                                                        </span>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @else
+                                            <tr>
+                                                <td colspan="7">
+                                                    <div class="text-center"
+                                                        style="padding-bottom: 5rem; padding-top: 5rem;">
+                                                        <span class="text-secondary">
+                                                            No hay areas registradas
+                                                        </span>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endif
+                                    @endforelse
                                 </tbody>
 
 
@@ -194,22 +193,22 @@
                         </div>
                         <div class="card-footer {{ $areas->hasPages() ? 'py-0' : '' }}">
                             @if ($areas->hasPages())
-                            <div class="d-flex justify-content-between">
-                                <div class="d-flex align-items-center text-secondary">
-                                    Mostrando {{ $areas->firstItem() }} - {{ $areas->lastItem() }} de {{
-                                        $areas->total()}} registros
+                                <div class="d-flex justify-content-between">
+                                    <div class="d-flex align-items-center text-secondary">
+                                        Mostrando {{ $areas->firstItem() }} - {{ $areas->lastItem() }} de
+                                        {{ $areas->total() }} registros
+                                    </div>
+                                    <div class="mt-3">
+                                        {{ $areas->links() }}
+                                    </div>
                                 </div>
-                                <div class="mt-3">
-                                    {{ $areas->links() }}
-                                </div>
-                            </div>
                             @else
-                            <div class="d-flex justify-content-between">
-                                <div class="d-flex align-items-center text-secondary">
-                                    Mostrando {{ $areas->firstItem() }} - {{ $areas->lastItem() }} de {{
-                                        $areas->total()}} registros
+                                <div class="d-flex justify-content-between">
+                                    <div class="d-flex align-items-center text-secondary">
+                                        Mostrando {{ $areas->firstItem() }} - {{ $areas->lastItem() }} de
+                                        {{ $areas->total() }} registros
+                                    </div>
                                 </div>
-                            </div>
                             @endif
                         </div>
                     </div>
@@ -228,11 +227,12 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                         wire:click="limpiar_modal"></button>
                 </div>
-                <form autocomplete="off" novalidate wire:submit.prevent="{{ $modo === 'edit' ? 'actualizar_area' : 'guardar_area' }}" >
+                <form autocomplete="off" novalidate
+                    wire:submit.prevent="{{ $modo === 'edit' ? 'actualizar_area' : 'guardar_area' }}">
                     <div class="modal-body">
 
                         <!-- error si intenta crear un campo vacio-->
-                        @if(session()->has('error'))
+                        @if (session()->has('error'))
                             <div class="alert alert-danger">
                                 {{ session('error') }}
                             </div>
@@ -244,7 +244,8 @@
                                         Nombre del Area
                                     </label>
                                     <input type="text" class="form-control @error('name') is-invalid @enderror"
-                                        id="nombre" wire:model.live="name" placeholder="Ingrese nombre del Area" />
+                                        id="nombre" wire:model.live="name"
+                                        placeholder="Ingrese nombre del Area" />
                                     @error('name')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -257,10 +258,8 @@
                                     <label for="slug" class="form-label">
                                         Slug
                                     </label>
-                                    <input type="text"
-                                        class="form-control @error('slug') is-invalid @enderror"
-                                        id="slug" wire:model.live="slug"
-                                        placeholder="Ingrese Slug" />
+                                    <input type="text" class="form-control @error('slug') is-invalid @enderror"
+                                        id="slug" wire:model.live="slug" placeholder="Ingrese Slug" />
                                     @error('slug')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -275,7 +274,8 @@
                                         Abreviation
                                     </label>
                                     <input type="text" class="form-control @error('name') is-invalid @enderror"
-                                        id="abreviation" wire:model.live="abreviation" placeholder="Ingrese abreviacion" />
+                                        id="abreviation" wire:model.live="abreviation"
+                                        placeholder="Ingrese abreviacion" />
                                     @error('abreviation')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -305,8 +305,9 @@
                                     <label for="ip_inicio" class="form-label">
                                         IP Inicio
                                     </label>
-                                    <input type="text" class="form-control @error('ip_inicio') is-invalid @enderror"
-                                        id="ip_inicio" wire:model.live="ip_inicio" placeholder="Ingrese inicio del IP" />
+                                    <input type="text"
+                                        class="form-control @error('ip_inicio') is-invalid @enderror" id="ip_inicio"
+                                        wire:model.live="ip_inicio" placeholder="Ingrese inicio del IP" />
                                     @error('ip_inicio')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -351,62 +352,60 @@
     {{-- Modal Para asignar IP --}}
 
 
-<div>
-    <!-- Modal -->
-    <div class="modal fade modal-blur" id="modal-ip" tabindex="-1" wire:ignore.self wire:model="showModal">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">
-                        {{ $title_modal_ip }}
-                    </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                        wire:click="limpiar_modal"></button>
-                </div>
-                <form autocomplete="off" novalidate wire:submit.prevent="asignar_ip" >
-                    <div class="modal-body">
-                        <!-- error si intenta crear un campo vacio-->
-                        @if(session()->has('error'))
-                            <div class="alert alert-danger">
-                                {{ session('error') }}
+    <div>
+        <div class="modal fade modal-blur" id="modal-ip" tabindex="-1" wire:ignore.self wire:model="showModal">
+            <div class="modal-dialog modal-fullscreen" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">
+                            {{ $title_modal_ip }}
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                            wire:click="limpiar_modal"></button>
+                    </div>
+                    <form autocomplete="off" novalidate wire:submit.prevent="asignar_ip">
+                        <div class="modal-body">
+                            <!-- error si intenta crear un campo vacio-->
+                            @if (session()->has('error'))
+                                <div class="alert alert-danger">
+                                    {{ session('error') }}
+                                </div>
+                            @endif
+                            <div class="mb-3">
+                                <button type="button" class="btn btn-primary"
+                                    wire:click="filtrarIps('172.16.0.1')">IP 72.16.0.*</button>
+                                <button type="button" class="btn btn-primary"
+                                    wire:click="filtrarIps('172.16.0.2')">IP 72.16.1.*</button>
+                                <button type="button" class="btn btn-primary"
+                                    wire:click="filtrarIps('172.16.0.3')">IP 72.16.2.*</button>
+                                <button type="button" class="btn btn-primary"
+                                    wire:click="filtrarIps('172.16.0.4')">IP 72.16.3.*</button>
                             </div>
-                        @endif
-
-                        <!-- Opciones de filtrado -->
-                        <div class="mb-3">
-                            <button type="button" class="btn btn-primary" wire:click="filtrarIps('172.16.0.1')">Opción 1</button>
-                            <button type="button" class="btn btn-primary" wire:click="filtrarIps('172.16.0.2')">Opción 2</button>
-                            <button type="button" class="btn btn-primary" wire:click="filtrarIps('172.16.0.3')">Opción 3</button>
-                            <button type="button" class="btn btn-primary" wire:click="filtrarIps('172.16.0.4')">Opción 4</button>
                         </div>
-
-                    </div>
-                    <!-- Checkboxes -->
-                    <div class="row">
-                        @foreach($filteredIps as $ip)
-                            <div class="col-md-4">
-                                <label>
-                                    <input type="checkbox" wire:model="selectedIps.{{ $ip->id }}">
-                                    {{ $ip->ip }}
-                                </label>
-                            </div>
-                        @endforeach
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal"
-                            wire:click="limpiar_modal">
-                            Cancelar
-                        </button>
-                        <button type="submit" class="btn btn-cyan ms-auto">
-                            {{ $button_modal_ip }}
-                        </button>
-                    </div>
-                </form>
+                        <div class="row">
+                            @foreach ($filteredIps as $ip)
+                                <div class="col-md-1">
+                                    <label>
+                                        <input type="checkbox" wire:model="selectedIps.{{ $ip->id }}">
+                                        {{ $ip->ip }}
+                                    </label>
+                                </div>
+                            @endforeach
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal"
+                                wire:click="limpiar_modal">
+                                Cancelar
+                            </button>
+                            <button type="submit" class="btn btn-cyan ms-auto">
+                                {{ $button_modal_ip }}
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
-
 
 
     {{-- modal para eliminar --}}
@@ -420,7 +419,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                         wire:click="limpiar_modal"></button>
                 </div>
-                <form autocomplete="off" novalidate wire:submit.prevent="confirmar_eliminar" >
+                <form autocomplete="off" novalidate wire:submit.prevent="confirmar_eliminar">
                     <div class="modal-body">
                     </div>
                     <div>

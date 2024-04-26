@@ -34,7 +34,7 @@ class Index extends Component
 
     //para modal de asignar IP
     public $title_modal_ip = 'Asignar IP';
-    public $button_modal_ip ='Asignar IP';
+    public $button_modal_ip = 'Asignar IP';
 
     //para modal de crear y editar
     public $title_modal = 'Crear nueva Area';
@@ -65,17 +65,18 @@ class Index extends Component
     public $id_eliminar;
     public $alm_ip;
     public $ips;
-    public $mensaje='';
+    public $mensaje = '';
     public $ip_fin;
     public $is_active;
 
     public $area_id;
 
-    public $filteredIps=[];
+    public $filteredIps = [];
 
 
     //crear rol
-    public function create(){
+    public function create()
+    {
         $this->limpiar_modal();
         $this->modo = 'create';
         $this->title_modal = 'Crear nueva Area';
@@ -84,7 +85,8 @@ class Index extends Component
         $this->resetValidation();
     }
 
-    public function limpiar_modal(){
+    public function limpiar_modal()
+    {
         $this->reset([
             'name',
             'slug',
@@ -115,7 +117,7 @@ class Index extends Component
         $area->ip_inicio = $this->ip_inicio;
         $area->ip_fin = $this->ip_fin;
         $area->save();
-        $this->mensaje='El area se ah creado correctamente';
+        $this->mensaje = 'El area se ah creado correctamente';
         $this->limpiar_modal();
         return redirect()->route('area.index');
     }
@@ -179,6 +181,8 @@ class Index extends Component
         $this->ips = Ip::all();
     }
 
+
+    //filtrar las ip e el moddal
     public function filtrarIps($filtro)
     {
         // Verificar si el filtro seleccionado es opcion 0,1,2 o  3
@@ -210,32 +214,32 @@ class Index extends Component
 
 
     public function asignar_ip()
-{
-    if (empty($this->selectedIps)) {
-        session()->flash('error', 'Por favor, selecciona al menos una IP.');
+    {
+        if (empty($this->selectedIps)) {
+            session()->flash('error', 'Por favor, selecciona al menos una IP.');
+            return redirect()->route('area.index');
+        }
+
+        $area = Area::findOrFail($this->area_id);
+
+        foreach ($this->selectedIps as $ipId => $isSelected) {
+            if ($isSelected) {
+                $ip = Ip::findOrFail($ipId);
+                // Asigna el área a la IP
+                $ip->area_id = $area->id;
+                $ip->save();
+                // Guarda la asociación en la tabla intermedia
+                AreaIp::create([
+                    'area_id' => $area->id,
+                    'ip_id' => $ipId,
+                    'is_active' => true,
+                ]);
+            }
+        }
+
+        session()->flash('success', 'Las IPs se han asignado correctamente al área.');
         return redirect()->route('area.index');
     }
-
-    $area = Area::findOrFail($this->area_id);
-
-    foreach ($this->selectedIps as $ipId => $isSelected) {
-        if ($isSelected) {
-            $ip = Ip::findOrFail($ipId);
-            // Asigna el área a la IP
-            $ip->area_id = $area->id;
-            $ip->save();
-            // Guarda la asociación en la tabla intermedia
-            AreaIp::create([
-                'area_id' => $area->id,
-                'ip_id' => $ipId,
-                'is_active' => true, // o cualquier otro valor por defecto
-            ]);
-        }
-    }
-
-    session()->flash('success', 'Las IPs se han asignado correctamente al área.');
-    return redirect()->route('area.index');
-}
 
 
 
@@ -244,18 +248,18 @@ class Index extends Component
     //eliminar
 
 
-    //separar por columnas de 5
-    //que exista 5 opciones
+    //separar por columnas d
+    //que exista opciones
     //cada opcion que selecccione me muestre la columna que se selcciono
-    //sepracion 0 1 2 3 de yapa uno mas para el 3
+    //sepracion 0 1 2 3
 
 
     public function delete($id)
-{
-    $this->id_eliminar = $id;
-    $this->title_modal = 'Eliminar Área';
-    $this->button_modal = 'Eliminar Area';
-}
+    {
+        $this->id_eliminar = $id;
+        $this->title_modal = 'Eliminar Área';
+        $this->button_modal = 'Eliminar Area';
+    }
     public function confirmar_eliminar()
     {
 
@@ -272,12 +276,10 @@ class Index extends Component
     public function render()
     {
         $areas = Area::search($this->search)
-        ->orderBy('created_at', 'desc')
-        ->paginate($this->mostrar_paginate);
-        return view('livewire.area.index',[
-            'areas'=>$areas,
+            ->orderBy('created_at', 'desc')
+            ->paginate($this->mostrar_paginate);
+        return view('livewire.area.index', [
+            'areas' => $areas,
         ]);
-
     }
-
 }

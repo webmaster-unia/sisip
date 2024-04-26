@@ -11,7 +11,7 @@
                         </ol>
                     </div>
                     <h2 class="page-title text-uppercase">
-                        Roles
+                        Permiso
                     </h2>
                 </div>
                 <div class="col-auto ms-auto d-print-none">
@@ -25,10 +25,10 @@
                                 <path d="M12 5l0 14" />
                                 <path d="M5 12l14 0" />
                             </svg>
-                            Crear rol
+                            Crear permiso
                         </button>
                         <button type="button" class="btn btn-teal d-sm-none btn-icon" data-bs-toggle="modal"
-                            wire:click="create" data-bs-target="#modal-rol" aria-label="Crear rol">
+                            wire:click="create" data-bs-target="#modal-rol" aria-label="Crear permiso">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
                                 viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                                 stroke-linecap="round" stroke-linejoin="round">
@@ -83,7 +83,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse ($usuarios as $item )
+                                    @forelse ($permisos as $item )
                                     <tr>
                                         <td>
                                             {{$item->id}}
@@ -129,7 +129,7 @@
 
 
                                     @empty
-                                    @if ($usuarios->count() == 0 && $search != '')
+                                    @if ($permisos->count() == 0 && $search != '')
                                         <tr>
                                             <td colspan="7">
                                                 <div class="text-center"
@@ -147,7 +147,7 @@
                                                 <div class="text-center"
                                                     style="padding-bottom: 5rem; padding-top: 5rem;">
                                                     <span class="text-secondary">
-                                                        No hay areas registradas
+                                                        No hay permisos registradas
                                                     </span>
                                                 </div>
                                             </td>
@@ -158,22 +158,22 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="card-footer {{ $usuarios->hasPages() ? 'py-0' : '' }}">
-                            @if ($usuarios->hasPages())
+                        <div class="card-footer {{ $permisos->hasPages() ? 'py-0' : '' }}">
+                            @if ($permisos->hasPages())
                             <div class="d-flex justify-content-between">
                                 <div class="d-flex align-items-center text-secondary">
-                                    Mostrando {{ $usuarios->firstItem() }} - {{ $usuarios->lastItem() }} de {{
-                                        $usuarios->total()}} registros
+                                    Mostrando {{ $permisos->firstItem() }} - {{ $permisos->lastItem() }} de {{
+                                        $permisos->total()}} registros
                                 </div>
                                 <div class="mt-3">
-                                    {{ $usuarios->links() }}
+                                    {{ $permisos->links() }}
                                 </div>
                             </div>
                             @else
                             <div class="d-flex justify-content-between">
                                 <div class="d-flex align-items-center text-secondary">
-                                    Mostrando {{ $usuarios->firstItem() }} - {{ $usuarios->lastItem() }} de {{
-                                        $usuarios->total()}} registros
+                                    Mostrando {{ $permisos->firstItem() }} - {{ $permisos->lastItem() }} de {{
+                                        $permisos->total()}} registros
                                 </div>
                             </div>
                             @endif
