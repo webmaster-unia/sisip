@@ -337,8 +337,6 @@
     </div>
 
     {{-- Modal Para asignar IP --}}
-
-
     <div>
         <div class="modal fade modal-blur" id="modal-ip" tabindex="-1" wire:ignore.self wire:model="showModal">
             <div class="modal-dialog modal-fullscreen" role="document">
@@ -368,16 +366,22 @@
                                 <button type="button" class="btn btn-primary"
                                     wire:click="filtrarIps('172.16.0.4')">IP 72.16.3.*</button>
                             </div>
-                        </div>
-                        <div class="row">
-                            @foreach ($filteredIps as $ip)
-                                <div class="col-md-1">
-                                    <label>
-                                        <input type="checkbox" wire:model="selectedIps.{{ $ip->id }}">
-                                        {{ $ip->ip }}
-                                    </label>
-                                </div>
-                            @endforeach
+                            <div class="row">
+                                @php
+                                    $collection = collect($filteredIps);
+                                    $chunks = $collection->chunk(35);
+                                @endphp
+                                @foreach ($chunks as $chunk)
+                                    <div class="col-md-1">
+                                        @foreach ($chunk as $ip)
+                                            <label>
+                                                <input type="checkbox" wire:model="selectedIps.{{ $ip['id'] }}" {{ $ip['is_assigned'] ? 'disabled' : '' }}>
+                                                {{ $ip['ip'] }}
+                                            </label><br>
+                                        @endforeach
+                                    </div>
+                                @endforeach
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal"
@@ -393,6 +397,12 @@
             </div>
         </div>
     </div>
+
+
+
+
+
+
 
 
     {{-- modal para eliminar --}}

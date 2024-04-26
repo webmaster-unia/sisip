@@ -213,34 +213,46 @@ class Index extends Component
 
 
 
-
     public function asignar_ip()
     {
-        if (empty($this->selectedIps)) {
-            session()->flash('error', 'Por favor, selecciona al menos una IP.');
+        if (empty($this->area_id)) {
+            session()->flash('error', 'Por favor, selecciona un área.');
             return redirect()->route('area.index');
         }
 
         $area = Area::findOrFail($this->area_id);
+        $selectedIpsIds = [];
+
+
+        Ip::where('area_id', $area->id)->update(['is_active' => false]);
+
 
         foreach ($this->selectedIps as $ipId => $isSelected) {
             if ($isSelected) {
                 $ip = Ip::findOrFail($ipId);
-                // Asigna el área a la IP
                 $ip->area_id = $area->id;
                 $ip->save();
-                // Guarda la asociación en la tabla intermedia
+
+                //registrara en la tabal IP
                 AreaIp::create([
                     'area_id' => $area->id,
                     'ip_id' => $ipId,
                     'is_active' => true,
                 ]);
+
+                $selectedIpsIds[] = $ipId;
             }
         }
+
+        //desactivar las ips
+        Ip::where('area_id', $area->id)
+            ->whereNotIn('id', $selectedIpsIds)
+            ->update(['is_active' => false]);
 
         session()->flash('success', 'Las IPs se han asignado correctamente al área.');
         return redirect()->route('area.index');
     }
+
 
 
 
