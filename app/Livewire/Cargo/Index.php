@@ -3,10 +3,13 @@
 namespace App\Livewire\Cargo;
 
 use App\Models\Cargo;
+use Illuminate\Http\Request;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Url;
 use Livewire\Features\SupportFileUploads\WithFileUploads;
 use Livewire\WithPagination;
+use App\Area;
+use App\DireccionIP;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
@@ -91,8 +94,14 @@ class Index extends Component
 
     }
 
-     //guardar crear
+    //seleccionar las Areas y las ips:
 
+
+
+    //hacer una busqueda las ID de por medio de las id:
+
+
+     //guardar crear
      public function guardar_cargo()
      {
         if(empty($this->name_cargo)){
@@ -166,11 +175,12 @@ class Index extends Component
 
     public function render()
     {
-        $cargos= Cargo::search($this->search)
-        ->orderBy('created_at', 'desc')
-        ->paginate($this->mostrar_paginate);
+        $Cargos = $this->search
+        ? Cargo::where('name_cargo', 'like', '%' . $this-> search . '%')->paginate($this->mostrar_paginate)
+        : Cargo::paginate($this->mostrar_paginate);
+
         return view('livewire.cargo.index',[
-            'cargos'=>$cargos,
+            'cargos'=>$Cargos,
 
         ]);
     }

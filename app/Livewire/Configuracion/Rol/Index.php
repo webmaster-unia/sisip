@@ -36,6 +36,9 @@ class Index extends Component {
     #[Validate('nullable|boolean')]
     public $is_active;
 
+    //variable para almacenar el id
+    public $role_id;
+
     public function create() {
         $this->limpiar_modal();
         $this->modo = 'create';
@@ -57,14 +60,57 @@ class Index extends Component {
     }
 
 
-    public function guardar_ciclo()
+    public function guardar_rol()
     {
+        //para hacer que no ingrese campos vacios
+        if (empty($this->name) || empty($this->slug) || empty($this->description)) {
+            session()->flash('error', 'Por favor, complete todos los campos.');
+            return;
+        }
+
         $rol = new Role();
         $rol->name = $this->name;
         $rol->slug = $this->slug;
         $rol->description = $this->description;
         $rol->save();
         $this->limpiar_modal();
+        return redirect()->route('configuracion.rol.index');
+    }
+
+
+    //editar roles
+    public function edit($id)
+    {
+        $rol  = Role::findOrFail($id);
+        $this->role_id = $id;
+        $this->name = $rol->name;
+        $this->slug = $rol->slug;
+        $this->description = $rol->description;
+        $this->modo = 'edit';
+        $this->title_modal = 'Editar Rol';
+        $this->button_modal = 'Editar Rol';
+
+        $this->resetErrorBag();
+        $this->resetValidation();
+    }
+
+
+    public function actualizar_rol()
+    {
+
+        if($this->modo == 'create'){
+            $rol = new Role();
+        }else if($this->modo == 'edit'){
+            $rol = Role::findOrFail($this->role_id);
+        }
+
+        $rol->name = $this->name;
+        $rol->slug = $this->slug;
+        $rol->slug = $this->description;
+        $rol->save();
+        $this->limpiar_modal();
+        return redirect()->route('configuracion.rol.index');
+
     }
 
     public function eliminar_rol($id){

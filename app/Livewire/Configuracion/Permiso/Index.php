@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Configuracion\Permiso;
 
+use App\Models\Permission;
 use App\Models\User;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
@@ -25,6 +26,7 @@ class Index extends Component
     #[Url('buscar')]
     public $search = '';
 
+    public $mostrar_paginate = 10;
 
         //Varibles Modal
     public $title_modal = 'Crear Permiso';
@@ -36,6 +38,10 @@ class Index extends Component
     public $name;
     #[Validate('nullable|string|max:255')]
     public $slug;
+
+    public $mensaje='';
+
+    public $user_id;
 
 
     public function create()
@@ -59,49 +65,29 @@ class Index extends Component
         $this->resetValidation();
     }
 
-
-    public $users; // Propiedad para almacenar los usuarios
-
-    public function renderUsers()
+    public function guardar_permiso()
     {
-        // Obtener todos los usuarios
-        $this->users = User::all();
-
-        return view('livewire.configuracion.permiso.index', [
-            'users' => $this->users,
-        ]);
+        $permiso = new Permission();
+        $permiso->name = $this->name;
+        $permiso->slug = $this->slug;
+        $permiso->save();
+        $this->mensaje='El permiso se ah creado correctamente';
+        $this->limpiar_modal();
+        return redirect()->route('configuracion.permiso.index');
     }
 
-
-
-    public $mostrar_paginate = 10;
 
 
     public function render()
     {
 
-        // Obtén usuarios paginados con búsqueda si está presente, de lo contrario, obtén todos los usuarios
-        $usuarios = $this->search
-            ? User::where('name', 'like', '%' . $this->search . '%')->paginate($this->mostrar_paginate)
-            : User::paginate($this->mostrar_paginate);
-
-        return view('livewire.configuracion.permiso.index', [
-            'usuarios' => $usuarios,
+        $usuarios = User::search($this->search)
+        ->orderBy('created_at', 'desc')
+        ->paginate($this->mostrar_paginate);
+        return view('livewire.configuracion.permiso.index',[
+            'usuarios'=>$usuarios,
         ]);
     }
-    
-
-        public function togglePermission($userId, $permission)
-    {
-        $user = User::findOrFail($userId);
-
-        if ($user->hasPermission($permission)) {
-            $user->revokePermission($permission);
-        } else {
-            $user->givePermissionTo($permission);
-        }
-    }
-
 
 
 }

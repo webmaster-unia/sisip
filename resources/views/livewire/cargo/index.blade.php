@@ -174,8 +174,6 @@
                                                 </div>
                                             </td>
                                         </tr>
-
-
                                         @empty
                                         @if ($cargos->count() == 0 && $search != '')
                                             <tr>
@@ -206,31 +204,11 @@
 
                                 </table>
                             </div>
-                            <div class="card-footer {{ $cargos->hasPages() ? 'py-0' : '' }}">
-                                @if ($cargos->hasPages())
-                                <div class="d-flex justify-content-between">
-                                    <div class="d-flex align-items-center text-secondary">
-                                        Mostrando {{ $cargos->firstItem() }} - {{ $cargos->lastItem() }} de {{
-                                            $cargos->total()}} registros
-                                    </div>
-                                    <div class="mt-3">
-                                        {{ $cargos->links() }}
-                                    </div>
-                                </div>
-                                @else
-                                <div class="d-flex justify-content-between">
-                                    <div class="d-flex align-items-center text-secondary">
-                                        Mostrando {{ $cargos->firstItem() }} - {{ $cargos->lastItem() }} de {{
-                                            $cargos->total()}} registros
-                                    </div>
-                                </div>
-                                @endif
-                            </div>
                     </div>
                 </div>
             </div>
         </div>
-        {{-- modal rol --}}
+        {{-- modal cargo --}}
         <div class="modal fade modal-blur" id="modal-rol" tabindex="-1" wire:ignore.self>
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
@@ -306,6 +284,10 @@
                                             @enderror
                                         </div>
                                     </div>
+
+
+                                        <button type="submit">Guardar</button>
+                                    </form>
                                     <div class="col-lg-12">
                                         <div class="mb-3">
                                             <label for="descripcion" class="form-label">
