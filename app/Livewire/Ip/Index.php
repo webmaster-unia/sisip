@@ -12,6 +12,7 @@ use Livewire\WithPagination;
 class Index extends Component
 {
     use WithPagination;
+    protected $paginationTheme = 'bootstrap';
     use WithFileUploads;
 
     #[Url('Mostrar')]
