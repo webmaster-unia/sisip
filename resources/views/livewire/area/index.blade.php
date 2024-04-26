@@ -253,20 +253,6 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-lg-12">
-                                <div class="mb-3">
-                                    <label for="slug" class="form-label">
-                                        Slug
-                                    </label>
-                                    <input type="text" class="form-control @error('slug') is-invalid @enderror"
-                                        id="slug" wire:model.live="slug" placeholder="Ingrese Slug" />
-                                    @error('slug')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-                            </div>
 
                             <div class="col-lg-12">
                                 <div class="mb-3">
@@ -284,6 +270,7 @@
                                 </div>
                             </div>
 
+                            {{-- ////-///disablle //desahbilktar ips de acuerdo al uso --}}
                             <div class="col-lg-12">
                                 <div class="mb-3">
                                     <label for="cantidad" class="form-label">
