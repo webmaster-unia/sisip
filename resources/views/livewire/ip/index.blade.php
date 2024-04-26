@@ -102,7 +102,7 @@
                                                     <span class="status-dot status-dot-animated"></span>
                                                     Activo</span>
                                                 @else
-                                                    <span class="status status-teal px-3 py-2" wire:confirm="¿ Estás seguro que desea cambiar el estado?"
+                                                    <span class="status status-red px-3 py-2" wire:confirm="¿ Estás seguro que desea cambiar el estado?"
                                                     wire:click="cambiar_estado({{ $item->id }}, false)" style="cursor: pointer;">
                                                     <span class="status-dot status-dot-animated"></span>
                                                     Inactivo</span>
@@ -230,9 +230,6 @@
 
                     </div>
                 </form>
-
-
-
             </div>
         </div>
     </div>

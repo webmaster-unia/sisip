@@ -206,13 +206,6 @@ class Index extends Component
     }
 
 
-
-
-
-
-
-
-
     public function asignar_ip()
     {
         if (empty($this->area_id)) {
