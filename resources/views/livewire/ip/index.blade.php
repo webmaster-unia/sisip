@@ -115,12 +115,13 @@
                                                     wire:click="show({{ $item->id }})">
                                                     Ver
                                                 </button> --}}
-
-                                                <button type="button"
+                                            </button>
+                                            <button type="button" class="btn btn-danger btn-sm px-2"
                                                 wire:confirm="¿Estás seguro que desea eliminar este ip?"
-                                                wire:click="eliminar_ip({{ $item->id }})"
-                                                class="btn btn-danger btn-sm px-2">
+                                                data-bs-toggle="modal3" data-bs-target="#modal-rol"
+                                                wire:click="eliminar_ip({{ $item->id }})">
                                                 Eliminar
+                                            </button>
 
                                             </button>
                                                     <button type="button" class="btn btn-sm btn-outline-azure"
@@ -189,9 +190,9 @@
             </div>
         </div>
     </div>
-    {{-- modal rol --}}
+    {{-- modal edit ip --}}
     <div class="modal fade modal-blur" id="modal-rol" tabindex="-1" wire:ignore.self>
-        <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">
