@@ -92,7 +92,7 @@
                                             <span class="text-secondary">{{ $item->id }}</span>
                                         </td>
                                         <td class="d-flex align-items-center gap-2">
-                                            <img src="{{ $item->avatar ? asset($item->avatar) : $item->avatar }}" alt="avatar" class="avatar">
+                                            <img src="{{ $item->avatar_url}}" alt="avatar" class="avatar">
                                             <span class="fw-bold">
                                                 {{ $item->name }}
                                             </span>
@@ -102,7 +102,7 @@
                                         </td>
                                         <td>
                                             <span class="badge bg-cyan-lt py-2 px-3">
-                                                {{ $item->rol->nombre ?? 'Sin rol' }}
+                                                {{ $item->name_role ?? 'Sin rol' }}
                                             </span>
                                         </td>
                                         <td>
@@ -187,7 +187,7 @@
         </div>
     </div>
     {{-- modal ciclo --}}
-    <div class="modal" id="modal-usuario" tabindex="-1" wire:ignore.self>
+    <div class="modal fade modal-blur" id="modal-usuario" tabindex="-1" wire:ignore.self>
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -197,7 +197,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                         wire:click="limpiar_modal"></button>
                 </div>
-                <form autocomplete="off" novalidate wire:submit.prevent="{{ $modo === 'edit' ? 'actualizar_user' : 'guardar_ciclo' }}" >
+                <form autocomplete="off" novalidate wire:submit.prevent="guardar_user" >
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-lg-12">
@@ -205,7 +205,14 @@
                                     @if ($avatar)
                                     <img src="{{ $avatar->temporaryUrl() }}" alt="avatar" class="avatar avatar-md object-fit-cover">
                                     @else
-                                    <img src="{{ 'https://ui-avatars.com/api/?name=' . $this->nombre . '&size=64&&color=FFFFFF&background=000000' }}" alt="avatar" class="avatar avatar-md">
+                                        @php
+                                            $user = App\Models\User::find($user_id);
+                                        @endphp
+                                        @if ($user)
+                                            <img src="{{ $user->avatar_url }}" alt="avatar" class="avatar avatar-md">
+                                        @else
+                                            <img src="{{ 'https://ui-avatars.com/api/?name=' . $this->nombre . '&size=64&&color=FFFFFF&background=000000' }}" alt="avatar" class="avatar avatar-md">
+                                        @endif
                                     @endif
                                 </div>
                             </div>
@@ -288,7 +295,7 @@
                                         wire:model.live="rol">
                                         <option value="">Seleccione un rol</option>
                                         @foreach ($roles as $item)
-                                        <option value="{{ $item->id }}">{{ $item->nombre }}</option>
+                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
                                         @endforeach
                                     </select>
                                     @error('rol')

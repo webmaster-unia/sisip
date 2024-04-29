@@ -16,7 +16,7 @@
             <div class="nav-item dropdown">
                 <a style="cursor: pointer;" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown"
                     aria-label="Open user menu">
-                    <img src="{{ $user->avatar ? asset($user->avatar) : $user->avatar }}" alt="avatar"
+                    <img src="{{ $user->avatar_url }}" alt="avatar"
                         class="avatar avatar-sm">
                     <div class="d-none d-xl-block ps-2">
                         <div>
@@ -33,7 +33,7 @@
         </div>
         <div class="collapse navbar-collapse" id="sidebar-menu">
             <div class="d-flex justify-content-center mt-3 flex-column align-items-center">
-                <img src="{{ $user->avatar ? asset($user->avatar) : $user->avatar }}" alt="avatar"
+                <img src="{{ $user->avatar_url }}" alt="avatar"
                     class="avatar avatar-lg ms-3">
                 <span class="fw-bold fs-3 mt-3 text-center ms-3">
                     {{ $user->name }}

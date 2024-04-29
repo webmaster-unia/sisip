@@ -132,11 +132,6 @@
                                                     Ver
                                                 </button> --}}
 
-
-
-
-
-
                                                     <button type="button" class="btn btn-sm btn-outline-danger"
                                                         data-bs-toggle="modal" data-bs-target="#modal-eliminar"
                                                         wire:click="#">Eliminar
@@ -157,8 +152,6 @@
                                                 </div>
                                             </td>
                                         </tr>
-
-
 
                                     @empty
                                         @if ($areas->count() == 0 && $search != '')
@@ -216,7 +209,7 @@
             </div>
         </div>
     </div>
-    {{-- modal rol --}}
+    {{-- modal area --}}
     <div class="modal fade modal-blur" id="modal-area" tabindex="-1" wire:ignore.self>
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
@@ -399,12 +392,6 @@
     </div>
 
 
-
-
-
-
-
-
     {{-- modal para eliminar --}}
     <div class="modal fade modal-blur" id="modal-eliminar" tabindex="-1" wire:ignore.self>
         <div class="modal-dialog modal-lg" role="document">
@@ -423,11 +410,11 @@
                         <h4>¿Estas Seguro que quieres eliminar esta Area?</h4>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal"
+                        <button type="submit" class="btn btn-outline-secondary" data-bs-dismiss="modal"
                             wire:click="limpiar_modal">
                             Cancelar
                         </button>
-                        <button type="button" class="btn btn-cyan ms-auto">
+                        <button type="submit" class="btn btn-cyan ms-auto">
                             {{ $button_modal_eliminar }}
                         </button>
                     </div>

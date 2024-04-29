@@ -110,28 +110,23 @@ class Index extends Component
         }
 
         $permiso->name = $this->name;
-        $permiso->slug = $this->slug;
+        $slug = strtolower(str_replace(' ', '-', $this->name));
+        $permiso->slug = $slug;
         $permiso->save();
         $this->limpiar_modal();
         return redirect()->route('configuracion.permiso.index');
-
     }
 
     public function eliminarPermiso($id)
     {
         $permiso = Permission::find($id);
-
+        $this->modo='delete';
+        $this->title_modal = 'Eliminar PERMISO';
         if ($permiso) {
             $permiso->delete();
-            session()->flash('success', 'Permiso eliminado correctamente.');
-        } else {
-            session()->flash('error', 'No se pudo encontrar el permiso.');
         }
-
-        // Redirige de regreso a la página actual
-        return redirect()->to(route('configuracion.permiso.index'));
     }
-
+    
 
     public function render()
     {
@@ -143,11 +138,6 @@ class Index extends Component
             'permisos'=>$permisos,
         ]);
     }
-
-
-
-
-
 }
 
 

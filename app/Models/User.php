@@ -57,6 +57,12 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class, 'role_users', 'user_id', 'role_id');
     }
 
+    public function getNameRoleAttribute(): string
+    {
+        $rol_user = RoleUser::where('user_id', $this->id)->first();
+        return $rol_user->role->name;
+    }
+
     protected static function boot() {
         parent::boot();
 
@@ -74,8 +80,8 @@ class User extends Authenticatable
         });
     }
 
-    public function getAvatarAttribute(): string {
-        return $this->avatar ?? 'https://ui-avatars.com/api/?name=' . $this->name . '&size=64&&color=FFFFFF&background=000000';
+    public function getAvatarUrlAttribute(): string {
+        return $this->avatar ? asset($this->avatar) : ('https://ui-avatars.com/api/?name=' . $this->name . '&size=64&&color=FFFFFF&background=000000');
     }
 
     public function scopeSearch($query, $search) {
