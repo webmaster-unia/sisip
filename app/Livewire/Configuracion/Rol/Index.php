@@ -62,15 +62,19 @@ class Index extends Component {
 
     public function guardar_rol()
     {
-        //para hacer que no ingrese campos vacios
-        if (empty($this->name) || empty($this->slug) || empty($this->description)) {
+
+        if (empty($this->name) || empty($this->description)) {
             session()->flash('error', 'Por favor, complete todos los campos.');
             return;
         }
 
+
+        //para hacer que no ingrese campos vacios
+
         $rol = new Role();
         $rol->name = $this->name;
-        $rol->slug = $this->slug;
+        $slug = strtolower(str_replace(' ', '-', $this->name));
+        $rol->slug = $slug;
         $rol->description = $this->description;
         $rol->save();
         $this->limpiar_modal();
@@ -106,7 +110,7 @@ class Index extends Component {
 
         $rol->name = $this->name;
         $rol->slug = $this->slug;
-        $rol->slug = $this->description;
+        $rol->description = $this->description;
         $rol->save();
         $this->limpiar_modal();
         return redirect()->route('configuracion.rol.index');
@@ -120,7 +124,7 @@ class Index extends Component {
 
     public function render() {
         $roles = Role::search($this->search)
-            ->orderBy('created_at', 'desc')
+            ->orderBy('id', 'asc')
             ->paginate($this->mostrar_paginate);
         return view('livewire.configuracion.rol.index', [
             'roles' => $roles,

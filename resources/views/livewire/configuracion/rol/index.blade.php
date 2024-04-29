@@ -130,6 +130,12 @@
                                                     wire:click="edit({{ $item->id }})">
                                                     Editar
                                                 </button>
+
+                                                <button type="button" class="btn btn-sm btn-outline-azure"
+                                                    data-bs-toggle="modal" data-bs-target="#modal-asignar"
+                                                    wire:click="#">
+                                                    Asignar Permisos
+                                                </button>
                                             </div>
                                         </td>
                                     </tr>
@@ -221,27 +227,11 @@
 
                             <div class="col-lg-12">
                                 <div class="mb-3">
-                                    <label for="slug" class="form-label">
-                                        Slug
-                                    </label>
-                                    <input type="text" class="form-control @error('slug') is-invalid @enderror"
-                                        id="slug" wire:model.live="slug" placeholder="Ingrese Slug" />
-                                    @error('slug')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                    @enderror
-                                </div>
-                            </div>
-
-
-                            <div class="col-lg-12">
-                                <div class="mb-3">
-                                    <label for="descripcion" class="form-label">
+                                    <label for="description" class="form-label">
                                         Descripcion
                                     </label>
                                     <input type="text" class="form-control @error('description') is-invalid @enderror"
-                                        id="description" wire:model.live="descripcion" placeholder="Ingrese la descripcion del rol" />
+                                        id="description" wire:model.live="description" placeholder="Ingrese la descripcion del rol" />
                                     @error('description')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -250,6 +240,43 @@
                                 </div>
                             </div>
 
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal"
+                            wire:click="limpiar_modal">
+                            Cancelar
+                        </button>
+                        <button type="submit" class="btn btn-cyan ms-auto">
+                            {{ $button_modal }}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {{-- modal para asignar permisos --}}
+    <div class="modal fade modal-blur" id="modal-asignar" tabindex="-1" wire:ignore.self>
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        {{ $title_modal }}
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                        wire:click="limpiar_modal"></button>
+                </div>
+                <form autocomplete="off" novalidate wire:submit.prevent="{{ $modo === 'edit' ? 'actualizar_rol' : 'guardar_rol' }}" >
+                    <div class="modal-body">
+                        <!-- error si intenta crear un campo vacio-->
+                        @if(session()->has('error'))
+                            <div class="alert alert-danger">
+                                {{ session('error') }}
+                            </div>
+                        @endif
+                        <div class="row">
 
                         </div>
                     </div>
