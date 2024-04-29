@@ -16,7 +16,8 @@ use Livewire\WithPagination;
 
 #[Title('Usuarios - IP OTI')]
 #[Layout('components.layouts.app')]
-class Index extends Component {
+class Index extends Component
+{
     use WithPagination;
     use WithFileUploads;
 
@@ -46,7 +47,8 @@ class Index extends Component {
     #[Validate('required|exists:roles,id')]
     public $rol;
 
-    public function create() {
+    public function create()
+    {
         $this->limpiar_modal();
         $this->modo = 'create';
         $this->title_modal = 'Crear nuevo usuario';
@@ -55,33 +57,35 @@ class Index extends Component {
         $this->resetValidation();
     }
 
-    public function limpiar_modal() {
+    public function limpiar_modal()
+    {
         $this->reset([
             'nombre',
             'correo_electronico',
             'contraseña',
             'contraseña_confirmacion',
             'avatar',
+            'rol',
         ]);
         $this->resetErrorBag();
         $this->resetValidation();
     }
 
     public function guardar_ciclo()
-{
-    $user = new User();
-    $user->name = $this->nombre;
-    $user->email = $this->correo_electronico;
+    {
+        $user = new User();
+        $user->name = $this->nombre;
+        $user->email = $this->correo_electronico;
 
-    // Asignar una contraseña predeterminada si no se proporciona una
-    $user->password = $this->contraseña ?? 'defaultpassword';
+        // Asignar una contraseña predeterminada si no se proporciona una
+        $user->password = $this->contraseña ?? 'defaultpassword';
 
-    $user->avatar = $this->avatar;
-    $user->save();
+        $user->avatar = $this->avatar;
+        $user->save();
 
-    $this->limpiar_modal();
-    return redirect()->route('configuracion.usuario.index');
-}
+        $this->limpiar_modal();
+        return redirect()->route('configuracion.usuario.index');
+    }
 
     public function edit_user($id)
     {
@@ -89,6 +93,7 @@ class Index extends Component {
         $this->user_id = $user->id;
         $this->nombre = $user->name;
         $this->correo_electronico = $user->email;
+        $this->rol = $user->roles->first()->id;
         $this->modo = 'edit';
         $this->title_modal = 'Editar User';
         $this->button_modal = 'Actualizar User';
@@ -98,33 +103,35 @@ class Index extends Component {
     }
 
     //ahora actualizarlo
-    public function actualizar_user(){
+    public function actualizar_user()
+    {
         if ($this->modo == 'create') {
             $user = new User();
         } elseif ($this->modo == 'edit') {
             $user = User::findOrFail($this->user_id);
         }
-    if ($this->modo == 'edit') {
-        $user = User::findOrFail($this->user_id);
+        if ($this->modo == 'edit') {
+            $user = User::findOrFail($this->user_id);
 
-        $user->name = $this->nombre;
-        $user->email = $this->correo_electronico;
+            $user->name = $this->nombre;
+            $user->email = $this->correo_electronico;
 
-        $user->save();
+            $user->save();
+        }
+
+        $this->limpiar_modal();
+        return redirect()->route('configuracion.usuario.index');
     }
 
-    $this->limpiar_modal();
-    return redirect()->route('configuracion.usuario.index');
-}
-
-public function eliminar_user($id)
+    public function eliminar_user($id)
     {
 
         User::findOrFail($id)->delete();
         return $this->render();
     }
 
-    public function render() {
+    public function render()
+    {
         $usuarios = User::search($this->search)
             ->orderBy('id', 'asc')
             ->paginate($this->mostrar_paginate);
@@ -135,47 +142,36 @@ public function eliminar_user($id)
         ]);
     }
 
+    // Relación con roles
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
 
+    // Verificar si el usuario tiene un permiso específico
+    public function hasPermission($permission)
+    {
+        foreach ($this->roles as $role) {
+            if ($role->hasPermission($permission)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
-    
-     // Relación con roles
-     public function roles()
-     {
-         return $this->belongsToMany(Role::class);
-     }
- 
-     // Verificar si el usuario tiene un permiso específico
-     public function hasPermission($permission)
-     {
-         foreach ($this->roles as $role) {
-             if ($role->hasPermission($permission)) {
-                 return true;
-             }
-         }
-         return false;
-     }
- 
-     // Otorgar un permiso al usuario
-     public function givePermissionTo($permission)
-     {
-         foreach ($this->roles as $role) {
-             $role->givePermissionTo($permission);
-         }
-     }
- 
-     // Revocar un permiso al usuario
-     public function revokePermission($permission)
-     {
-         foreach ($this->roles as $role) {
-             $role->revokePermission($permission);
-         }
-     }
+    // Otorgar un permiso al usuario
+    public function givePermissionTo($permission)
+    {
+        foreach ($this->roles as $role) {
+            $role->givePermissionTo($permission);
+        }
+    }
+
+    // Revocar un permiso al usuario
+    public function revokePermission($permission)
+    {
+        foreach ($this->roles as $role) {
+            $role->revokePermission($permission);
+        }
+    }
 }
-
-
-
-
-
-
-
-

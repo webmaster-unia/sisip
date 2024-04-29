@@ -57,6 +57,12 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class, 'role_users', 'user_id', 'role_id');
     }
 
+    public function getNameRoleAttribute(): string
+    {
+        $rol_user = RoleUser::where('user_id', $this->id)->first();
+        return $rol_user->role->name;
+    }
+
     protected static function boot() {
         parent::boot();
 
