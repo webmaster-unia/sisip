@@ -41,6 +41,7 @@
             </div>
         </div>
     </div>
+    {{-- mostrar --}}
     <div class="page-body">
         <div class="container-xl">
             <div class="alert alert-info bg-info-lt m-0 mb-3 fw-bold animate__animated animate__fadeIn animate__faster">

@@ -17,6 +17,8 @@ function subirFile($file, $model, $atributo, $id, $folder)
         $folder,
     ];
 
+
+
     // Asegurar que se creen los directorios con los permisos correctos
     $path = asignarPermisoFolders($base_path, $folders);
 
