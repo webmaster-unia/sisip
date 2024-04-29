@@ -74,7 +74,7 @@ class Index extends Component
     public $filteredIps = [];
 
 
-    //crear rol
+    //crear area
     public function create()
     {
         $this->limpiar_modal();
@@ -171,7 +171,7 @@ class Index extends Component
 
 
 
-    //obtener las ip param ostar en mi modal
+    //obtener las ip para mostar en mi modal
     public function mount()
     {
         $this->getAllIp();
@@ -181,7 +181,6 @@ class Index extends Component
     {
         $this->ips = Ip::all();
     }
-
 
     //filtrar las ip e el moddal
     public function filtrarIps($filtro)
@@ -206,6 +205,8 @@ class Index extends Component
     }
 
 
+
+    //asignar ip a un area
     public function asignar_ip()
     {
         if (empty($this->area_id)) {
@@ -215,7 +216,6 @@ class Index extends Component
 
         $area = Area::findOrFail($this->area_id);
         $selectedIpsIds = [];
-
 
         Ip::where('area_id', $area->id)->update(['is_active' => false]);
 
@@ -246,12 +246,18 @@ class Index extends Component
         return redirect()->route('area.index');
     }
 
-
-
-
-
-
-    //eliminar
+/*
+    public function asignar()
+    {
+        $rol = new Rol();
+        $rol->nombre = $this->nombre;
+        $rol->estado = $this->estado == true ? 1 : 0;
+        $rol->save();
+        $rol->permisos()->sync($this->permiso); // $this->permiso es el array que contiene todos los id de permiso
+        // mostramos mensaje
+        $this->dispatch('toast-basico', text: 'El rol se creo correctamente', color: 'success');
+    }
+*/
 
 
     //separar por columnas d
@@ -259,12 +265,17 @@ class Index extends Component
     //cada opcion que selecccione me muestre la columna que se selcciono
     //sepracion 0 1 2 3
 
+    //eliminar
+
+
 
     public function delete($id)
     {
+
         $this->id_eliminar = $id;
+        $this->modo = 'delete';
         $this->title_modal = 'Eliminar Área';
-        $this->button_modal = 'Eliminar Area';
+        $this->button_modal_eliminar = 'Eliminar Area';
     }
     public function confirmar_eliminar()
     {
@@ -279,6 +290,8 @@ class Index extends Component
 
         $this->limpiar_modal();
     }
+
+
     public function render()
     {
         $areas = Area::search($this->search)

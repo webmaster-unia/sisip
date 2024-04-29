@@ -102,7 +102,7 @@
                                         </td>
                                         <td>
                                             <span class="badge bg-cyan-lt py-2 px-3">
-                                                {{ $item->rol->nombre ?? 'Sin rol' }}
+                                                {{ $item->name_role ?? 'Sin rol' }}
                                             </span>
                                         </td>
                                         <td>
@@ -288,7 +288,7 @@
                                         wire:model.live="rol">
                                         <option value="">Seleccione un rol</option>
                                         @foreach ($roles as $item)
-                                        <option value="{{ $item->id }}">{{ $item->nombre }}</option>
+                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
                                         @endforeach
                                     </select>
                                     @error('rol')

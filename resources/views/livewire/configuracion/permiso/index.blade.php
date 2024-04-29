@@ -103,10 +103,11 @@
                                                     Ver
                                                 </button> --}}
 
-                                                <button type="button" class="btn btn-sm btn-outline-danger"
-                                                        wire:click="eliminarPermiso({{ $item->id }})">
-                                                    Eliminar
-                                                </button>
+                                                <div class="btn-list flex-nowrap justify-content-end">
+                                                <form wire:submit.prevent="eliminarPermiso({{ $item->id }})" style="display: inline;" class="d-inline">
+                                                    <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('¿Estás seguro de que quieres eliminar este permiso?')">Eliminar</button>
+                                                </form>
+                                                </div>
 
 
                                                 <button type="button" class="btn btn-sm btn-outline-azure "
