@@ -75,7 +75,6 @@ class Index extends Component {
 
     // Asignar una contraseña predeterminada si no se proporciona una
     $user->password = $this->contraseña ?? 'defaultpassword';
-
     $user->avatar = $this->avatar;
     $user->save();
 
@@ -137,13 +136,13 @@ public function eliminar_user($id)
 
 
 
-    
+
      // Relación con roles
      public function roles()
      {
          return $this->belongsToMany(Role::class);
      }
- 
+
      // Verificar si el usuario tiene un permiso específico
      public function hasPermission($permission)
      {
@@ -154,7 +153,7 @@ public function eliminar_user($id)
          }
          return false;
      }
- 
+
      // Otorgar un permiso al usuario
      public function givePermissionTo($permission)
      {
@@ -162,7 +161,7 @@ public function eliminar_user($id)
              $role->givePermissionTo($permission);
          }
      }
- 
+
      // Revocar un permiso al usuario
      public function revokePermission($permission)
      {
