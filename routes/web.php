@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
 use App\Livewire\Auth\Login as AuthLogin;
 use App\Livewire\Home\Index as HomeIndex;
 use App\Livewire\Configuracion\Usuario\Index as ConfiguracionUsuarioIndex;
@@ -10,6 +9,7 @@ use App\Livewire\Configuracion\Permiso\Index as ConfiguracionPermisoIndex;
 use App\Livewire\Cargo\Index as CargoIndex;
 use App\Livewire\Ip\Index as IpIndex;
 use App\Livewire\Area\Index as AreaIndex;
+
 
 // ruta que redirige al home
 Route::redirect('/', '/home');
@@ -40,6 +40,13 @@ Route::prefix('configuracion')->group(function () {
         Route::get('/ip',IpIndex::class)
         ->middleware('auth')
         ->name('ip.index');
+
+
+
+        Route::post('/generar-ips', [IpIndex::class, 'generarYGuardarIPs'])
+        ->middleware('auth')
+        ->name('ip.generar_ips');
+
         //Ruta para area
         Route::get('/area', AreaIndex::class)
         ->middleware('auth')
@@ -48,6 +55,5 @@ Route::prefix('configuracion')->group(function () {
         Route::get('/cargo', CargoIndex::class)
         ->middleware('auth')
         ->name('cargo.index');
-
 });
 

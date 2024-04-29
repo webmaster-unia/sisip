@@ -16,7 +16,7 @@
                 <div class="col-auto ms-auto d-print-none">
                     <div class="btn-list">
                         <button type="button" class="btn btn-cyan d-none d-sm-inline-block" data-bs-toggle="modal"
-                            wire:click="create" data-bs-target="#modal-rol">
+                            wire:click="create" data-bs-target="#modal-area">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
                                 viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                                 stroke-linecap="round" stroke-linejoin="round">
@@ -87,125 +87,121 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse ($areas as $item )
-                                    <tr>
-                                        <td>
-                                            {{$item->id}}
-                                        </td>
-                                        <td>
-                                            {{$item->name}}
-                                        </td>
-                                        <td>
-                                            {{$item->slug}}
-                                        </td>
-                                        <td>
-                                            {{$item->abreviation}}
-                                        </td>
-                                        <td>
-                                            {{$item->cantidad}}
-                                        </td>
-                                        <td>
-                                            {{$item->ip_inicio}}
-                                        </td>
-                                        <td>
-                                            {{$item->ip_fin}}
-                                        </td>
-                                        <td>
-                                            @if ($item->is_active == 1)
-                                            <span class="status status-teal px-3 py-2">
-                                                <span class="status-dot status-dot-animated"></span>
-                                                Activo
-                                            </span>
-                                            @else
-                                            <span class="status status-red px-3 py-2">
-                                                <span class="status-dot status-dot-animated"></span>
-                                                Inactivo
-                                            </span>
-                                            @endif
+                                    @forelse ($areas as $item)
+                                        <tr>
+                                            <td>
+                                                {{ $item->id }}
+                                            </td>
+                                            <td>
+                                                {{ $item->name }}
+                                            </td>
+                                            <td>
+                                                {{ $item->slug }}
+                                            </td>
+                                            <td>
+                                                {{ $item->abreviation }}
+                                            </td>
+                                            <td>
+                                                {{ $item->cantidad }}
+                                            </td>
+                                            <td>
+                                                {{ $item->ip_inicio }}
+                                            </td>
+                                            <td>
+                                                {{ $item->ip_fin }}
+                                            </td>
+                                            <td>
+                                                @if ($item->is_active == 1)
+                                                    <span class="status status-teal px-3 py-2">
+                                                        <span class="status-dot status-dot-animated"></span>
+                                                        Activo
+                                                    </span>
+                                                @else
+                                                    <span class="status status-red px-3 py-2">
+                                                        <span class="status-dot status-dot-animated"></span>
+                                                        Inactivo
+                                                    </span>
+                                                @endif
 
-                                        </td>
-                                        <td>
-                                            <div class="btn-list flex-nowrap justify-content-end">
-                                                {{-- <button type="button" class="btn btn-sm btn-outline"
+                                            </td>
+                                            <td>
+                                                <div class="btn-list flex-nowrap justify-content-end">
+                                                    {{-- <button type="button" class="btn btn-sm btn-outline"
                                                     data-bs-toggle="modal" data-bs-target="#modal-ciclo-ver"
                                                     wire:click="show({{ $item->id }})">
                                                     Ver
                                                 </button> --}}
 
-                                                <div>
-                                                    <a href="#" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#confirmarEliminarModal{{ $item->id }}">Eliminar</a>
+                                                    <button type="button" class="btn btn-sm btn-outline-danger"
+                                                        data-bs-toggle="modal" data-bs-target="#modal-eliminar"
+                                                        wire:click="#">Eliminar
+                                                    </button>
 
-                                                    <!-- Modal de Confirmación -->
-                                                    <div wire:model="showModal" class="modal">
-                                                        <div class="modal-content">
+                                                    <button type="button" class="btn btn-sm btn-outline-azure "
+                                                        data-bs-toggle="modal" data-bs-target="#modal-area"
+                                                        wire:click="edit({{ $item->id }})">
+                                                        Editar
+                                                    </button>
+                                                    <button wire:click="({{ $item->id }})"
+                                                        class="btn btn-sm btn-outline-warning" data-bs-toggle="modal"
+                                                        data-bs-target="#modal-ip">
+                                                        Asignar IP
+                                                    </button>
 
-                                                            <p>¿Estás seguro de que quieres eliminar esta área?</p>
-                                                            <button wire:click="eliminar_area">Eliminar</button>
-                                                        </div>
-                                                    </div>
+
                                                 </div>
-
-                                                <button type="button" class="btn btn-sm btn-outline-azure"
-                                                    data-bs-toggle="modal" data-bs-target="#modal-rol"
-                                                    wire:click="edit({{ $item->id }})">
-                                                    Editar
-                                                </button>
-
-                                            </div>
-                                        </td>
-                                    </tr>
-
-
+                                            </td>
+                                        </tr>
 
                                     @empty
-                                    @if ($areas->count() == 0 && $search != '')
-                                        <tr>
-                                            <td colspan="7">
-                                                <div class="text-center"
-                                                    style="padding-bottom: 5rem; padding-top: 5rem;">
-                                                    <span class="text-secondary">
-                                                        No se encontraron resultados para
-                                                        "<strong>{{ $search }}</strong>"
-                                                    </span>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    @else
-                                        <tr>
-                                            <td colspan="7">
-                                                <div class="text-center"
-                                                    style="padding-bottom: 5rem; padding-top: 5rem;">
-                                                    <span class="text-secondary">
-                                                        No hay areas registradas
-                                                    </span>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    @endif
-
-                                @endforelse
+                                        @if ($areas->count() == 0 && $search != '')
+                                            <tr>
+                                                <td colspan="7">
+                                                    <div class="text-center"
+                                                        style="padding-bottom: 5rem; padding-top: 5rem;">
+                                                        <span class="text-secondary">
+                                                            No se encontraron resultados para
+                                                            "<strong>{{ $search }}</strong>"
+                                                        </span>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @else
+                                            <tr>
+                                                <td colspan="7">
+                                                    <div class="text-center"
+                                                        style="padding-bottom: 5rem; padding-top: 5rem;">
+                                                        <span class="text-secondary">
+                                                            No hay areas registradas
+                                                        </span>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endif
+                                    @endforelse
                                 </tbody>
+
 
                             </table>
                         </div>
                         <div class="card-footer {{ $areas->hasPages() ? 'py-0' : '' }}">
                             @if ($areas->hasPages())
-                            <div class="d-flex justify-content-between">
-                                <div class="d-flex align-items-center text-secondary">
-                                    Mostrando {{ $areas->firstItem() }} - {{ $areas->lastItem() }} de {{
-                                        $areas->total()}} registros
+                                <div class="d-flex justify-content-between">
+                                    <div class="d-flex align-items-center text-secondary">
+                                        Mostrando {{ $areas->firstItem() }} - {{ $areas->lastItem() }} de
+                                        {{ $areas->total() }} registros
+                                    </div>
+                                    <div class="mt-3">
+                                        {{ $areas->links() }}
+                                    </div>
                                 </div>
-                                <div class="mt-3">
-                                    {{ $areas->links() }}
-                                </div>
-                            </div>
                             @else
-                            <div class="d-flex justify-content-between">
-                                <div class="d-flex align-items-center text-secondary">
-                                    Mostrando {{ $areas->firstItem() }} - {{ $areas->lastItem() }} de {{
-                                        $areas->total()}} registros
+                                <div class="d-flex justify-content-between">
+                                    <div class="d-flex align-items-center text-secondary">
+                                        Mostrando {{ $areas->firstItem() }} - {{ $areas->lastItem() }} de
+                                        {{ $areas->total() }} registros
+                                    </div>
                                 </div>
-                            </div>
                             @endif
                         </div>
                     </div>
@@ -214,7 +210,7 @@
         </div>
     </div>
     {{-- modal rol --}}
-    <div class="modal fade modal-blur" id="modal-rol" tabindex="-1" wire:ignore.self>
+    <div class="modal fade modal-blur" id="modal-area" tabindex="-1" wire:ignore.self>
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -224,11 +220,12 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                         wire:click="limpiar_modal"></button>
                 </div>
-                <form autocomplete="off" novalidate wire:submit.prevent="{{ $modo === 'edit' ? 'actualizar_area' : 'guardar_ciclo' }}" >
+                <form autocomplete="off" novalidate
+                    wire:submit.prevent="{{ $modo === 'edit' ? 'actualizar_area' : 'guardar_area' }}">
                     <div class="modal-body">
 
                         <!-- error si intenta crear un campo vacio-->
-                        @if(session()->has('error'))
+                        @if (session()->has('error'))
                             <div class="alert alert-danger">
                                 {{ session('error') }}
                             </div>
@@ -240,24 +237,9 @@
                                         Nombre del Area
                                     </label>
                                     <input type="text" class="form-control @error('name') is-invalid @enderror"
-                                        id="nombre" wire:model.live="name" placeholder="Ingrese nombre del Area" />
+                                        id="nombre" wire:model.live="name"
+                                        placeholder="Ingrese nombre del Area" />
                                     @error('name')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-lg-12">
-                                <div class="mb-3">
-                                    <label for="slug" class="form-label">
-                                        Slug
-                                    </label>
-                                    <input type="text"
-                                        class="form-control @error('slug') is-invalid @enderror"
-                                        id="slug" wire:model.live="slug"
-                                        placeholder="Ingrese Slug" />
-                                    @error('slug')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>
@@ -271,7 +253,8 @@
                                         Abreviation
                                     </label>
                                     <input type="text" class="form-control @error('name') is-invalid @enderror"
-                                        id="abreviation" wire:model.live="abreviation" placeholder="Ingrese abreviacion" />
+                                        id="abreviation" wire:model.live="abreviation"
+                                        placeholder="Ingrese abreviacion" />
                                     @error('abreviation')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -280,6 +263,7 @@
                                 </div>
                             </div>
 
+                            {{-- ////-///disablle //desahbilktar ips de acuerdo al uso --}}
                             <div class="col-lg-12">
                                 <div class="mb-3">
                                     <label for="cantidad" class="form-label">
@@ -301,8 +285,9 @@
                                     <label for="ip_inicio" class="form-label">
                                         IP Inicio
                                     </label>
-                                    <input type="text" class="form-control @error('ip_inicio') is-invalid @enderror"
-                                        id="ip_inicio" wire:model.live="ip_inicio" placeholder="Ingrese inicio del IP" />
+                                    <input type="text"
+                                        class="form-control @error('ip_inicio') is-invalid @enderror" id="ip_inicio"
+                                        wire:model.live="ip_inicio" placeholder="Ingrese inicio del IP" />
                                     @error('ip_inicio')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -343,4 +328,105 @@
             </div>
         </div>
     </div>
+
+    {{-- Modal Para asignar IP --}}
+    <div>
+        <div class="modal fade modal-blur" id="modal-ip" tabindex="-1" wire:ignore.self wire:model="showModal">
+            <div class="modal-dialog modal-fullscreen" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">
+                            {{ $title_modal_ip }}
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                            wire:click="limpiar_modal"></button>
+                    </div>
+                    <form autocomplete="off" novalidate wire:submit.prevent="asignar_ip">
+                        <div class="modal-body">
+                            <!-- error si intenta crear un campo vacio-->
+                            @if (session()->has('error'))
+                                <div class="alert alert-danger">
+                                    {{ session('error') }}
+                                </div>
+                            @endif
+                            <div class="mb-3">
+                                <button type="button" class="btn btn-primary"
+                                    wire:click="filtrarIps('172.16.0.1')">IP 72.16.0.*</button>
+                                <button type="button" class="btn btn-primary"
+                                    wire:click="filtrarIps('172.16.0.2')">IP 72.16.1.*</button>
+                                <button type="button" class="btn btn-primary"
+                                    wire:click="filtrarIps('172.16.0.3')">IP 72.16.2.*</button>
+                                <button type="button" class="btn btn-primary"
+                                    wire:click="filtrarIps('172.16.0.4')">IP 72.16.3.*</button>
+                            </div>
+                            <div class="row">
+                                @php
+                                    $collection = collect($filteredIps);
+                                    $chunks = $collection->chunk(35);
+                                @endphp
+                                @foreach ($chunks as $chunk)
+                                    <div class="col-md-1">
+                                        @foreach ($chunk as $ip)
+                                            <label>
+                                                <input type="checkbox" wire:model="selectedIps.{{ $ip['id'] }}" {{ $ip['is_assigned'] ? 'disabled' : '' }}>
+                                                {{ $ip['ip'] }}
+                                            </label><br>
+                                        @endforeach
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal"
+                                wire:click="limpiar_modal">
+                                Cancelar
+                            </button>
+                            <button type="submit" class="btn btn-cyan ms-auto">
+                                {{ $button_modal_ip }}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+    {{-- modal para eliminar --}}
+    <div class="modal fade modal-blur" id="modal-eliminar" tabindex="-1" wire:ignore.self>
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        Eliminar Una area
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                        wire:click="limpiar_modal"></button>
+                </div>
+                <form autocomplete="off" novalidate wire:submit.prevent="confirmar_eliminar">
+                    <div class="modal-body">
+                    </div>
+                    <div>
+                        <h4>¿Estas Seguro que quieres eliminar esta Area?</h4>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal"
+                            wire:click="limpiar_modal">
+                            Cancelar
+                        </button>
+                        <button type="button" class="btn btn-cyan ms-auto">
+                            {{ $button_modal_eliminar }}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
 </div>
