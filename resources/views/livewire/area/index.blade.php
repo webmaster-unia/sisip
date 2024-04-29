@@ -132,11 +132,6 @@
                                                     Ver
                                                 </button> --}}
 
-
-
-
-
-
                                                     <button type="button" class="btn btn-sm btn-outline-danger"
                                                         data-bs-toggle="modal" data-bs-target="#modal-eliminar"
                                                         wire:click="#">Eliminar
@@ -157,8 +152,6 @@
                                                 </div>
                                             </td>
                                         </tr>
-
-
 
                                     @empty
                                         @if ($areas->count() == 0 && $search != '')
