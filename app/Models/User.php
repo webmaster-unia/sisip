@@ -80,8 +80,8 @@ class User extends Authenticatable
         });
     }
 
-    public function getAvatarAttribute(): string {
-        return $this->avatar ?? 'https://ui-avatars.com/api/?name=' . $this->name . '&size=64&&color=FFFFFF&background=000000';
+    public function getAvatarUrlAttribute(): string {
+        return $this->avatar ? asset($this->avatar) : ('https://ui-avatars.com/api/?name=' . $this->name . '&size=64&&color=FFFFFF&background=000000');
     }
 
     public function scopeSearch($query, $search) {

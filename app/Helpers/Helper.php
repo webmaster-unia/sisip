@@ -3,12 +3,12 @@
 use App\Models\User;
 use Illuminate\Support\Facades\File;
 
-function subirAFile($file, $user_id, $folder)
+function subirFile($file, $model, $atributo, $id, $folder)
 {
     // eliminamos la imagen anterior
-    $user = User::find($user_id);
-    if ($user->avatar) {
-        File::delete($user->avatar);
+    $modelo = $model::find($id);
+    if ($modelo->$atributo) {
+        File::delete($modelo->$atributo);
     }
 
     // Crear directorios para guardar los archivos

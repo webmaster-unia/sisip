@@ -103,18 +103,31 @@ class Index extends Component
     }
 
     //ahora actualizarlo
-    public function actualizar_user()
+    public function guardar_user()
     {
+        $this->validate([
+            'nombre' => 'required|max:255',
+            'correo_electronico' => 'required|email|max:255',
+            'rol' => 'required|exists:roles,id',
+            'contraseña' => $this->modo == 'create' ? 'required|min:8|max:255' : 'nullable|min:8|max:255',
+            'contraseña_confirmacion' => $this->modo == 'create' ? 'required|min:8|max:255|same:contraseña' : 'nullable|min:8|max:255|same:contraseña',
+        ]);
+
         if ($this->modo == 'create') {
             $user = new User();
         } elseif ($this->modo == 'edit') {
             $user = User::findOrFail($this->user_id);
-        }
-        if ($this->modo == 'edit') {
-            $user = User::findOrFail($this->user_id);
 
             $user->name = $this->nombre;
             $user->email = $this->correo_electronico;
+            if ($this->contraseña) {
+                $user->password = Hash::make($this->contraseña);
+            }
+            if ($this->avatar) {
+                // subir la imagen
+                $nombre_db = subirFile($this->avatar, User::class, 'avatar', $user->id, 'avatars');
+                $user->avatar = $nombre_db;
+            }
 
             $user->save();
         }

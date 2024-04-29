@@ -92,7 +92,7 @@
                                             <span class="text-secondary">{{ $item->id }}</span>
                                         </td>
                                         <td class="d-flex align-items-center gap-2">
-                                            <img src="{{ $item->avatar ? asset($item->avatar) : $item->avatar }}" alt="avatar" class="avatar">
+                                            <img src="{{ $item->avatar_url}}" alt="avatar" class="avatar">
                                             <span class="fw-bold">
                                                 {{ $item->name }}
                                             </span>
@@ -197,7 +197,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                         wire:click="limpiar_modal"></button>
                 </div>
-                <form autocomplete="off" novalidate wire:submit.prevent="{{ $modo === 'edit' ? 'actualizar_user ' : 'guardar_ciclo' }}" >
+                <form autocomplete="off" novalidate wire:submit.prevent="guardar_user" >
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-lg-12">
@@ -205,7 +205,14 @@
                                     @if ($avatar)
                                     <img src="{{ $avatar->temporaryUrl() }}" alt="avatar" class="avatar avatar-md object-fit-cover">
                                     @else
-                                    <img src="{{ 'https://ui-avatars.com/api/?name=' . $this->nombre . '&size=64&&color=FFFFFF&background=000000' }}" alt="avatar" class="avatar avatar-md">
+                                        @php
+                                            $user = App\Models\User::find($user_id);
+                                        @endphp
+                                        @if ($user)
+                                            <img src="{{ $user->avatar_url }}" alt="avatar" class="avatar avatar-md">
+                                        @else
+                                            <img src="{{ 'https://ui-avatars.com/api/?name=' . $this->nombre . '&size=64&&color=FFFFFF&background=000000' }}" alt="avatar" class="avatar avatar-md">
+                                        @endif
                                     @endif
                                 </div>
                             </div>
