@@ -138,15 +138,12 @@
                                                     <!-- Modal de Confirmación -->
                                                     <div wire:model="showModal" class="modal">
                                                         <div class="modal-content">
-                                                        
+
                                                             <p>¿Estás seguro de que quieres eliminar esta área?</p>
                                                             <button wire:click="eliminar_area">Eliminar</button>
                                                         </div>
                                                     </div>
                                                 </div>
-
-
-
 
                                                 <button type="button" class="btn btn-sm btn-outline-azure"
                                                     data-bs-toggle="modal" data-bs-target="#modal-rol"

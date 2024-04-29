@@ -159,7 +159,7 @@ class Index extends Component
     public function render()
     {
         $areas = Area::search($this->search)
-        ->orderBy('created_at', 'desc')
+        ->orderBy('id', 'asc')
         ->paginate($this->mostrar_paginate);
         return view('livewire.area.index',[
             'areas'=>$areas,

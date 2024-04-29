@@ -83,9 +83,6 @@ class Index extends Component {
     return redirect()->route('configuracion.usuario.index');
 }
 
-
-
-
     public function edit_user($id)
     {
         $user = User::findOrFail($id);
@@ -120,9 +117,6 @@ class Index extends Component {
     return redirect()->route('configuracion.usuario.index');
 }
 
-
-
-
 public function eliminar_user($id)
     {
 
@@ -132,7 +126,7 @@ public function eliminar_user($id)
 
     public function render() {
         $usuarios = User::search($this->search)
-            ->orderBy('created_at', 'desc')
+            ->orderBy('id', 'asc')
             ->paginate($this->mostrar_paginate);
         $roles = Role::where('is_active', true)->get();
         return view('livewire.configuracion.usuario.index', [
