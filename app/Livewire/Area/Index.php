@@ -266,10 +266,11 @@ class Index extends Component
         $this->title_modal = 'Eliminar Área';
         $this->button_modal = 'Eliminar Area';
     }
-    public function confirmar_eliminar()
+    public function confirmar_eliminar($id)
     {
 
-        $areas = Area::find($this->id_eliminar);
+        $areas = Area::find($id);
+        $this->modo='delete';
         if ($areas) {
             $areas->delete();
             $this->mensaje = 'El área se ha eliminado correctamente';
