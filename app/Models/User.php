@@ -60,7 +60,7 @@ class User extends Authenticatable
     public function getNameRoleAttribute(): string
     {
         $rol_user = RoleUser::where('user_id', $this->id)->first();
-        return $rol_user->role->name;
+        return $rol_user->role->name ?? 'Sin rol asignado';
     }
 
     protected static function boot() {
