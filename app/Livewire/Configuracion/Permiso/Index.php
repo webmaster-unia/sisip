@@ -41,7 +41,7 @@ class Index extends Component
 
     public $mensaje='';
 
-    public $user_id;
+    public $permiso_id;
 
 
     public function create()
@@ -67,14 +67,70 @@ class Index extends Component
 
     public function guardar_permiso()
     {
+    
+
+        // Verificar que el campo de nombre no esté vacío
+        if (empty($this->name)) {
+            $this->addError('name', 'El campo de nombre no puede estar vacío.');
+            return;
+        }
+
         $permiso = new Permission();
+        $permiso->name = $this->name;
+        $slug = strtolower(str_replace(' ', '-', $this->name));
+        $permiso->slug = $slug;
+        $permiso->save();
+
+        $this->mensaje = 'El permiso se ha creado correctamente';
+        $this->limpiar_modal();
+        return redirect()->route('configuracion.permiso.index');
+    }
+
+
+    public function edit($id){
+        $permiso = Permission::findOrFail($id);
+        $this->permiso_id = $id;
+        $this->name = $permiso->name;
+        $this->slug = $permiso->slug;
+        $this->modo = 'edit';
+        $this->title_modal = 'Editar Permiso';
+        $this->button_modal = 'Actualizar Permiso';
+
+        $this->resetErrorBag();
+        $this->resetValidation();
+
+    }
+
+    public function actualizarPermiso(){
+
+        if ($this->modo == 'create') {
+            $permiso = new Permission();
+        } elseif ($this->modo == 'edit') {
+            $permiso = Permission::findOrFail($this->permiso_id);
+        }
+
         $permiso->name = $this->name;
         $permiso->slug = $this->slug;
         $permiso->save();
         $this->limpiar_modal();
         return redirect()->route('configuracion.permiso.index');
+
     }
 
+    public function eliminarPermiso($id)
+    {
+        $permiso = Permission::find($id);
+
+        if ($permiso) {
+            $permiso->delete();
+            session()->flash('success', 'Permiso eliminado correctamente.');
+        } else {
+            session()->flash('error', 'No se pudo encontrar el permiso.');
+        }
+
+        // Redirige de regreso a la página actual
+        return redirect()->to(route('configuracion.permiso.index'));
+    }
 
 
     public function render()
@@ -87,6 +143,9 @@ class Index extends Component
             'permisos'=>$permisos,
         ]);
     }
+
+
+
 
 
 }
