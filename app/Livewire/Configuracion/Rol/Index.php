@@ -39,6 +39,8 @@ class Index extends Component {
     //variable para almacenar el id
     public $role_id;
 
+    public $role;
+
     public function create() {
         $this->limpiar_modal();
         $this->modo = 'create';
@@ -115,6 +117,16 @@ class Index extends Component {
         $this->limpiar_modal();
         return redirect()->route('configuracion.rol.index');
 
+    }
+
+    public function mount()
+    {
+        $this->getAllIp();
+    }
+
+    public function getAllRol()
+    {
+        $this->role = Role::all();
     }
 
     public function eliminar_rol($id){

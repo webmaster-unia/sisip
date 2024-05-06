@@ -153,7 +153,8 @@ class Index extends Component
         }
 
         $area->name = $this->name;
-        $area->slug = $this->slug;
+        $slug = strtolower(str_replace(' ', '-', $this->name));
+        $area->slug = $slug;
         $area->abreviation = $this->abreviation;
         $area->cantidad = $this->cantidad;
         $area->ip_inicio = $this->ip_inicio;
@@ -205,28 +206,53 @@ class Index extends Component
     }
 
 
+    //activar desactivar
+    public function cambiar_estado($id, $value)
+    {
+        $is_active = Area::find($id);
+        if ($is_active) {
+            if ($value == true) {
+                $is_active->is_active = false;
+            } else {
+                $is_active->is_active = true;
+            }
+            $is_active->save();
+        }
+    }
+
+
 
     //asignar ip a un area
     public function asignar_ip()
     {
+        // Verificar id
         if (empty($this->area_id)) {
             session()->flash('error', 'Por favor, selecciona un área.');
             return redirect()->route('area.index');
         }
 
+        //Encontrar area segun id dada
         $area = Area::findOrFail($this->area_id);
+
+        //alamcenar id de ips
         $selectedIpsIds = [];
 
+        // Desactivar ips
         Ip::where('area_id', $area->id)->update(['is_active' => false]);
 
-
+        // Iterar
         foreach ($this->selectedIps as $ipId => $isSelected) {
+            // Verificar ip
             if ($isSelected) {
+                // Encontrar ip
+                // Asignar area al ip
+                // Registrar en la tabla area_ip
+                // Agregar id
                 $ip = Ip::findOrFail($ipId);
                 $ip->area_id = $area->id;
                 $ip->save();
 
-                //registrara en la tabal IP
+
                 AreaIp::create([
                     'area_id' => $area->id,
                     'ip_id' => $ipId,
@@ -237,16 +263,17 @@ class Index extends Component
             }
         }
 
-        //desactivar las ips
+        //desavtivar ip
         Ip::where('area_id', $area->id)
             ->whereNotIn('id', $selectedIpsIds)
             ->update(['is_active' => false]);
+
 
         session()->flash('success', 'Las IPs se han asignado correctamente al área.');
         return redirect()->route('area.index');
     }
 
-/*
+    /*
     public function asignar()
     {
         $rol = new Rol();
@@ -267,21 +294,10 @@ class Index extends Component
 
     //eliminar
 
-
-
-    public function delete($id)
-    {
-
-        $this->id_eliminar = $id;
-        $this->modo = 'delete';
-        $this->title_modal = 'Eliminar Área';
-        $this->button_modal_eliminar = 'Eliminar Area';
-    }
-    public function confirmar_eliminar($id)
+    public function eliminar_area($id)
     {
 
         $areas = Area::find($id);
-        $this->modo='delete';
         if ($areas) {
             $areas->delete();
             $this->mensaje = 'El área se ha eliminado correctamente';

@@ -113,17 +113,17 @@
                                             </td>
                                             <td>
                                                 @if ($item->is_active == 1)
-                                                    <span class="status status-teal px-3 py-2">
-                                                        <span class="status-dot status-dot-animated"></span>
-                                                        Activo
-                                                    </span>
-                                                @else
-                                                    <span class="status status-red px-3 py-2">
-                                                        <span class="status-dot status-dot-animated"></span>
-                                                        Inactivo
-                                                    </span>
-                                                @endif
 
+                                                    <span class="status status-teal px-3 py-2" wire:confirm="¿ Estás seguro que desea cambiar el estado?"
+                                                    wire:click="cambiar_estado({{ $item->id }}, true)" style="cursor: pointer;">
+                                                    <span class="status-dot status-dot-animated"></span>
+                                                    Activo</span>
+                                                @else
+                                                    <span class="status status-red px-3 py-2" wire:confirm="¿ Estás seguro que desea cambiar el estado?"
+                                                    wire:click="cambiar_estado({{ $item->id }}, false)" style="cursor: pointer;">
+                                                    <span class="status-dot status-dot-animated"></span>
+                                                    Inactivo</span>
+                                                @endif
                                             </td>
                                             <td>
                                                 <div class="btn-list flex-nowrap justify-content-end">
@@ -133,10 +133,9 @@
                                                     Ver
                                                 </button> --}}
 
-                                                    <button type="button" class="btn btn-sm btn-outline-danger"
-                                                        data-bs-toggle="modal" data-bs-target="#modal-eliminar"
-                                                        wire:click="#">Eliminar
-                                                    </button>
+                                                    <form wire:submit.prevent="eliminar_area({{ $item->id }})" style="display: inline;" class="d-inline">
+                                                        <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('¿Estás seguro de que quieres eliminar esta tarea?')">Eliminar</button>
+                                                    </form>
 
                                                     <button type="button" class="btn btn-sm btn-outline-azure "
                                                         data-bs-toggle="modal" data-bs-target="#modal-area"
@@ -394,34 +393,6 @@
 
 
     {{-- modal para eliminar --}}
-    <div class="modal fade modal-blur" id="modal-eliminar" tabindex="-1" wire:ignore.self>
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">
-                        Eliminar Una area
-                    </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                        wire:click="limpiar_modal"></button>
-                </div>
-                <form autocomplete="off" novalidate wire:submit.prevent="confirmar_eliminar">
-                    <div class="modal-body">
-                    </div>
-                    <div>
-                        <h4>¿Estas Seguro que quieres eliminar esta Area?</h4>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-outline-secondary" data-bs-dismiss="modal"
-                            wire:click="limpiar_modal">
-                            Cancelar
-                        </button>
-                        <button type="submit" class="btn btn-cyan ms-auto">
-                            {{ $button_modal_eliminar }}
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+
 
 </div>

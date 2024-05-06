@@ -277,6 +277,7 @@
                             </div>
                         @endif
                         <div class="row">
+                            <!-- jalar permisos-->
 
                         </div>
                     </div>
