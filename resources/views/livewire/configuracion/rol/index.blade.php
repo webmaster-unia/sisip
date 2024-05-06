@@ -277,9 +277,16 @@
                             </div>
                         @endif
                         <div class="row">
-                            <!-- jalar permisos-->
-
+                            @foreach($permisos as $permiso)
+                                <div class="col-md-6">
+                                    <label>
+                                        <input type="checkbox" wire:model="selectedPermisos.{{ $permiso->id }}">
+                                        {{ $permiso->name }}
+                                    </label>
+                                </div>
+                            @endforeach
                         </div>
+
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal"

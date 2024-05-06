@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Configuracion\Rol;
 
+use App\Models\Permission;
 use App\Models\Role;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
@@ -39,7 +40,7 @@ class Index extends Component {
     //variable para almacenar el id
     public $role_id;
 
-    public $role;
+    public $permisos;
 
     public function create() {
         $this->limpiar_modal();
@@ -121,12 +122,12 @@ class Index extends Component {
 
     public function mount()
     {
-        $this->getAllIp();
+        $this->getAllPermisos();
     }
 
-    public function getAllRol()
+    public function getAllPermisos()
     {
-        $this->role = Role::all();
+        $this->permisos = Permission::all();
     }
 
     public function eliminar_rol($id){
