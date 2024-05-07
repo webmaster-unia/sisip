@@ -16,7 +16,7 @@
                     <div class="col-auto ms-auto d-print-none">
                         <div class="btn-list">
                             <button type="button" class="btn btn-cyan d-none d-sm-inline-block" data-bs-toggle="modal"
-                                wire:click="create" data-bs-target="#modal-rol">
+                                wire:click="create" data-bs-target="#modal-asignar">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
                                     viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                                     stroke-linecap="round" stroke-linejoin="round">
@@ -209,7 +209,7 @@
             </div>
         </div>
         {{-- modal cargo --}}
-        <div class="modal fade modal-blur" id="modal-rol" tabindex="-1" wire:ignore.self>
+        <div class="modal fade modal-blur" id="modal-asignar" tabindex="-1" wire:ignore.self>
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -219,235 +219,19 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                             wire:click="limpiar_modal"></button>
                     </div>
-                    <form autocomplete="off" novalidate wire:submit="guardar_cargo">
-                        <div class="modal-body">
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="mb-3">
-                                        <label for="nombre" class="form-label required">
-                                            Name Cargo
-                                        </label>
-                                        <input type="text"
-                                            class="form-control @error('nombre') is-invalid @enderror" id="nombre"
-                                            wire:model.live="nombre" placeholder="Ingrese el Name Cargo" />
-                                        @error('Name Cargo')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col-lg-12">
-                                    <div class="mb-3">
-                                        <label for="descripcion" class="form-label">
-                                            Area de ip del id
-                                        </label>
-                                        <input type="text"
-                                            class="form-control @error('descripcion') is-invalid @enderror"
-                                            id="descripcion" wire:model.live="Area de ip del id"
-                                            placeholder="Ingrese Area de ip del ip" />
-                                        @error('Area de ip del id')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col-lg-12">
-                                    <div class="mb-3">
-                                        <label for="descripcion" class="form-label">
-                                            Apellido Paterno
-                                        </label>
-                                        <input type="text"
-                                            class="form-control @error('descripcion') is-invalid @enderror"
-                                            id="descripcion" wire:model.live="Apellido Parteno"
-                                            placeholder="Ingrese el Apellido Parteno" />
-                                        @error('Apellido Parteno')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="mb-3">
-                                            <label for="descripcion" class="form-label">
-                                                Apellido Materno
-                                            </label>
-                                            <input type="text"
-                                                class="form-control @error('descripcion') is-invalid @enderror"
-                                                id="descripcion" wire:model.live="Apellido Materno"
-                                                placeholder="Ingrese el Apellido Parteno" />
-                                            @error('Apellido Materno')
-                                                <div class="invalid-feedback">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
-                                        </div>
-                                    </div>
-
-
-                                        <button type="submit">Guardar</button>
-                                    </form>
-                                    <div class="col-lg-12">
-                                        <div class="mb-3">
-                                            <label for="descripcion" class="form-label">
-                                                Nombre
-                                            </label>
-                                            <input type="text"
-                                                class="form-control @error('descripcion') is-invalid @enderror"
-                                                id="descripcion" wire:model.live="Nombre"
-                                                placeholder="Inggrese el Nombre" />
-                                            @error('Nombre')
-                                                <div class="invalid-feedback">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="mb-3">
-                                            <label for="descripcion" class="form-label">
-                                                DNI
-                                            </label>
-                                            <input type="text"
-                                                class="form-control @error('descripcion') is-invalid @enderror"
-                                                id="descripcion" wire:model.live="DNI"
-                                                placeholder="Ingrese el DNI" />
-                                            @error('DNI')
-                                                <div class="invalid-feedback">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="mb-3">
-                                            <label for="descripcion" class="form-label">
-                                                Correo Institucional
-                                            </label>
-                                            <input type="text"
-                                                class="form-control @error('descripcion') is-invalid @enderror"
-                                                id="descripcion" wire:model.live="Correo Institucional"
-                                                placeholder="Ingrese el Correo Institucional" />
-                                            @error('Correo Institucional')
-                                                <div class="invalid-feedback">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="mb-3">
-                                            <label for="descripcion" class="form-label">
-                                                Nombre Equipo
-                                            </label>
-                                            <input type="text"
-                                                class="form-control @error('descripcion') is-invalid @enderror"
-                                                id="descripcion" wire:model.live="Nombre Equipo"
-                                                placeholder="Ingrese el Nombe de Equipo" />
-                                            @error('Nombre de Equipo')
-                                                <div class="invalid-feedback">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="mb-3">
-                                            <label for="descripcion" class="form-label">
-                                                Usuario Red
-                                            </label>
-                                            <input type="text"
-                                                class="form-control @error('descripcion') is-invalid @enderror"
-                                                id="descripcion" wire:model.live="Usuario Red"
-                                                placeholder="Ingrese el Usuario Red" />
-                                            @error('Usuario Red')
-                                                <div class="invalid-feedback">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="mb-3">
-                                            <label for="descripcion" class="form-label">
-                                                Procesador
-                                            </label>
-                                            <input type="text"
-                                                class="form-control @error('descripcion') is-invalid @enderror"
-                                                id="descripcion" wire:model.live="Procesador"
-                                                placeholder="Ingrese el Procesador" />
-                                            @error('Procesador')
-                                                <div class="invalid-feedback">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="mb-3">
-                                            <label for="descripcion" class="form-label">
-                                                Memoria
-                                            </label>
-                                            <input type="text"
-                                                class="form-control @error('descripcion') is-invalid @enderror"
-                                                id="descripcion" wire:model.live="Memoria"
-                                                placeholder="Ingrese la Memoria" />
-                                            @error('Memoria')
-                                                <div class="invalid-feedback">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="mb-3">
-                                            <label for="descripcion" class="form-label">
-                                                Sistema Opreativo
-                                            </label>
-                                            <input type="text"
-                                                class="form-control @error('descripcion') is-invalid @enderror"
-                                                id="descripcion" wire:model.live="Sistema Opreativo"
-                                                placeholder="Ingrese el Sistema Opreativo" />
-                                            @error('Sistema Opreativo')
-                                                <div class="invalid-feedback">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
-                                        </div>
-                                        <div class="col-lg-12">
-                                            <div class="mb-3">
-                                                <label for="descripcion" class="form-label">
-                                                    Mac Dispositivo
-                                                </label>
-                                                <input type="text"
-                                                    class="form-control @error('descripcion') is-invalid @enderror"
-                                                    id="descripcion" wire:model.live="Mac Dispositivo"
-                                                    placeholder="Ingrese Mac Dispositivo" />
-                                                @error('Mac Dispositivo')
-                                                    <div class="invalid-feedback">
-                                                        {{ $message }}
-                                                    </div>
-                                                @enderror
-                                            </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal"
-                                        wire:click="limpiar_modal">
-                                        Cancelar
-                                    </button>
-                                    <button type="submit" class="btn btn-cyan ms-auto">
-                                        {{ $button_Cargo }}
-                                    </button>
-                                </div>
+                    <div class="row">
+                        @foreach($ips as $ip)
+                            <div class="col-md-6">
+                                <label>
+                                    <input type="checkbox" wire:model="selectedPermisos.{{ $ip->id }}">
+                                    {{ $ip->ip}}
+                                </label>
                             </div>
-                        </div>
-                    </form>
+                        @endforeach
+                    </div>
+
                 </div>
             </div>
         </div>
+        {{-- modal asigarn --}}
     </div>
