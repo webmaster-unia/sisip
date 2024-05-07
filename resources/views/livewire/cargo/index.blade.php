@@ -13,6 +13,31 @@
                             Cargo
                         </h2>
                     </div>
+                    <div class="col-auto ms-auto d-print-none">
+                        <div class="btn-list">
+                            <button type="button" class="btn btn-cyan d-none d-sm-inline-block" data-bs-toggle="modal"
+                                wire:click="create" data-bs-target="#modal-asignar">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
+                                    viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M12 5l0 14" />
+                                    <path d="M5 12l14 0" />
+                                </svg>
+                                Ingresar Cargo
+                            </button>
+                            <button type="button" class="btn btn-teal d-sm-none btn-icon" data-bs-toggle="modal"
+                                wire:click="create" data-bs-target="#modal-rol" aria-label="Crear rol">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
+                                    viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M12 5l0 14" />
+                                    <path d="M5 12l14 0" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -110,21 +135,32 @@
                     </div>
                 </div>
             </div>
-            {{-- modal cargo --}}
-            <div class="modal fade modal-blur" id="modal-rol" tabindex="-1" wire:ignore.self>
-                <div class="modal-dialog modal-lg" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">
-                                Cargo
-                            </h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                                wire:click="limpiar_modal"></button>
-                        </div>
+        </div>
+        {{-- modal cargo --}}
+        <div class="modal fade modal-blur" id="modal-asignar" tabindex="-1" wire:ignore.self>
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">
+                            Cargo
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                            wire:click="limpiar_modal"></button>
+                    </div>
+                    <div class="row">
+                        @foreach($ips as $ip)
+                            <div class="col-md-6">
+                                <label>
+                                    <input type="checkbox" wire:model="selectedPermisos.{{ $ip->id }}">
+                                    {{ $ip->ip}}
+                                </label>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
                 </form>
             </div>
         </div>
+        {{-- modal asigarn --}}
     </div>
     </div>
