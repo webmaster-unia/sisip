@@ -263,7 +263,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">
-                        {{ $title_modal}}
+                        {{ $title_modal_rol}}
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                         wire:click="limpiar_modal"></button>
@@ -276,7 +276,7 @@
                             @foreach($permisos as $permiso)
                                 <div class="col-md-6">
                                     <label>
-                                        <input type="checkbox" wire:model="selectedPermisos.{{ $permiso->id }}" wire:change="updatedSelectedPermisos('{{ $permiso->id }}')">
+                                        <input type="checkbox" wire:model="selectedPermisos.{{ $permiso->id }}">
                                         {{ $permiso->name }}
                                     </label>
                                 </div>
@@ -289,7 +289,7 @@
                             Cancelar
                         </button>
                         <button type="submit" class="btn btn-cyan ms-auto">
-                            {{ $button_modal }}
+                            {{ $button_modal_rol }}
                         </button>
                     </div>
                 </form>
