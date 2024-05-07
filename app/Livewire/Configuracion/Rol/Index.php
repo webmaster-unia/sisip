@@ -46,7 +46,7 @@ class Index extends Component {
         $this->limpiar_modal();
         $this->modo = 'create';
         $this->title_modal = 'Crear nuevo rol';
-        $this->button_modal = 'Crear rol';
+        $this->button_modal = 'Crear Rol';
         $this->resetErrorBag();
         $this->resetValidation();
     }
@@ -133,6 +133,25 @@ class Index extends Component {
     public function eliminar_rol($id){
         Role::findOrFail($id)->delete();
         return $this->render();
+    }
+
+    /* Código para guardar los permisos asignados del rol*/
+    public $selectedPermisos = [];
+
+    public function updatedSelectedPermisos($permisoId)
+    {
+        $this->title_modal = 'Crear nuevo rol';
+        $this->button_modal = 'Crear Rollll';
+        // Verifica si el permiso fue seleccionado o deseleccionado
+        if (in_array($permisoId, $this->selectedPermisos)) {
+            // Guarda la relación en la base de datos
+            $rol = auth()->user()->rol; // Obten el rol del usuario actual
+            $rol->permisos()->attach($permisoId); // Asocia el permiso al rol
+        } else {
+            // Elimina la relación de la base de datos
+            $rol = auth()->user()->rol; // Obten el rol del usuario actual
+            $rol->permisos()->detach($permisoId); // Desasocia el permiso del rol
+        }
     }
 
     public function render() {
