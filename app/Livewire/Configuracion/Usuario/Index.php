@@ -81,6 +81,7 @@ class Index extends Component
         $user->password = $this->contraseña ?? 'defaultpassword';
 
         $user->avatar = $this->avatar;
+
         $user->save();
 
         $this->limpiar_modal();
@@ -117,9 +118,9 @@ class Index extends Component
             $user = new User();
         } elseif ($this->modo == 'edit') {
             $user = User::findOrFail($this->user_id);
-
             $user->name = $this->nombre;
             $user->email = $this->correo_electronico;
+            $user->rol = $this->rol;
             if ($this->contraseña) {
                 $user->password = Hash::make($this->contraseña);
             }
