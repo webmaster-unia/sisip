@@ -10,6 +10,7 @@ use Livewire\Features\SupportFileUploads\WithFileUploads;
 use Livewire\WithPagination;
 use App\Area;
 use App\DireccionIP;
+use App\Models\Ip;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
@@ -36,6 +37,8 @@ class Index extends Component
 
     #[Validate('nullable|string|max:50')]
     public $name_cargo;
+
+    public $ips;
 
     public $area_ip_id;
     #[Validate('nullable|string|max:50')]
@@ -173,6 +176,15 @@ class Index extends Component
         $this->limpiar_modal();
     }
 
+    public function mount()
+    {
+        $this->getAllIps();
+    }
+
+    public function getAllIps()
+    {
+        $this->ips = Ip::all();
+    }
     public function render()
     {
         $Cargos = $this->search
