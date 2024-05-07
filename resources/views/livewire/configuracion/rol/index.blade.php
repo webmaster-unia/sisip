@@ -263,12 +263,12 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">
-                        {{ $title_modal }}
+                        {{ $title_modal}}
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                         wire:click="limpiar_modal"></button>
                 </div>
-                <form autocomplete="off" novalidate wire:submit.prevent="{{ $modo === 'edit' ? 'actualizar_rol' : 'guardar_rol' }}" >
+                <form autocomplete="off" novalidate wire:submit.prevent="asignar" >
                     <div class="modal-body">
                         <!-- error si intenta crear un campo vacio-->
                         @if(session()->has('error'))
@@ -286,7 +286,6 @@
                                 </div>
                             @endforeach
                         </div>
-
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal"
@@ -301,4 +300,5 @@
             </div>
         </div>
     </div>
+
 </div>

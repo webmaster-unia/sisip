@@ -4,6 +4,7 @@ namespace App\Livewire\Configuracion\Rol;
 
 use App\Models\Permission;
 use App\Models\Role;
+use App\Models\RolePermission;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Url;
@@ -13,7 +14,8 @@ use Livewire\WithPagination;
 
 #[Title('Roles - IP OTI')]
 #[Layout('components.layouts.app')]
-class Index extends Component {
+class Index extends Component
+{
     use WithPagination;
 
     #[Url('mostrar')]
@@ -37,12 +39,17 @@ class Index extends Component {
     #[Validate('nullable|boolean')]
     public $is_active;
 
+
+    //para modal de asignar Roles
+    public $title_modal_rol = 'Asignar Permisos';
+    public $button_modal_rol = 'Asignar Permiso';
     //variable para almacenar el id
     public $role_id;
 
     public $permisos;
 
-    public function create() {
+    public function create()
+    {
         $this->limpiar_modal();
         $this->modo = 'create';
         $this->title_modal = 'Crear nuevo rol';
@@ -51,7 +58,8 @@ class Index extends Component {
         $this->resetValidation();
     }
 
-    public function limpiar_modal() {
+    public function limpiar_modal()
+    {
         $this->reset([
             'name',
             'slug',
@@ -105,9 +113,9 @@ class Index extends Component {
     public function actualizar_rol()
     {
 
-        if($this->modo == 'create'){
+        if ($this->modo == 'create') {
             $rol = new Role();
-        }else if($this->modo == 'edit'){
+        } else if ($this->modo == 'edit') {
             $rol = Role::findOrFail($this->role_id);
         }
 
@@ -117,7 +125,6 @@ class Index extends Component {
         $rol->save();
         $this->limpiar_modal();
         return redirect()->route('configuracion.rol.index');
-
     }
 
     public function mount()
@@ -130,12 +137,22 @@ class Index extends Component {
         $this->permisos = Permission::all();
     }
 
-    public function eliminar_rol($id){
+
+    public function asignar()
+    {
+    }
+
+
+
+
+    public function eliminar_rol($id)
+    {
         Role::findOrFail($id)->delete();
         return $this->render();
     }
 
-    public function render() {
+    public function render()
+    {
         $roles = Role::search($this->search)
             ->orderBy('id', 'asc')
             ->paginate($this->mostrar_paginate);
