@@ -316,7 +316,7 @@
                             {{ $button_modal }}
                         </button>
                     </div>
-                </form>
+                </form>  
             </div>
         </div>
     </div>
