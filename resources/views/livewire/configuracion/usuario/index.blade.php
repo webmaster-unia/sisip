@@ -274,12 +274,12 @@
                             </div>
                             <div class="col-lg-12">
                                 <div class="mb-3">
-                                    <label for="$contraseña_confirmacion" class="form-label required">
+                                    <label for="contraseña_confirmacion" class="form-label required">
                                         Confirmar contraseña
                                     </label>
-                                    <input type="password" class="form-control @error('$contraseña_confirmacion') is-invalid @enderror"
-                                        id="$contraseña_confirmacion" wire:model.live="$contraseña_confirmacion" placeholder="********"/>
-                                    @error('$contraseña_confirmacion')
+                                    <input type="password" class="form-control @error('contraseña_confirmacion') is-invalid @enderror"
+                                        id="contraseña_confirmacion" wire:model.live="contraseña_confirmacion" placeholder="********"/>
+                                    @error('contraseña_confirmacion')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>

@@ -118,23 +118,31 @@ class Index extends Component
             $user = new User();
         } elseif ($this->modo == 'edit') {
             $user = User::findOrFail($this->user_id);
-            $user->name = $this->nombre;
-            $user->email = $this->correo_electronico;
-            $user->rol = $this->rol;
-            if ($this->contraseña) {
-                $user->password = Hash::make($this->contraseña);
-            }
-            if ($this->avatar) {
-                // subir la imagen
-                $nombre_db = subirFile($this->avatar, User::class, 'avatar', $user->id, 'avatars');
-                $user->avatar = $nombre_db;
-            }
+        }
+        $user->name = $this->nombre;
+        $user->email = $this->correo_electronico;
+        if ($this->contraseña) {
+            $user->password = Hash::make($this->contraseña);
+        }
+        if ($this->avatar) {
+            // subir la imagen
+            $nombre_db = subirFile($this->avatar, User::class, 'avatar', $user->id, 'avatars');
+            $user->avatar = $nombre_db;
+        }
+        $user->save();
 
-            $user->save();
+        // sincronizar el rol
+        if ($this->modo == 'create') {
+            $user->roles()->sync($this->rol);
+        } elseif ($this->modo == 'edit') {
+            $user->roles()->sync([$this->rol]);
         }
 
         $this->limpiar_modal();
-        return redirect()->route('configuracion.usuario.index');
+        $this->dispatch('modal',
+            modal: '#modal-usuario',
+            action: 'hide'
+        );
     }
 
     public function eliminar_user($id)
@@ -154,38 +162,5 @@ class Index extends Component
             'usuarios' => $usuarios,
             'roles' => $roles,
         ]);
-    }
-
-    // Relación con roles
-    public function roles()
-    {
-        return $this->belongsToMany(Role::class);
-    }
-
-    // Verificar si el usuario tiene un permiso específico
-    public function hasPermission($permission)
-    {
-        foreach ($this->roles as $role) {
-            if ($role->hasPermission($permission)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    // Otorgar un permiso al usuario
-    public function givePermissionTo($permission)
-    {
-        foreach ($this->roles as $role) {
-            $role->givePermissionTo($permission);
-        }
-    }
-
-    // Revocar un permiso al usuario
-    public function revokePermission($permission)
-    {
-        foreach ($this->roles as $role) {
-            $role->revokePermission($permission);
-        }
     }
 }
