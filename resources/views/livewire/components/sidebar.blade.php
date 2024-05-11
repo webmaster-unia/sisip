@@ -95,8 +95,8 @@
                         </span>
                     </a>
                 </li>
-                <li
-                    class="nav-item {{ request()->routeIs('configuracion.usuario.index') || request()->routeIs('configuracion.rol.index') || request()->routeIs('configuracion.permiso.index') ? 'active' : '' }} dropdown">
+                @if (auth()->user()->permiso('usuario-index') || auth()->user()->permiso('rol-index') || auth()->user()->permiso('permiso-index'))
+                <li class="nav-item {{ request()->routeIs('configuracion.usuario.index') || request()->routeIs('configuracion.rol.index') || request()->routeIs('configuracion.permiso.index') ? 'active' : '' }} dropdown">
                     <a class="nav-link dropdown-toggle" href="#navbar-layout" data-bs-toggle="dropdown"
                         data-bs-auto-close="false" role="button" aria-expanded="true">
                         <span class="nav-link-icon d-md-none d-lg-inline-block">
@@ -114,31 +114,37 @@
                             Configuración
                         </span>
                     </a>
-                    <div
-                        class="dropdown-menu {{ request()->routeIs('configuracion.usuario.index') || request()->routeIs('configuracion.rol.index') || request()->routeIs('configuracion.permiso.index') ? 'show' : '' }}">
+                    <div class="dropdown-menu {{ request()->routeIs('configuracion.usuario.index') || request()->routeIs('configuracion.rol.index') || request()->routeIs('configuracion.permiso.index') ? 'show' : '' }}">
                         <div class="dropdown-menu-columns">
+                            @if (auth()->user()->permiso('usuario-index'))
                             <div class="dropdown-menu-column">
                                 <a class="dropdown-item {{ request()->routeIs('configuracion.usuario.index') ? 'active fw-medium' : '' }}"
                                     href="{{ route('configuracion.usuario.index') }}">
                                     Usuarios
                                 </a>
                             </div>
+                            @endif
+                            @if (auth()->user()->permiso('rol-index'))
                             <div class="dropdown-menu-column">
                                 <a class="dropdown-item {{ request()->routeIs('configuracion.rol.index') ? 'active fw-medium' : '' }}"
                                     href="{{ route('configuracion.rol.index') }}">
                                     Roles
                                 </a>
                             </div>
+                            @endif
+                            @if (auth()->user()->permiso('permiso-index'))
                             <div class="dropdown-menu-column">
                                 <a class="dropdown-item {{ request()->routeIs('configuracion.permiso.index') ? 'active fw-medium' : '' }}"
                                     href="{{ route('configuracion.permiso.index') }}">
                                     Permisos
                                 </a>
                             </div>
+                            @endif
                         </div>
                     </div>
-
                 </li>
+                @endif
+                @if (auth()->user()->permiso('area-index'))
                 <li class="nav-item {{ request()->routeIs('area.index') ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('area.index') }}">
                         <span class="nav-link-icon d-md-none d-lg-inline-block">
@@ -160,6 +166,7 @@
                         </span>
                     </a>
                 </li>
+                @endif
                 <li class="nav-item {{ request()->routeIs('ip.index') ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('ip.index') }}">
                         <span class="nav-link-icon d-md-none d-lg-inline-block">
@@ -201,7 +208,6 @@
                         </span>
                     </a>
                 </li>
-
                 <hr class="ms-lg-3 my-3">
             </ul>
         </div>

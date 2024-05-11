@@ -90,4 +90,16 @@ class User extends Authenticatable
                 ->orWhere('email', 'LIKE', "%{$search}%");
         }
     }
+
+    public function permiso($permiso): bool
+    {
+        $rol = $this->roles()->first();
+        $permisos = $rol->permissions;
+        foreach ($permisos as $p) {
+            if ($p->slug == $permiso) {
+            return true;
+            }
+        }
+        return false;
+    }
 }
