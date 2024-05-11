@@ -70,7 +70,6 @@ class Index extends Component
         $this->resetValidation();
     }
 
-
     public function guardar_rol()
     {
 
@@ -79,9 +78,7 @@ class Index extends Component
             return;
         }
 
-
         //para hacer que no ingrese campos vacios
-
         $rol = new Role();
         $rol->name = $this->name;
         $slug = strtolower(str_replace(' ', '-', $this->name));
@@ -91,7 +88,6 @@ class Index extends Component
         $this->limpiar_modal();
         return redirect()->route('configuracion.rol.index');
     }
-
 
     //editar roles
     public function edit($id)
@@ -109,10 +105,8 @@ class Index extends Component
         $this->resetValidation();
     }
 
-
     public function actualizar_rol()
     {
-
         if ($this->modo == 'create') {
             $rol = new Role();
         } else if ($this->modo == 'edit') {
@@ -120,11 +114,16 @@ class Index extends Component
         }
 
         $rol->name = $this->name;
-        $rol->slug = $this->slug;
+        $slug = strtolower(str_replace(' ', '-', $this->name));
+        $rol->slug = $slug;
         $rol->description = $this->description;
         $rol->save();
         $this->limpiar_modal();
-        return redirect()->route('configuracion.rol.index');
+        $this->dispatch(
+            'modal',
+            modal: '#modal-rol',
+            action: 'hide'
+        );
     }
 
     public function mount()
@@ -137,11 +136,9 @@ class Index extends Component
         $this->permisos = Permission::all();
     }
 
-
     public function asignar()
     {
     }
-
 
     public function eliminar_rol($id)
     {
