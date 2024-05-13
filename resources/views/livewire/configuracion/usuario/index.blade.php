@@ -186,7 +186,7 @@
             </div>
         </div>
     </div>
-    {{-- modal ciclo --}}
+    <!-- Modal Usuario -->
     <div class="modal fade modal-blur" id="modal-usuario" tabindex="-1" wire:ignore.self>
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -197,7 +197,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                         wire:click="limpiar_modal"></button>
                 </div>
-                <form autocomplete="off" novalidate wire:submit.prevent="guardar_user>
+                <form autocomplete="off" novalidate wire:submit.prevent="guardar_user">
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-lg-12">
@@ -274,12 +274,12 @@
                             </div>
                             <div class="col-lg-12">
                                 <div class="mb-3">
-                                    <label for="$contraseña_confirmacion" class="form-label required">
+                                    <label for="contraseña_confirmacion" class="form-label required">
                                         Confirmar contraseña
                                     </label>
-                                    <input type="password" class="form-control @error('$contraseña_confirmacion') is-invalid @enderror"
-                                        id="$contraseña_confirmacion" wire:model.live="$contraseña_confirmacion" placeholder="********"/>
-                                    @error('$contraseña_confirmacion')
+                                    <input type="password" class="form-control @error('contraseña_confirmacion') is-invalid @enderror"
+                                        id="contraseña_confirmacion" wire:model.live="contraseña_confirmacion" placeholder="********"/>
+                                    @error('contraseña_confirmacion')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>

@@ -133,7 +133,7 @@
 
                                                 <button type="button" class="btn btn-sm btn-outline-warning"
                                                     data-bs-toggle="modal" data-bs-target="#modal-asignar"
-                                                    wire:click="#">
+                                                    wire:click="cargar_asignar_rol({{ $item->id }})">
                                                     Asignar Permisos
                                                 </button>
                                             </div>
@@ -268,7 +268,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                         wire:click="limpiar_modal"></button>
                 </div>
-                <form autocomplete="off" novalidate wire:submit.prevent="{{ $modo === 'edit' ? 'actualizar_rol' : 'guardar_rol' }}" >
+                <form autocomplete="off" novalidate wire:submit.prevent="asignar_permisos">
                     <div class="modal-body">
                         <!-- error si intenta crear un campo vacio-->
                         @if(session()->has('error'))
@@ -278,9 +278,9 @@
                         @endif
                         <div class="row">
                             @foreach($permisos as $permiso)
-                                <div class="col-md-6">
+                                <div class="col-md-3">
                                     <label>
-                                        <input type="checkbox" wire:model="selectedPermisos.{{ $permiso->id }}">
+                                        <input type="checkbox" wire:model="permisos_rol" value="{{ $permiso->id }}">
                                         {{ $permiso->name }}
                                     </label>
                                 </div>
