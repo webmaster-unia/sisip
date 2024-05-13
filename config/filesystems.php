@@ -34,6 +34,7 @@ return [
             'driver' => 'local',
             'root' => storage_path('app'),
             'throw' => false,
+            'size_limit' => 1024 * 1024 * 2050,
         ],
 
         'public' => [
