@@ -20,8 +20,8 @@ use Livewire\WithPagination;
 class Index extends Component
 {
     use WithPagination;
+    protected $paginationTheme = 'bootstrap';
     use WithFileUploads;
-
 
     #[Url('mostrar')]
     public $mostrar_paginate = '10';
@@ -61,7 +61,7 @@ class Index extends Component
 
 
     //para almacenar las ip
-    public $selectedIps = [];
+    public $selectIps = [];
     public $id_eliminar;
     public $alm_ip;
     public $ips;
@@ -186,6 +186,8 @@ class Index extends Component
     //filtrar las ip e el moddal
     public function filtrarIps($filtro)
     {
+
+
         // Verificar si el filtro seleccionado es opcion 0,1,2 o  3
         if ($filtro === '172.16.0.1') {
             // Filtrar todas las IPs que tengan el número 0 como penúltimo número yasi sucesivamente hasta el 3
@@ -203,6 +205,9 @@ class Index extends Component
 
             $this->filteredIps = Ip::where('ip', 'like', "$filtro%")->get();
         }
+
+
+
     }
 
 
@@ -222,56 +227,37 @@ class Index extends Component
 
 
 
-    //asignar ip a un area
-    public function asignar_ip()
+    public function cargar_asignar_ips($id)
     {
-        // Verificar id
-        if (empty($this->area_id)) {
-            session()->flash('error', 'Por favor, selecciona un área.');
-            return redirect()->route('area.index');
-        }
+        //dd($id);
+        $area = Area::findOrFail($id);
+        $this->area_id = $id;
+        $this->selectIps= $area->ips->pluck('id')->toArray();
+    }
 
-        //Encontrar area segun id dada
+    public function asignar_ips()
+    {
+        //dd($this->all());
         $area = Area::findOrFail($this->area_id);
 
-        //alamcenar id de ips
-        $selectedIpsIds = [];
+        $area->ips()->sync($this->selectIps);
+        $this->dispatch('toast-basico',
+            text: 'Permisos asignados correctamente',
+            tipo: 'success'
+        );
+        $this->dispatch(
+            'modal',
+            modal: '#modal-ip',
+            action: 'hide'
+        );
+        $this->reset();
 
-        // Desactivar ips
-        Ip::where('area_id', $area->id)->update(['is_active' => false]);
-
-        // Iterar
-        foreach ($this->selectedIps as $ipId => $isSelected) {
-            // Verificar ip
-            if ($isSelected) {
-                // Encontrar ip
-                // Asignar area al ip
-                // Registrar en la tabla area_ip
-                // Agregar id
-                $ip = Ip::findOrFail($ipId);
-                $ip->area_id = $area->id;
-                $ip->save();
-
-
-                AreaIp::create([
-                    'area_id' => $area->id,
-                    'ip_id' => $ipId,
-                    'is_active' => true,
-                ]);
-
-                $selectedIpsIds[] = $ipId;
-            }
-        }
-
-        //desavtivar ip
-        Ip::where('area_id', $area->id)
-            ->whereNotIn('id', $selectedIpsIds)
-            ->update(['is_active' => false]);
-
-
-        session()->flash('success', 'Las IPs se han asignado correctamente al área.');
-        return redirect()->route('area.index');
     }
+
+
+
+    //asignar ip a un area
+
 
     /*
     public function asignar()

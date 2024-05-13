@@ -142,11 +142,11 @@
                                                         wire:click="edit({{ $item->id }})">
                                                         Editar
                                                     </button>
-                                                    <button wire:click="({{ $item->id }})"
-                                                        class="btn btn-sm btn-outline-warning" data-bs-toggle="modal"
-                                                        data-bs-target="#modal-ip">
-                                                        Asignar IP
-                                                    </button>
+                                                    <button type="button" class="btn btn-sm btn-outline-warning"
+                                                    data-bs-toggle="modal" data-bs-target="#modal-ip"
+                                                    wire:click="cargar_asignar_ips({{ $item->id }})">
+                                                    Asignar Ip
+                                                </button>
 
 
                                                 </div>
@@ -341,9 +341,9 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                             wire:click="limpiar_modal"></button>
                     </div>
-                    <form autocomplete="off" novalidate wire:submit.prevent="asignar_ip">
+                    <form autocomplete="off" novalidate wire:submit.prevent="asignar_ips">
                         <div class="modal-body">
-                            <!-- error si intenta crear un campo vacio-->
+                            <!-- Error si intenta crear un campo vacío -->
                             @if (session()->has('error'))
                                 <div class="alert alert-danger">
                                     {{ session('error') }}
@@ -360,21 +360,18 @@
                                     wire:click="filtrarIps('172.16.0.4')">IP 72.16.3.*</button>
                             </div>
                             <div class="row">
-                                @php
-                                    $collection = collect($filteredIps);
-                                    $chunks = $collection->chunk(35);
-                                @endphp
-                                @foreach ($chunks as $chunk)
-                                    <div class="col-md-1">
-                                        @foreach ($chunk as $ip)
-                                            <label>
-                                                <input type="checkbox" wire:model="selectedIps.{{ $ip['id'] }}" {{ $ip['is_assigned'] ? 'disabled' : '' }}>
-                                                {{ $ip['ip'] }}
-                                            </label><br>
-                                        @endforeach
-                                    </div>
+                                @foreach (collect($filteredIps)->chunk(35) as $chunk)
+                                <div class="col-md-1">
+                                    @foreach ($chunk as $ip)
+                                    <label>
+                                        <input type="checkbox" wire:model="selectIps" value="{{ $ip->id }}">
+                                        {{ $ip->ip }}
+                                    </label><br>
+                                    @endforeach
+                                </div>
                                 @endforeach
                             </div>
+
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal"
@@ -389,6 +386,8 @@
                 </div>
             </div>
         </div>
+    </div>
+
     </div>
 
 
