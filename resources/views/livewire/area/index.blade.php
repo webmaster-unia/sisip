@@ -113,7 +113,6 @@
                                             </td>
                                             <td>
                                                 @if ($item->is_active == 1)
-
                                                     <span class="status status-teal px-3 py-2" wire:confirm="¿ Estás seguro que desea cambiar el estado?"
                                                     wire:click="cambiar_estado({{ $item->id }}, true)" style="cursor: pointer;">
                                                     <span class="status-dot status-dot-animated"></span>
@@ -127,12 +126,6 @@
                                             </td>
                                             <td>
                                                 <div class="btn-list flex-nowrap justify-content-end">
-                                                    {{-- <button type="button" class="btn btn-sm btn-outline"
-                                                    data-bs-toggle="modal" data-bs-target="#modal-ciclo-ver"
-                                                    wire:click="show({{ $item->id }})">
-                                                    Ver
-                                                </button> --}}
-
                                                     <form wire:submit.prevent="eliminar_area({{ $item->id }})" style="display: inline;" class="d-inline">
                                                         <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('¿Estás seguro de que quieres eliminar esta tarea?')">Eliminar</button>
                                                     </form>
@@ -310,9 +303,6 @@
                                     @enderror
                                 </div>
                             </div>
-
-
-
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -330,7 +320,7 @@
     </div>
 
     {{-- Modal Para asignar IP --}}
-    <div>
+    <di>
         <div class="modal fade modal-blur" id="modal-ip" tabindex="-1" wire:ignore.self wire:model="showModal">
             <div class="modal-dialog modal-fullscreen" role="document">
                 <div class="modal-content">
@@ -389,10 +379,5 @@
                 </div>
             </div>
         </div>
-    </div>
-
-
-    {{-- modal para eliminar --}}
-
-
+    </di>
 </div>

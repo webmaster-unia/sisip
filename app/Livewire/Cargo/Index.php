@@ -8,10 +8,9 @@ use Livewire\Attributes\Layout;
 use Livewire\Attributes\Url;
 use Livewire\Features\SupportFileUploads\WithFileUploads;
 use Livewire\WithPagination;
-use App\Area;
-use App\DireccionIP;
 use App\Models\Ip;
 use Livewire\Attributes\Title;
+use Livewire\Attributes\Validate;
 use Livewire\Component;
 
 #[Title ('Cargo - IP OTI')]
@@ -28,149 +27,120 @@ class Index extends Component
     #[Url('Buscar')]
     public $search='';
 
-    public $title_modal='Editar Cargo';
-    public $modo='create';
+    //variables modal
+    public $title_modal='crear nuevo cargo';
 
-    #[Validate('nullable|string|max:50')]
+    //variables para el el formulario cargo
+
+    #[Validate('required|max:100')]
+
     public $name_cargo;
-
-    public $ips;
+    #[Validate('max:255')]
 
     public $area_ip_id;
-    #[Validate('nullable|string|max:50')]
+    #[Validate('required|max:255')]
+
     public $apellido_paterno;
-    #[Validate('nullable|string|max:50')]
+    #[Validate('required|max:255')]
+
     public $apellido_materno;
-    #[Validate('nullable|string|max:50')]
+    #[Validate('required|max:255')]
+
     public $nombre;
-    #[Validate('nullable|string|max:50')]
+    #[Validate('required|max:255')]
     public $dni;
-    #[Validate('nullable|string|max:50')]
-    public $correo_institucional;
-    #[Validate('nullable|string|max:50')]
+    #[Validate('required|max:255')]
+
+    public $correo_electronico;
+    #[Validate('required|max:255')]
+
     public $nombre_equipo;
-    #[Validate('nullable|string|max:50')]
+    #[Validate('required|max:255')]
+
     public $usuario_red;
-    #[Validate('nullable|string|max:50')]
+    #[Validate('required|max:255')]
+
     public $procesador;
-    #[Validate('nullable|string|max:50')]
+    #[Validate('required|max:255')]
+
     public $memoria;
-    #[Validate('nullable|string|max:50')]
-    public $sistema_opreativo;
-    #[Validate('nullable|string|max:50')]
+    #[Validate('required|max:255')]
+
+    public $sistema_operativo;
+    #[Validate('required|max:255')]
+
     public $mac_dispositivo;
-    #[Validate('nullable|string|max:50')]
-    public $is_active;
+    #[Validate('required|max:255')]
 
-    public function create()
+
+
+       //validar ips en masa
+       public $selectedIps = [];
+       public $idEliminar;
+       public $ips;
+       public $filtrar_Ips =[];
+       public $button_VerIps='crear Ips en masa';
+
+
+
+
+    //generar IPS
+    public function GenerarIps()
     {
-        $this->limpiar_modal();
-        $this->modo ='create';
-        $this->button_Cargo='crear cargo';
-        $this->resetErrorBag();
-        $this->resetValidation();
-    }
-    public function limpiar_modal(){
-        $this->reset([
-            'name_cargo',
-            'area_ip_id',
-            'apellido_paterno',
-            'apellido_materno',
-            'nombre',
-            'dni',
-            'correo_institucional',
-            'nombre_equipo',
-            'usuario_red',
-            'procesador',
-            'memoria',
-            'sistema_opreativo',
-            'mac_dispositivo',
-            'is_active'
+        //podemos usar el script
+        $inicio = '172.16.0.1';
+        $fin = '172.16.3.225';
 
-        ]);
-        $this->resetErrorBag();
-        $this->resetValidation();
+        //convertir las cadenas de inicio a fin en arrays (IPS)
 
-    }
+        $inicioArray = explode('.', $inicio);
+        $finArray = explode('.', $fin);
 
-    //seleccionar las Areas y las ips:
+        //Iterar desde el numero inicial hasta el final IPS
 
+        for ($i = $inicioArray[3]; $i <= $finArray[3]; $i++){
+            //convertir la direccion de las IPS Actual
+            $ip = $inicioArray[0] . '.' . $inicioArray[1] . '.' . $inicioArray[2] . '.' . $i;
 
+            //para crear una nueva instancia del modelo
+            $datoNuevo = new Ip();
 
-    //hacer una busqueda las ID de por medio de las id:
+            //Asignar los valores para las IPS
+            $datoNuevo->ip = $ip;
 
-
-     //guardar crear
-     public function guardar_cargo()
-     {
-        if(empty($this->name_cargo)){
-            session()->flash('Error','Porfavor, complete todos los campos');
-            return;
-        }
-        $cargo = new Cargo();
-        $cargo->name_cargo = $this->name_cargo;
-        $cargo->apellido_paterno = $this->apellido_paterno;
-        $cargo->apellido_materno = $this->apellido_materno;
-        $cargo->nombre = $this->nombre;
-        $cargo->dni = $this->dni;
-        $cargo->correo_institucional = $this->correo_institucional;
-        $cargo->nombre_equipo = $this->nombre_equipo;
-        $cargo->usuario_red = $this->usuario_red;
-        $cargo->procesador = $this->procesador;
-        $cargo->memoria = $this->memoria;
-        $cargo->sistema_opreativo = $this->sistema_opreativo;
-        $cargo->mac_dispositivo = $this->mac_dispositivo;
-        $cargo->save();
-        $this->limpiar_modal();
-     }
-
-     //editar prueba almacenar
-    public function edit($id)
-    {
-        $cargo = Cargo::findOrFail($id);
-        $this->name_cargo = $id;
-        $this->apellido_paterno = $cargo->apellido_paterno;
-        $this->apellido_materno = $cargo->apellido_materno;
-        $this->nombre = $cargo->nombre;
-        $this->dni = $cargo->dni;
-        $this->correo_institucional  = $cargo->correo_institucional ;
-        $this->nombre_equipo  = $cargo->nombre_equipo ;
-        $this->usuario_red   = $cargo->usuario_red;
-        $this->procesador  = $cargo->procesador;
-        $this->memoria  = $cargo->memoria;
-        $this->sistema_opreativo  = $cargo->sistema_opreativo;
-        $this->mac_dispositivo  = $cargo->mac_dispositivo;
-        $this->modo = 'edit';
-        $this->title_modal = 'Editar Cargo';
-        $this->button_Cargo = 'Actualizar Cargo';
-        $this->resetErrorBag();
-        $this->resetValidation();
-    }
-
-    //ahora actualizarlo
-    public function actualizar_Cargo()
-    {
-        if ($this->modo == 'create') {
-            $cargo = new Cargo();
-        } elseif ($this->modo == 'edit') {
-            $cargo = Cargo::findOrFail($this->name_cargo);
+            //Asiganar en la base de Datos
+            $datoNuevo->save();
         }
 
-        $cargo->name_cargo = $this->name_cargo;
-        $cargo->apellido_paterno = $this->apellido_paterno;
-        $cargo->apellido_materno = $this->apellido_materno;
-        $cargo->nombre = $this->nombre;
-        $cargo->dni = $this->dni;
-        $cargo->correo_institucional  = $this->correo_institucional ;
-        $cargo->nombre_equipo = $this->nombre_equipo;
-        $cargo->usuario_red  = $this->usuario_red ;
-        $cargo->procesador = $this->procesador;
-        $cargo->memoria  = $this->memoria;
-        $cargo->sistema_opreativo = $this->sistema_opreativo;
-        $cargo->mac_dispositivo = $this->mac_dispositivo;
-        $cargo->save();
-        $this->limpiar_modal();
+        //Redireccion despues de que todas las IPS hayan sido generadas y guardadas
+
+        return redirect()->route('cargo.index');
     }
+
+    //para que muestre las IPS
+
+    public function filtrar_Ips($filtro)
+    {
+            // Verificar si el filtro seleccionado es opcion 0,1,2 o  3
+            if ($filtro === '172.16.0.1') {
+                // Filtrar todas las IPs que tengan el número 0 como penúltimo número yasi sucesivamente hasta el 3
+                $this->filtrar_Ips = Ip::whereRaw("substring_index(substring_index(ip, '.', -2), '.', 1) = '0'")->get();
+            } elseif ($filtro === '172.16.0.2') {
+
+                $this->filtrar_Ips = Ip::whereRaw("substring_index(substring_index(ip, '.', -2), '.', 1) = '1'")->get();
+            } elseif ($filtro === '172.16.0.3') {
+
+                $this->filtrar_Ips = Ip::whereRaw("substring_index(substring_index(ip, '.', -2), '.', 1) = '2'")->get();
+            } elseif ($filtro === '172.16.0.4') {
+
+                $this->filtrar_Ips = Ip::whereRaw("substring_index(substring_index(ip, '.', -2), '.', 1) = '3'")->get();
+            } else {
+
+                $this->filtrar_Ips = Ip::where('ip', 'like', "$filtro%")->get();
+            }
+    }
+
+    //Muestras para las IPS
 
     public function mount()
     {
@@ -181,15 +151,16 @@ class Index extends Component
     {
         $this->ips = Ip::all();
     }
+
+
     public function render()
     {
-        $Cargos = $this->search
-        ? Cargo::where('name_cargo', 'like', '%' . $this-> search . '%')->paginate($this->mostrar_paginate)
-        : Cargo::paginate($this->mostrar_paginate);
 
+        $cargos = Cargo::search($this->search)
+        ->orderBy('id', 'asc')
+        ->paginate($this->mostrar_paginate);
         return view('livewire.cargo.index',[
-            'cargos'=>$Cargos,
-
+            'cargos'=>$cargos,
         ]);
     }
 }
