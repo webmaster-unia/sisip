@@ -12,6 +12,7 @@ use App\Area;
 use App\DireccionIP;
 use App\Models\Ip;
 use Livewire\Attributes\Title;
+use Livewire\Attributes\Validate;
 use Livewire\Component;
 
 #[Title ('Cargo - IP OTI')]
@@ -60,6 +61,8 @@ class Index extends Component
     #[Validate('nullable|string|max:50')]
     public $mac_dispositivo;
     #[Validate('nullable|string|max:50')]
+
+    public $button_Cargo;
     public $is_active;
 
     public function create()
