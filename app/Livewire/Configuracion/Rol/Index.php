@@ -39,7 +39,6 @@ class Index extends Component
     #[Validate('nullable|boolean')]
     public $is_active;
 
-
     //para modal de asignar Roles
     public $title_modal_rol = 'Asignar Permisos';
     public $button_modal_rol = 'Asignar Permiso';
@@ -47,6 +46,9 @@ class Index extends Component
     public $role_id;
 
     public $permisos;
+
+    // variable para asignar los permisos que se le asignaran al rol
+    public $permisos_rol = [];
 
     public function create()
     {
@@ -70,7 +72,6 @@ class Index extends Component
         $this->resetValidation();
     }
 
-
     public function guardar_rol()
     {
 
@@ -79,9 +80,7 @@ class Index extends Component
             return;
         }
 
-
         //para hacer que no ingrese campos vacios
-
         $rol = new Role();
         $rol->name = $this->name;
         $slug = strtolower(str_replace(' ', '-', $this->name));
@@ -91,7 +90,6 @@ class Index extends Component
         $this->limpiar_modal();
         return redirect()->route('configuracion.rol.index');
     }
-
 
     //editar roles
     public function edit($id)
@@ -109,10 +107,8 @@ class Index extends Component
         $this->resetValidation();
     }
 
-
     public function actualizar_rol()
     {
-
         if ($this->modo == 'create') {
             $rol = new Role();
         } else if ($this->modo == 'edit') {
@@ -120,11 +116,16 @@ class Index extends Component
         }
 
         $rol->name = $this->name;
-        $rol->slug = $this->slug;
+        $slug = strtolower(str_replace(' ', '-', $this->name));
+        $rol->slug = $slug;
         $rol->description = $this->description;
         $rol->save();
         $this->limpiar_modal();
-        return redirect()->route('configuracion.rol.index');
+        $this->dispatch(
+            'modal',
+            modal: '#modal-rol',
+            action: 'hide'
+        );
     }
 
     public function mount()
@@ -137,10 +138,32 @@ class Index extends Component
         $this->permisos = Permission::all();
     }
 
-
-    public function asignar()
+    public function cargar_asignar_rol($id)
     {
+        $rol = Role::findOrFail($id);
+        $this->role_id = $id;
+        $this->permisos_rol = $rol->permissions->pluck('id')->toArray();
     }
+
+    public function asignar_permisos()
+    {
+        $rol = Role::findOrFail($this->role_id);
+        $rol->permissions()->sync($this->permisos_rol);
+        $this->dispatch('toast-basico',
+            text: 'Permisos asignados correctamente',
+            tipo: 'success'
+        );
+        $this->dispatch(
+            'modal',
+            modal: '#modal-asignar',
+            action: 'hide'
+        );
+        $this->reset([
+            'role_id',
+            'permisos_rol',
+        ]);
+    }
+
 
 
     public function eliminar_rol($id)

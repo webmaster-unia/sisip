@@ -19,7 +19,9 @@ class Index extends Component
 
 
     use WithPagination;
+    protected $paginationTheme = 'bootstrap';
     use WithFileUploads;
+
 
 
 
