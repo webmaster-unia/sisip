@@ -113,7 +113,6 @@
                                             </td>
                                             <td>
                                                 @if ($item->is_active == 1)
-
                                                     <span class="status status-teal px-3 py-2" wire:confirm="¿ Estás seguro que desea cambiar el estado?"
                                                     wire:click="cambiar_estado({{ $item->id }}, true)" style="cursor: pointer;">
                                                     <span class="status-dot status-dot-animated"></span>
@@ -127,12 +126,6 @@
                                             </td>
                                             <td>
                                                 <div class="btn-list flex-nowrap justify-content-end">
-                                                    {{-- <button type="button" class="btn btn-sm btn-outline"
-                                                    data-bs-toggle="modal" data-bs-target="#modal-ciclo-ver"
-                                                    wire:click="show({{ $item->id }})">
-                                                    Ver
-                                                </button> --}}
-
                                                     <form wire:submit.prevent="eliminar_area({{ $item->id }})" style="display: inline;" class="d-inline">
                                                         <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('¿Estás seguro de que quieres eliminar esta tarea?')">Eliminar</button>
                                                     </form>
@@ -142,11 +135,11 @@
                                                         wire:click="edit({{ $item->id }})">
                                                         Editar
                                                     </button>
-                                                    <button wire:click="({{ $item->id }})"
-                                                        class="btn btn-sm btn-outline-warning" data-bs-toggle="modal"
-                                                        data-bs-target="#modal-ip">
-                                                        Asignar IP
-                                                    </button>
+                                                    <button type="button" class="btn btn-sm btn-outline-warning"
+                                                    data-bs-toggle="modal" data-bs-target="#modal-ip"
+                                                    wire:click="cargar_asignar_ips({{ $item->id }})">
+                                                    Asignar Ip
+                                                </button>
 
 
                                                 </div>
@@ -310,9 +303,6 @@
                                     @enderror
                                 </div>
                             </div>
-
-
-
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -330,7 +320,7 @@
     </div>
 
     {{-- Modal Para asignar IP --}}
-    <div>
+    <di>
         <div class="modal fade modal-blur" id="modal-ip" tabindex="-1" wire:ignore.self wire:model="showModal">
             <div class="modal-dialog modal-fullscreen" role="document">
                 <div class="modal-content">
@@ -341,9 +331,9 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                             wire:click="limpiar_modal"></button>
                     </div>
-                    <form autocomplete="off" novalidate wire:submit.prevent="asignar_ip">
+                    <form autocomplete="off" novalidate wire:submit.prevent="asignar_ips">
                         <div class="modal-body">
-                            <!-- error si intenta crear un campo vacio-->
+                            <!-- Error si intenta crear un campo vacío -->
                             @if (session()->has('error'))
                                 <div class="alert alert-danger">
                                     {{ session('error') }}
@@ -360,21 +350,18 @@
                                     wire:click="filtrarIps('172.16.0.4')">IP 72.16.3.*</button>
                             </div>
                             <div class="row">
-                                @php
-                                    $collection = collect($filteredIps);
-                                    $chunks = $collection->chunk(35);
-                                @endphp
-                                @foreach ($chunks as $chunk)
-                                    <div class="col-md-1">
-                                        @foreach ($chunk as $ip)
-                                            <label>
-                                                <input type="checkbox" wire:model="selectedIps.{{ $ip['id'] }}" {{ $ip['is_assigned'] ? 'disabled' : '' }}>
-                                                {{ $ip['ip'] }}
-                                            </label><br>
-                                        @endforeach
-                                    </div>
+                                @foreach (collect($filteredIps)->chunk(35) as $chunk)
+                                <div class="col-md-1">
+                                    @foreach ($chunk as $ip)
+                                    <label>
+                                        <input type="checkbox" wire:model="selectIps" value="{{ $ip->id }}">
+                                        {{ $ip->ip }}
+                                    </label><br>
+                                    @endforeach
+                                </div>
                                 @endforeach
                             </div>
+
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal"

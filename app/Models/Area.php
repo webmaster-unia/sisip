@@ -52,6 +52,8 @@ class Area extends Model
         });
     }
 
+
+
     public function scopeSearch($query, $search) {
         if ($search) {
             return $query->where('name', 'LIKE', "%{$search}%")

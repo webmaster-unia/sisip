@@ -164,6 +164,8 @@ class Index extends Component
         ]);
     }
 
+
+
     public function eliminar_rol($id)
     {
         Role::findOrFail($id)->delete();
