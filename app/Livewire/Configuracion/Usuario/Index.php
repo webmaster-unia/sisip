@@ -112,6 +112,7 @@ class Index extends Component
             'rol' => 'required|exists:roles,id',
             'contraseña' => $this->modo == 'create' ? 'required|min:8|max:255' : 'nullable|min:8|max:255',
             'contraseña_confirmacion' => $this->modo == 'create' ? 'required|min:8|max:255|same:contraseña' : 'nullable|min:8|max:255|same:contraseña',
+
         ]);
 
         if ($this->modo == 'create') {

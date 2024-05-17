@@ -35,10 +35,6 @@ class Index extends Component
 
     public $ip_id;
 
-
-
-
-
     //crear rol
     public function create()
     {
@@ -66,7 +62,7 @@ class Index extends Component
         $ip = $inicioArray[0] . '.' . $inicioArray[1] . '.' . $inicioArray[2] . '.' . $i;
 
         // Crear una nueva instancia del modelo
-        $nuevoDato = new Ip();     
+        $nuevoDato = new Ip();
         // Asignar los valores
         $nuevoDato->ip = $ip;
         // Guardar en la base de datos
