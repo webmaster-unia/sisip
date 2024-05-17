@@ -364,7 +364,8 @@
                                 <div class="col-md-1">
                                     @foreach ($chunk as $ip)
                                     <label>
-                                        <input type="checkbox" wire:model="selectIps" value="{{ $ip->id }}">
+                                        <input type="checkbox" class="ip-checkbox" data-ip="{{ $ip->id }}"
+                                            value="{{ $ip->id }}" {{ in_array($ip->id, $selectIps) ? 'checked' : '' }}>
                                         {{ $ip->ip }}
                                     </label><br>
                                     @endforeach
