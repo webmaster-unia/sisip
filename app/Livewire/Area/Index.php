@@ -169,6 +169,7 @@ class Index extends Component
     //abrir um modal
     //lista de checkbox de ips disponibles
     //se guarde en la tabla area_ip, solo guardar los ID
+    // => asociar un
 
 
 
@@ -186,8 +187,6 @@ class Index extends Component
     //filtrar las ip e el moddal
     public function filtrarIps($filtro)
     {
-
-
         // Verificar si el filtro seleccionado es opcion 0,1,2 o  3
         if ($filtro === '172.16.0.1') {
             // Filtrar todas las IPs que tengan el número 0 como penúltimo número yasi sucesivamente hasta el 3
@@ -206,10 +205,7 @@ class Index extends Component
             $this->filteredIps = Ip::where('ip', 'like', "$filtro%")->get();
         }
 
-
-
     }
-
 
     //activar desactivar
     public function cambiar_estado($id, $value)
@@ -226,7 +222,6 @@ class Index extends Component
     }
 
 
-
     public function cargar_asignar_ips($id)
     {
         //dd($id);
@@ -237,12 +232,11 @@ class Index extends Component
 
     public function asignar_ips()
     {
-        //dd($this->all());
         $area = Area::findOrFail($this->area_id);
 
         $area->ips()->sync($this->selectIps);
         $this->dispatch('toast-basico',
-            text: 'Permisos asignados correctamente',
+            text: 'IPS asignados correctamente',
             tipo: 'success'
         );
         $this->dispatch(

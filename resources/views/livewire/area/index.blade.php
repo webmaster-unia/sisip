@@ -320,7 +320,7 @@
     </div>
 
     {{-- Modal Para asignar IP --}}
-    <di>
+    <div>
         <div class="modal fade modal-blur" id="modal-ip" tabindex="-1" wire:ignore.self wire:model="showModal">
             <div class="modal-dialog modal-fullscreen" role="document">
                 <div class="modal-content">
@@ -354,8 +354,11 @@
                                 <div class="col-md-1">
                                     @foreach ($chunk as $ip)
                                     <label>
-                                        <input type="checkbox" class="ip-checkbox" data-ip="{{ $ip->id }}"
-                                            value="{{ $ip->id }}" {{ in_array($ip->id, $selectIps) ? 'checked' : '' }}>
+                                        {{-- <input type="checkbox" class="ip-checkbox" data-ip="{{ $ip->id }}"
+                                            value="{{ $ip->id }}" {{ in_array($ip->id, $selectIps) ? 'checked' : '' }}> --}}
+
+                                        <input type="checkbox" class="ip-checkbox" id="{{ $ip->id }}"
+                                            wire:model.live="selectIps" value="{{ $ip->id }}">
                                         {{ $ip->ip }}
                                     </label><br>
                                     @endforeach
@@ -378,8 +381,6 @@
             </div>
         </div>
     </div>
-
-
     {{-- modal para eliminar --}}
 
 
