@@ -15,6 +15,7 @@
                 </div>
                 <div class="col-auto ms-auto d-print-none">
                     <div class="btn-list">
+                        @if (auth()->user()->permiso('ip-create'))
                         <button type="button" class="btn btn-cyan d-none d-sm-inline-block" data-bs-toggle="modal"
                             wire:click="create" data-bs-target="#modal-rol">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
@@ -26,6 +27,8 @@
                             </svg>
                             Ingresar IP
                         </button>
+                        @endif
+
                         <button type="button" class="btn btn-teal d-sm-none btn-icon" data-bs-toggle="modal"
                             wire:click="create" data-bs-target="#modal-rol" aria-label="Crear rol">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
@@ -116,19 +119,21 @@
                                                     Ver
                                                 </button> --}}
                                             </button>
+                                            @if (auth()->user()->permiso('ip-delete'))
                                             <button type="button" class="btn btn-danger btn-sm px-2"
                                                 wire:confirm="¿Estás seguro que desea eliminar este ip?"
                                                 data-bs-toggle="modal3" data-bs-target="#modal-rol"
                                                 wire:click="eliminar_ip({{ $item->id }})">
                                                 Eliminar
                                             </button>
-
-                                            </button>
+                                            @endif
+                                                    @if (auth()->user()->permiso('ip-edit'))
                                                     <button type="button" class="btn btn-sm btn-outline-azure"
                                                         data-bs-toggle="modal" data-bs-target="#modal-rol"
                                                         wire:click="edit({{ $item->id }})">
                                                         Editar
                                                     </button>
+                                                    @endif
 
                                                 </div>
                                             </td>
