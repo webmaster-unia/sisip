@@ -354,18 +354,19 @@
 
                 {{-- modal para area --}}
                 <div class="row">
-                    <div class="col-lg-12">
-                        <div class="mb-3">
-                            <label for="nombre" class="form-label required">Ingrese área</label>
-                            <select class="form-select @error('nombre') is-invalid @enderror" id="nombre" wire:model.live="nombre">
-                                <option value="">Seleccione una área</option>
-                                @foreach($areas as $area)
-                                    <option value="{{ $area->id }}">{{ $area->nombre }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                </div>
+    <div class="col-lg-12">
+        <div class="mb-3">
+            <label for="nombre" class="form-label required">Ingrese área</label>
+            <select class="form-select @error('nombre') is-invalid @enderror" id="nombre" wire:model="nombre">
+                <option value="">Seleccione una área</option>
+                @foreach($areas as $area)
+                    <option value="{{ $area->id }}">{{ $area->name }}</option>
+                @endforeach
+            </select>
+        </div>
+    </div>
+</div>
+
                 {{-- modal para IP --}}
                 <div class="col-lg-12">
                     <div class="mb-3">

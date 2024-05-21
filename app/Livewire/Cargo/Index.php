@@ -187,14 +187,17 @@ class Index extends Component
     }
 
     // Controller method example
-    public $areas=[];
-public function showForm()
-{
-    // Assuming you have a model called 'Area'
-    $areas = Area::all();
-    return view('cargo.index', compact('areas'));
+    public $areas;
+   
+    public function mount()
+    {
+        $this->getAllAreas();
+    }
 
-}
+    public function getAllAreas()
+    {
+        $this->areas = Area::all();
+    }
 
 
     //para que muestre las IPS
@@ -221,16 +224,6 @@ public function showForm()
     }
 
     //Muestras para las IPS
-
-    public function mount()
-    {
-        $this->getAllIps();
-    }
-
-    public function getAllIps()
-    {
-        $this->ips = Ip::all();
-    }
 
 
     public function render()
