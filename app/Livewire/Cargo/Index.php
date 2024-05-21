@@ -3,6 +3,7 @@
 namespace App\Livewire\Cargo;
 
 use App\Http\Controllers\Controller;
+use App\Models\Area;
 use App\Models\Cargo;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Url;
@@ -27,8 +28,13 @@ class Index extends Component
     #[Url('Buscar')]
     public $search='';
 
-    //variables modal
+    //variables modal(para crear y editar)
     public $title_modal='crear nuevo cargo';
+    public $button_modal='crear cargo';
+
+    //variables de mensaje
+    public $mensaje ='';
+
 
     //variables para el el formulario cargo
 
@@ -72,6 +78,72 @@ class Index extends Component
     public $mac_dispositivo;
     #[Validate('required|max:255')]
 
+    public $slug;
+    #[Validate('nullable|string|max:255')]
+
+    //variables de los botones
+    public $modo = 'create';
+
+
+    //crear Cargo
+    public function create()
+    {
+        $this->limpiar_modal();
+        $this->modo = 'create';
+        $this->title_modal = 'crear nuevo cargo';
+        $this->button_modal = 'crear cargo';
+        $this->resetErrorBag();
+        $this->resetValidation();
+    }
+
+
+    public function limpiar_modal()
+    {
+        $this->reset([
+            'name_cargo',
+            'area_ip_id',
+            'apellido_paterno',
+            'apellido_materno',
+            'nombre',
+            'dni',
+            'correo_electronico',
+            'nombre_equipo',
+            'usuario_red',
+            'procesador',
+            'memoria',
+            'sistema_operativo',
+            'mac_dispositivo',
+        ]);
+        $this->resetErrorBag();
+        $this->resetValidation();
+    }
+
+    //guardar cargo
+    public function guardar_cargo()
+    {
+        $cargo = new Cargo();
+        $cargo->name_cargo = $this->name_cargo;
+        $cargo->area_ip_id = $this->area_ip_id;
+        $cargo->apellido_paterno = $this->apellido_paterno;
+        $cargo->apellido_materno = $this->apellido_materno;
+        $cargo->nombre = $this->nombre;
+        $cargo->dni = $this->dni;
+        $cargo->correo_electronico = $this->correo_electronico;
+        $cargo->nombre_equipo = $this->nombre_equipo;
+        $cargo->usuario_red = $this->usuario_red;
+        $cargo->procesador = $this->procesador;
+        $cargo->memoria = $this->memoria;
+        $cargo->sistema_opreativo = $this->sistema_operativo;
+        $cargo->mac_dispositivo = $this->mac_dispositivo;
+        $cargo->save();
+        $this->limpiar_modal();
+        return redirect()->route('cargo.index');
+    }
+
+
+
+    //editar para almacenr
+    //ahora para actualizar
 
 
        //validar ips en masa
@@ -80,9 +152,6 @@ class Index extends Component
        public $ips;
        public $filtrar_Ips =[];
        public $button_VerIps='crear Ips en masa';
-
-
-
 
     //generar IPS
     public function GenerarIps()
@@ -116,6 +185,17 @@ class Index extends Component
 
         return redirect()->route('cargo.index');
     }
+
+    // Controller method example
+    public $areas=[];
+public function showForm()
+{
+    // Assuming you have a model called 'Area'
+    $areas = Area::all();
+    return view('cargo.index', compact('areas'));
+
+}
+
 
     //para que muestre las IPS
 

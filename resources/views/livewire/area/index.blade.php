@@ -318,7 +318,6 @@
             </div>
         </div>
     </div>
-
     {{-- Modal Para asignar IP --}}
     <di>
         <div class="modal fade modal-blur" id="modal-ip" tabindex="-1" wire:ignore.self wire:model="showModal">
@@ -380,6 +379,4 @@
 
 
     {{-- modal para eliminar --}}
-
-
 </div>

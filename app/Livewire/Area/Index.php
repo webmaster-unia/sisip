@@ -50,8 +50,7 @@ class Index extends Component
     #[Validate('required|string|max:255')]
     public $name;
     #[Validate('nullable|string|max:255')]
-    public $slug;
-    #[Validate('nullable|string|max:255')]
+
     public $abreviation;
     #[Validate('nullable|numeric')]
     public $cantidad;
@@ -130,7 +129,6 @@ class Index extends Component
         $area = Area::findOrFail($id);
         $this->area_id = $id;
         $this->name = $area->name;
-        $this->slug = $area->slug;
         $this->abreviation = $area->abreviation;
         $this->cantidad = $area->cantidad;
         $this->ip_inicio = $area->ip_inicio;
