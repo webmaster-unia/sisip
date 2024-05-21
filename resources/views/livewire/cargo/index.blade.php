@@ -354,18 +354,33 @@
 
                 {{-- modal para area --}}
                 <div class="row">
+                    <div class="col-lg-12">
+                        <div class="mb-3">
+                            <label for="selectedAreaId" class="form-label required">Seleccione un área</label>
+                            <select class="form-select @error('selectedAreaId') is-invalid @enderror" id="selectedAreaId" wire:model="selectedAreaId">
+                                <option value="">Seleccione un área</option>
+                                @foreach($areas as $area)
+                                    <option value="{{ $area->id }}">{{ $area->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+<div class="row">
     <div class="col-lg-12">
         <div class="mb-3">
-            <label for="nombre" class="form-label required">Ingrese área</label>
-            <select class="form-select @error('nombre') is-invalid @enderror" id="nombre" wire:model="nombre">
-                <option value="">Seleccione una área</option>
-                @foreach($areas as $area)
-                    <option value="{{ $area->id }}">{{ $area->name }}</option>
+            <label for="selectedIpId" class="form-label required">Seleccione una IP</label>
+            <select class="form-select @error('selectedIpId') is-invalid @enderror" id="selectedIpId" wire:model="selectedIpId">
+                <option value="">Seleccione una IP</option>
+                @foreach($ips as $ip)
+                    <option value="{{ $ip->id }}">{{ $ip->ip }}</option>
                 @endforeach
             </select>
         </div>
     </div>
 </div>
+
 
                 {{-- modal para IP --}}
                 <div class="col-lg-12">

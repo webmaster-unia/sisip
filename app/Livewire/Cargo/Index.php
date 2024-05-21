@@ -188,16 +188,23 @@ class Index extends Component
 
     // Controller method example
     public $areas;
-   
+    public $selectedAreaId;
+
     public function mount()
     {
-        $this->getAllAreas();
+        $this->areas = Area::all();
+        $this->ips = collect(); 
     }
 
-    public function getAllAreas()
+    public function updatedSelectedAreaId($value)
     {
-        $this->areas = Area::all();
+        if (!empty($value)) {
+            $this->ips = Ip::where('area_id', $value)->get();
+        } else {
+            $this->ips = collect(); 
+        }
     }
+
 
 
     //para que muestre las IPS
