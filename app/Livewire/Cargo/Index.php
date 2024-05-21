@@ -9,6 +9,8 @@ use Livewire\Attributes\Layout;
 use Livewire\Attributes\Url;
 use Livewire\Features\SupportFileUploads\WithFileUploads;
 use Livewire\WithPagination;
+use App\Area;
+use App\DireccionIP;
 use App\Models\Ip;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Validate;
@@ -28,122 +30,39 @@ class Index extends Component
     #[Url('Buscar')]
     public $search='';
 
-    //variables modal(para crear y editar)
+    //variables modal
     public $title_modal='crear nuevo cargo';
-    public $button_modal='crear cargo';
 
-    //variables de mensaje
-    public $mensaje ='';
-
-
-    //variables para el el formulario cargo
-
-    #[Validate('required|max:100')]
-
+    #[Validate('nullable|string|max:50')]
     public $name_cargo;
-    #[Validate('max:255')]
+
+    public $ips;
 
     public $area_ip_id;
-    #[Validate('required|max:255')]
-
+    #[Validate('nullable|string|max:50')]
     public $apellido_paterno;
-    #[Validate('required|max:255')]
-
+    #[Validate('nullable|string|max:50')]
     public $apellido_materno;
-    #[Validate('required|max:255')]
-
+    #[Validate('nullable|string|max:50')]
     public $nombre;
-    #[Validate('required|max:255')]
+    #[Validate('nullable|string|max:50')]
     public $dni;
-    #[Validate('required|max:255')]
-
-    public $correo_electronico;
-    #[Validate('required|max:255')]
-
+    #[Validate('nullable|string|max:50')]
+    public $correo_institucional;
+    #[Validate('nullable|string|max:50')]
     public $nombre_equipo;
-    #[Validate('required|max:255')]
-
+    #[Validate('nullable|string|max:50')]
     public $usuario_red;
-    #[Validate('required|max:255')]
-
+    #[Validate('nullable|string|max:50')]
     public $procesador;
-    #[Validate('required|max:255')]
-
+    #[Validate('nullable|string|max:50')]
     public $memoria;
-    #[Validate('required|max:255')]
-
-    public $sistema_operativo;
-    #[Validate('required|max:255')]
-
+    #[Validate('nullable|string|max:50')]
+    public $sistema_opreativo;
+    #[Validate('nullable|string|max:50')]
     public $mac_dispositivo;
     #[Validate('required|max:255')]
 
-    public $slug;
-    #[Validate('nullable|string|max:255')]
-
-    //variables de los botones
-    public $modo = 'create';
-
-
-    //crear Cargo
-    public function create()
-    {
-        $this->limpiar_modal();
-        $this->modo = 'create';
-        $this->title_modal = 'crear nuevo cargo';
-        $this->button_modal = 'crear cargo';
-        $this->resetErrorBag();
-        $this->resetValidation();
-    }
-
-
-    public function limpiar_modal()
-    {
-        $this->reset([
-            'name_cargo',
-            'area_ip_id',
-            'apellido_paterno',
-            'apellido_materno',
-            'nombre',
-            'dni',
-            'correo_electronico',
-            'nombre_equipo',
-            'usuario_red',
-            'procesador',
-            'memoria',
-            'sistema_operativo',
-            'mac_dispositivo',
-        ]);
-        $this->resetErrorBag();
-        $this->resetValidation();
-    }
-
-    //guardar cargo
-    public function guardar_cargo()
-    {
-        $cargo = new Cargo();
-        $cargo->name_cargo = $this->name_cargo;
-        $cargo->area_ip_id = $this->area_ip_id;
-        $cargo->apellido_paterno = $this->apellido_paterno;
-        $cargo->apellido_materno = $this->apellido_materno;
-        $cargo->nombre = $this->nombre;
-        $cargo->dni = $this->dni;
-        $cargo->correo_electronico = $this->correo_electronico;
-        $cargo->nombre_equipo = $this->nombre_equipo;
-        $cargo->usuario_red = $this->usuario_red;
-        $cargo->procesador = $this->procesador;
-        $cargo->memoria = $this->memoria;
-        $cargo->sistema_opreativo = $this->sistema_operativo;
-        $cargo->mac_dispositivo = $this->mac_dispositivo;
-        $cargo->save();
-        $this->limpiar_modal();
-        return redirect()->route('cargo.index');
-    }
-
-
-
-    //editar para almacenr
-    //ahora para actualizar
 
 
        //validar ips en masa
@@ -152,6 +71,9 @@ class Index extends Component
        public $ips;
        public $filtrar_Ips =[];
        public $button_VerIps='crear Ips en masa';
+
+
+
 
     //generar IPS
     public function GenerarIps()
@@ -186,41 +108,54 @@ class Index extends Component
         return redirect()->route('cargo.index');
     }
 
-    // Controller method example
-    public $areas=[];
-public function showForm()
-{
-    // Assuming you have a model called 'Area'
-    $areas = Area::all();
-    return view('cargo.index', compact('areas'));
-
-}
-
-
     //para que muestre las IPS
 
     public function filtrar_Ips($filtro)
     {
-            // Verificar si el filtro seleccionado es opcion 0,1,2 o  3
-            if ($filtro === '172.16.0.1') {
-                // Filtrar todas las IPs que tengan el número 0 como penúltimo número yasi sucesivamente hasta el 3
-                $this->filtrar_Ips = Ip::whereRaw("substring_index(substring_index(ip, '.', -2), '.', 1) = '0'")->get();
-            } elseif ($filtro === '172.16.0.2') {
-
-                $this->filtrar_Ips = Ip::whereRaw("substring_index(substring_index(ip, '.', -2), '.', 1) = '1'")->get();
-            } elseif ($filtro === '172.16.0.3') {
-
-                $this->filtrar_Ips = Ip::whereRaw("substring_index(substring_index(ip, '.', -2), '.', 1) = '2'")->get();
-            } elseif ($filtro === '172.16.0.4') {
-
-                $this->filtrar_Ips = Ip::whereRaw("substring_index(substring_index(ip, '.', -2), '.', 1) = '3'")->get();
-            } else {
-
-                $this->filtrar_Ips = Ip::where('ip', 'like', "$filtro%")->get();
-            }
+        $cargo = Cargo::findOrFail($id);
+        $this->name_cargo = $id;
+        $this->apellido_paterno = $cargo->apellido_paterno;
+        $this->apellido_materno = $cargo->apellido_materno;
+        $this->nombre = $cargo->nombre;
+        $this->dni = $cargo->dni;
+        $this->correo_institucional  = $cargo->correo_institucional ;
+        $this->nombre_equipo  = $cargo->nombre_equipo ;
+        $this->usuario_red   = $cargo->usuario_red;
+        $this->procesador  = $cargo->procesador;
+        $this->memoria  = $cargo->memoria;
+        $this->sistema_opreativo  = $cargo->sistema_opreativo;
+        $this->mac_dispositivo  = $cargo->mac_dispositivo;
+        $this->modo = 'edit';
+        $this->title_modal = 'Editar Cargo';
+        $this->button_Cargo = 'Actualizar Cargo';
+        $this->resetErrorBag();
+        $this->resetValidation();
     }
 
-    //Muestras para las IPS
+    //ahora actualizarlo
+    public function actualizar_Cargo()
+    {
+        if ($this->modo == 'create') {
+            $cargo = new Cargo();
+        } elseif ($this->modo == 'edit') {
+            $cargo = Cargo::findOrFail($this->name_cargo);
+        }
+
+        $cargo->name_cargo = $this->name_cargo;
+        $cargo->apellido_paterno = $this->apellido_paterno;
+        $cargo->apellido_materno = $this->apellido_materno;
+        $cargo->nombre = $this->nombre;
+        $cargo->dni = $this->dni;
+        $cargo->correo_institucional  = $this->correo_institucional ;
+        $cargo->nombre_equipo = $this->nombre_equipo;
+        $cargo->usuario_red  = $this->usuario_red ;
+        $cargo->procesador = $this->procesador;
+        $cargo->memoria  = $this->memoria;
+        $cargo->sistema_opreativo = $this->sistema_opreativo;
+        $cargo->mac_dispositivo = $this->mac_dispositivo;
+        $cargo->save();
+        $this->limpiar_modal();
+    }
 
     public function mount()
     {
@@ -231,16 +166,15 @@ public function showForm()
     {
         $this->ips = Ip::all();
     }
-
-
     public function render()
     {
+        $Cargos = $this->search
+        ? Cargo::where('name_cargo', 'like', '%' . $this-> search . '%')->paginate($this->mostrar_paginate)
+        : Cargo::paginate($this->mostrar_paginate);
 
-        $cargos = Cargo::search($this->search)
-        ->orderBy('id', 'asc')
-        ->paginate($this->mostrar_paginate);
         return view('livewire.cargo.index',[
-            'cargos'=>$cargos,
+            'cargos'=>$Cargos,
+
         ]);
     }
 }

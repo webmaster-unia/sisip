@@ -167,6 +167,7 @@
                     </a>
                 </li>
                 @endif
+                @if (auth()->user()->permiso('ip-index'))
                 <li class="nav-item {{ request()->routeIs('ip.index') ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('ip.index') }}">
                         <span class="nav-link-icon d-md-none d-lg-inline-block">
@@ -192,6 +193,8 @@
                     </a>
 
                 </li>
+                @endif
+                @if (auth()->user()->permiso('cargo-index'))
                 <li class="nav-item {{ request()->routeIs('cargo.index') ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('cargo.index') }}">
                         <span class="nav-link-icon d-md-none d-lg-inline-block">
@@ -208,6 +211,8 @@
                         </span>
                     </a>
                 </li>
+                @endif
+
                 <hr class="ms-lg-3 my-3">
             </ul>
         </div>

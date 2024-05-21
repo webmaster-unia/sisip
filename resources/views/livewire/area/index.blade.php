@@ -15,6 +15,7 @@
                 </div>
                 <div class="col-auto ms-auto d-print-none">
                     <div class="btn-list">
+                    @if (auth()->user()->permiso('area-create'))
                         <button type="button" class="btn btn-cyan d-none d-sm-inline-block" data-bs-toggle="modal"
                             wire:click="create" data-bs-target="#modal-area">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
@@ -26,6 +27,7 @@
                             </svg>
                             Crear Area
                         </button>
+                        @endif
                         <button type="button" class="btn btn-teal d-sm-none btn-icon" data-bs-toggle="modal"
                             wire:click="create" data-bs-target="#modal-rol" aria-label="Crear rol">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
@@ -127,19 +129,24 @@
                                             <td>
                                                 <div class="btn-list flex-nowrap justify-content-end">
                                                     <form wire:submit.prevent="eliminar_area({{ $item->id }})" style="display: inline;" class="d-inline">
+                                                        @if (auth()->user()->permiso('area-delete'))
                                                         <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('¿Estás seguro de que quieres eliminar esta tarea?')">Eliminar</button>
+                                                        @endif
                                                     </form>
-
+                                                    @if (auth()->user()->permiso('area-edit'))
                                                     <button type="button" class="btn btn-sm btn-outline-azure "
                                                         data-bs-toggle="modal" data-bs-target="#modal-area"
                                                         wire:click="edit({{ $item->id }})">
                                                         Editar
                                                     </button>
+                                                    @endif
+                                                    @if (auth()->user()->permiso('area-asignar-ip'))
                                                     <button type="button" class="btn btn-sm btn-outline-warning"
                                                     data-bs-toggle="modal" data-bs-target="#modal-ip"
                                                     wire:click="cargar_asignar_ips({{ $item->id }})">
                                                     Asignar Ip
-                                                </button>
+                                                    </button>
+                                                    @endif
 
 
                                                 </div>
@@ -319,7 +326,7 @@
         </div>
     </div>
     {{-- Modal Para asignar IP --}}
-    <di>
+    <div>
         <div class="modal fade modal-blur" id="modal-ip" tabindex="-1" wire:ignore.self wire:model="showModal">
             <div class="modal-dialog modal-fullscreen" role="document">
                 <div class="modal-content">
@@ -353,7 +360,11 @@
                                 <div class="col-md-1">
                                     @foreach ($chunk as $ip)
                                     <label>
-                                        <input type="checkbox" wire:model="selectIps" value="{{ $ip->id }}">
+                                        {{-- <input type="checkbox" class="ip-checkbox" data-ip="{{ $ip->id }}"
+                                            value="{{ $ip->id }}" {{ in_array($ip->id, $selectIps) ? 'checked' : '' }}> --}}
+
+                                        <input type="checkbox" class="ip-checkbox" id="{{ $ip->id }}"
+                                            wire:model.live="selectIps" value="{{ $ip->id }}">
                                         {{ $ip->ip }}
                                     </label><br>
                                     @endforeach
@@ -376,7 +387,5 @@
             </div>
         </div>
     </div>
-
-
     {{-- modal para eliminar --}}
 </div>

@@ -15,6 +15,7 @@
                 </div>
                 <div class="col-auto ms-auto d-print-none">
                     <div class="btn-list">
+
                         <button type="button" class="btn btn-cyan d-none d-sm-inline-block" data-bs-toggle="modal"
                             wire:click="create" data-bs-target="#modal-asignar">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
@@ -26,6 +27,7 @@
                             </svg>
                             Ingresar Cargo
                         </button>
+
                         <button type="button" class="btn btn-teal d-sm-none btn-icon" data-bs-toggle="modal"
                             wire:click="create" data-bs-target="#modal-rol" aria-label="Crear rol">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
@@ -97,46 +99,26 @@
                                     @forelse ($cargos as $item)
                                         <tr>
                                             <td>
-                                                {{ $item->id }}
-                                            </td>
                                             <td>
-                                                {{ $nama_cargo->name_cargo }}
-                                            </td>
-                                            <td>
-                                                {{ $apellido_paterno->apellido_paterno }}
-                                            </td>
-                                            <td>
-                                                {{ $apellido_materno->paellido_materno }}
-                                            </td>
-                                            <td>
-                                                {{ $nombre->nombre }}
-                                            </td>
-                                            <td>
-                                                {{ $dni->dni }}
-                                            </td>
-                                            <td>
-                                                {{ $correo_electronico->correo_electronico }}
-                                            </td>
-                                            <td>
-                                                {{ $nombre_equipo->nombre_equipo }}
-                                            </td>
-                                            <td>
-                                                {{ $usuario_red->usuario_red }}
-                                            </td>
-                                            <td>
-                                                {{ $procesador->procesador }}
-                                            </td>
-                                            <td>
-                                                {{ $memoria->memoria }}
-                                            </td>
-                                            <td>
-                                                {{ $procesador->procesador }}
-                                            </td>
-                                            <td>
-                                                {{$sistema_operativo->sistema_operativo}}
-                                            </td>
-                                            <td>
-                                                {{ $mac_dispositivo->mac_dispositivo }}
+                                                <div class="btn-list flex-nowrap justify-content-end">
+                                                    {{-- <button type="button" class="btn btn-sm btn-outline"
+                                                    data-bs-toggle="modal" data-bs-target="#modal-ciclo-ver"
+                                                    wire:click="show({{ $item->id }})">
+                                                    Ver
+                                                </button> --}}
+
+                                                    <form wire:submit.prevent="eliminar_area({{ $item->id }})"
+                                                        style="display: inline;" class="d-inline">
+                                                        <button type="submit" class="btn btn-sm btn-outline-danger"
+                                                            onclick="return confirm('¿Estás seguro de que quieres eliminar esta area?')">Eliminar</button>
+                                                    </form>
+                                                    <button type="button" class="btn btn-sm btn-outline-azure"
+                                                        data-bs-toggle="modal" data-bs-target="#modal-rol"
+                                                        wire:click="edit({{ $item->id }})">
+                                                        Editar
+                                                    </button>
+
+                                                </div>
                                             </td>
                                         </tr>
                                     @empty

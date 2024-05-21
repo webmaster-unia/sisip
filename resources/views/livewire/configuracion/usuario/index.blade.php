@@ -16,6 +16,7 @@
                 </div>
                 <div class="col-auto ms-auto d-print-none">
                     <div class="btn-list">
+                        @if (auth()->user()->permiso('usuario-create'))
                         <button type="button" class="btn btn-cyan d-none d-sm-inline-block" data-bs-toggle="modal"
                             wire:click="create" data-bs-target="#modal-usuario">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
@@ -27,6 +28,7 @@
                             </svg>
                             Crear
                         </button>
+                        @endif
                         <button type="button" class="btn btn-teal d-sm-none btn-icon" data-bs-toggle="modal"
                             wire:click="create" data-bs-target="#modal-usuario" aria-label="Crear usuario">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
@@ -124,14 +126,17 @@
                                         <td>
                                             <div class="btn-list flex-nowrap justify-content-end">
                                                 <form wire:submit.prevent="eliminar_user({{ $item->id }})" style="display: inline;" class="d-inline">
+                                                    @if (auth()->user()->permiso('usuario-delete'))
                                                     <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('¿Estás seguro de que quieres eliminar esta area?')">Eliminar</button>
+                                                    @endif
                                                 </form>
+                                                @if (auth()->user()->permiso('usuario-edit'))
                                                 <button type="button" class="btn btn-sm btn-outline-azure"
                                                     data-bs-toggle="modal" data-bs-target="#modal-usuario"
                                                     wire:click="edit_user({{ $item->id }})">
                                                     Editar
                                                 </button>
-
+                                                @endif
                                             </div>
                                         </td>
                                     </tr>

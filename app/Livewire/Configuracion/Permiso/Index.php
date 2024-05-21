@@ -22,9 +22,6 @@ class Index extends Component
     protected $paginationTheme = 'bootstrap';
     use WithFileUploads;
 
-
-
-
     #[Url('buscar')]
     public $search = '';
 
@@ -69,7 +66,7 @@ class Index extends Component
 
     public function guardar_permiso()
     {
-    
+
 
         // Verificar que el campo de nombre no esté vacío
         if (empty($this->name)) {
@@ -128,7 +125,7 @@ class Index extends Component
             $permiso->delete();
         }
     }
-    
+
 
     public function render()
     {
