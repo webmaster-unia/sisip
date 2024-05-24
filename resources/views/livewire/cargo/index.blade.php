@@ -108,6 +108,26 @@
                                             <td>{{ $item->mac_dispositivo ?? '-' }}</td>
                                             <td>
                                             </td>
+                                            <td>
+                                                <div class="btn-list flex-nowrap justify-content-end">
+                                                    <form wire:submit.prevent="eliminar_cargo({{ $item->id }})" style="display: inline;" class="d-inline">
+                                                        @if (auth()->user()->permiso('cargo-delete'))
+                                                        <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('¿Estás seguro de que quieres eliminar esta tarea?')">Eliminar</button>
+                                                        @endif
+                                                    </form>
+                                                    @if (auth()->user()->permiso('cargo-edit'))
+                                                    <button type="button" class="btn btn-sm btn-outline-azure "
+                                                        data-bs-toggle="modal" data-bs-target="#modal-cargo"
+                                                        wire:click="edit({{ $item->id }})">
+                                                        Editar
+                                                    </button>
+
+
+                                                    @endif
+
+
+                                                </div>
+                                            </td>
                                         </tr>
                                     @empty
                                         @if ($cargos->count() == 0 && $search != '')
