@@ -4,12 +4,14 @@ namespace App\Livewire\Cargo;
 
 use App\Http\Controllers\Controller;
 use App\Models\Area;
+use App\Models\AreaIp;
 use App\Models\Cargo;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Url;
 use Livewire\Features\SupportFileUploads\WithFileUploads;
 use Livewire\WithPagination;
 use App\Models\Ip;
+use Illuminate\Support\Collection;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
@@ -29,79 +31,81 @@ class Index extends Component
     public $search='';
 
     //variables modal(para crear y editar)
-    public $title_modal='crear nuevo cargo';
-    public $button_modal='crear cargo';
+    public $title_modal='Crear nuevo cargo';
+    public $button_modal='Crear cargo';
 
-    //variables de mensaje
-    public $mensaje ='';
-
+    public $cargo_id;
 
     //variables para el el formulario cargo
 
-    #[Validate('required|max:100')]
-
+    #[Validate('required|max:255')]
     public $name_cargo;
-    #[Validate('max:255')]
 
-    public $area_ip_id;
-    #[Validate('required|max:255')]
+    #[Validate('required|exists:areas,id')]
+    public $area;
 
+    #[Validate('required|exists:ips,id')]
+    public $ip;
+    public $ips = [];
+
+    #[Validate('nullable|max:255')]
     public $apellido_paterno;
-    #[Validate('required|max:255')]
 
+    #[Validate('nullable|max:255')]
     public $apellido_materno;
-    #[Validate('required|max:255')]
 
+    #[Validate('nullable|max:255')]
     public $nombre;
-    #[Validate('required|max:255')]
+
+    #[Validate('nullable|max:255|digits:8')]
     public $dni;
-    #[Validate('required|max:255')]
 
+    #[Validate('nullable|max:255|email')]
     public $correo_electronico;
-    #[Validate('required|max:255')]
 
+    #[Validate('nullable|max:255')]
     public $nombre_equipo;
-    #[Validate('required|max:255')]
 
+    #[Validate('nullable|max:255')]
     public $usuario_red;
-    #[Validate('required|max:255')]
 
+    #[Validate('nullable|max:255')]
     public $procesador;
-    #[Validate('required|max:255')]
 
+    #[Validate('nullable|max:255')]
     public $memoria;
-    #[Validate('required|max:255')]
 
+    #[Validate('nullable|max:255')]
     public $sistema_operativo;
-    #[Validate('required|max:255')]
 
+    #[Validate('nullable|max:255')]
     public $mac_dispositivo;
-    #[Validate('required|max:255')]
-
-    public $slug;
-    #[Validate('nullable|string|max:255')]
 
     //variables de los botones
     public $modo = 'create';
 
+    public function mount()
+    {
+        $this->ips = collect();
+    }
 
     //crear Cargo
     public function create()
     {
         $this->limpiar_modal();
         $this->modo = 'create';
-        $this->title_modal = 'crear nuevo cargo';
-        $this->button_modal = 'crear cargo';
+        $this->title_modal = 'Crear nuevo cargo';
+        $this->button_modal = 'Crear cargo';
         $this->resetErrorBag();
         $this->resetValidation();
     }
-
 
     public function limpiar_modal()
     {
         $this->reset([
             'name_cargo',
-            'area_ip_id',
+            'area',
+            'ip',
             'apellido_paterno',
             'apellido_materno',
             'nombre',
@@ -118,129 +122,88 @@ class Index extends Component
         $this->resetValidation();
     }
 
+
+    public function updatedArea($value)
+    {
+        if (!empty($value)) {
+            $this->ips = AreaIp::where('area_id', $value)->get();
+        } else {
+            $this->ips = collect();
+        }
+    }
+
     //guardar cargo
     public function guardar_cargo()
     {
-        $cargo = new Cargo();
+        // la validacion de los campos
+        $this->validate([
+            'name_cargo' => 'required|max:255',
+            'area' => 'required|exists:areas,id',
+            'ip' => 'required|exists:ips,id',
+            'apellido_paterno' => 'nullable|max:255',
+            'apellido_materno' => 'nullable|max:255',
+            'nombre' => 'nullable|max:255',
+            'dni' => 'nullable|max:255|digits:8',
+            'correo_electronico' => 'nullable|max:255|email',
+            'nombre_equipo' => 'nullable|max:255',
+            'usuario_red' => 'nullable|max:255',
+            'procesador' => 'nullable|max:255',
+            'memoria' => 'nullable|max:255',
+            'sistema_operativo' => 'nullable|max:255',
+            'mac_dispositivo' => 'nullable|max:255',
+        ]);
+
+        // el registro o actualizacion de los datos
+        if ($this->modo == 'create') {
+            $cargo = new Cargo();
+        } else {
+            $cargo = Cargo::find($this->cargo_id);
+        }
         $cargo->name_cargo = $this->name_cargo;
-        $cargo->area_ip_id = $this->area_ip_id;
-        $cargo->apellido_paterno = $this->apellido_paterno;
-        $cargo->apellido_materno = $this->apellido_materno;
-        $cargo->nombre = $this->nombre;
+        $cargo->area_ip_id = $this->ip;
+        $cargo->apellido_paterno = mb_strtoupper($this->apellido_paterno, 'UTF-8');
+        $cargo->apellido_materno = mb_strtoupper($this->apellido_materno, 'UTF-8');
+        $cargo->nombre = mb_strtoupper($this->nombre, 'UTF-8');
         $cargo->dni = $this->dni;
-        $cargo->correo_electronico = $this->correo_electronico;
-        $cargo->nombre_equipo = $this->nombre_equipo;
-        $cargo->usuario_red = $this->usuario_red;
-        $cargo->procesador = $this->procesador;
-        $cargo->memoria = $this->memoria;
-        $cargo->sistema_opreativo = $this->sistema_operativo;
+        $cargo->correo_institucional = strtolower($this->correo_electronico);
+        $cargo->nombre_equipo = mb_strtoupper($this->nombre_equipo, 'UTF-8');
+        $cargo->usuario_red = mb_strtoupper($this->usuario_red, 'UTF-8');
+        $cargo->procesador = mb_strtoupper($this->procesador, 'UTF-8');
+        $cargo->memoria = mb_strtoupper($this->memoria, 'UTF-8');
+        $cargo->sistema_opreativo = mb_strtoupper($this->sistema_operativo, 'UTF-8');
         $cargo->mac_dispositivo = $this->mac_dispositivo;
         $cargo->save();
+
+        // limpiar el formulario
         $this->limpiar_modal();
-        return redirect()->route('cargo.index');
+
+        // mensaje de exito
+        $this->dispatch('toast-basico',
+            text: 'El cargo se guardo correctamente',
+            tipo: 'success'
+        );
+
+        // cerrar el modal
+        $this->dispatch(
+            'modal',
+            modal: '#modal-cargo',
+            action: 'hide'
+        );
     }
-
-
-
-    //editar para almacenr
-    //ahora para actualizar
-
-
-       //validar ips en masa
-       public $selectedIps = [];
-       public $idEliminar;
-       public $ips;
-       public $filtrar_Ips =[];
-       public $button_VerIps='crear Ips en masa';
-
-    //generar IPS
-    public function GenerarIps()
-    {
-        //podemos usar el script
-        $inicio = '172.16.0.1';
-        $fin = '172.16.3.225';
-
-        //convertir las cadenas de inicio a fin en arrays (IPS)
-
-        $inicioArray = explode('.', $inicio);
-        $finArray = explode('.', $fin);
-
-        //Iterar desde el numero inicial hasta el final IPS
-
-        for ($i = $inicioArray[3]; $i <= $finArray[3]; $i++){
-            //convertir la direccion de las IPS Actual
-            $ip = $inicioArray[0] . '.' . $inicioArray[1] . '.' . $inicioArray[2] . '.' . $i;
-
-            //para crear una nueva instancia del modelo
-            $datoNuevo = new Ip();
-
-            //Asignar los valores para las IPS
-            $datoNuevo->ip = $ip;
-
-            //Asiganar en la base de Datos
-            $datoNuevo->save();
-        }
-
-        //Redireccion despues de que todas las IPS hayan sido generadas y guardadas
-
-        return redirect()->route('cargo.index');
-    }
-
-    // Controller method example
-    public $areas;
-    public $selectedAreaId;
-
-    public function mount()
-    {
-        $this->areas = Area::all();
-        $this->ips = collect(); 
-    }
-
-    public function updatedSelectedAreaId($value)
-    {
-        if (!empty($value)) {
-            $this->ips = Ip::where('area_id', $value)->get();
-        } else {
-            $this->ips = collect(); 
-        }
-    }
-
-
-
-    //para que muestre las IPS
-
-    public function filtrar_Ips($filtro)
-    {
-            // Verificar si el filtro seleccionado es opcion 0,1,2 o  3
-            if ($filtro === '172.16.0.1') {
-                // Filtrar todas las IPs que tengan el número 0 como penúltimo número yasi sucesivamente hasta el 3
-                $this->filtrar_Ips = Ip::whereRaw("substring_index(substring_index(ip, '.', -2), '.', 1) = '0'")->get();
-            } elseif ($filtro === '172.16.0.2') {
-
-                $this->filtrar_Ips = Ip::whereRaw("substring_index(substring_index(ip, '.', -2), '.', 1) = '1'")->get();
-            } elseif ($filtro === '172.16.0.3') {
-
-                $this->filtrar_Ips = Ip::whereRaw("substring_index(substring_index(ip, '.', -2), '.', 1) = '2'")->get();
-            } elseif ($filtro === '172.16.0.4') {
-
-                $this->filtrar_Ips = Ip::whereRaw("substring_index(substring_index(ip, '.', -2), '.', 1) = '3'")->get();
-            } else {
-
-                $this->filtrar_Ips = Ip::where('ip', 'like', "$filtro%")->get();
-            }
-    }
-
-    //Muestras para las IPS
-
 
     public function render()
     {
-
+        // obtener los cargos
         $cargos = Cargo::search($this->search)
-        ->orderBy('id', 'asc')
-        ->paginate($this->mostrar_paginate);
+            ->orderBy('id', 'asc')
+            ->paginate($this->mostrar_paginate);
+
+        // obtener las areas
+        $areas = Area::where('is_active', 1)->get();
+
         return view('livewire.cargo.index',[
             'cargos'=>$cargos,
+            'areas'=>$areas
         ]);
     }
 }
