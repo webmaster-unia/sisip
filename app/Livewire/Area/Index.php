@@ -88,7 +88,6 @@ class Index extends Component
     {
         $this->reset([
             'name',
-            'slug',
             'abreviation',
             'cantidad',
             'ip_inicio',
