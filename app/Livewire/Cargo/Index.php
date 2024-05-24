@@ -34,7 +34,6 @@ class Index extends Component
     public $title_modal='Crear nuevo cargo';
     public $button_modal='Crear cargo';
 
-    public $cargo_id;
 
     //variables para el el formulario cargo
 
@@ -83,6 +82,10 @@ class Index extends Component
 
     //variables de los botones
     public $modo = 'create';
+
+
+    //almacenar id
+    public $cargo_id;
 
     public function mount()
     {
@@ -190,6 +193,71 @@ class Index extends Component
             action: 'hide'
         );
     }
+
+
+
+    //actualizar
+
+    public function edit($id){
+        $cargo = Cargo::findOrFail($id);
+        $this->cargo_id = $id;
+        $this->name_cargo = $cargo->name_cargo;
+        $this->area = $cargo->area_ip_id;
+        $this->ip = $cargo->ip;
+        $this->apellido_paterno = $cargo->apellido_paterno;
+        $this->nombre = $cargo->nombre;
+        $this->dni= $cargo->dni;
+        $this->correo_electronico = $cargo->correo_electronico;
+        $this->nombre_equipo = $cargo->nombre_equipo;
+        $this->usuario_red= $cargo->usuario_red;
+        $this->procesador = $cargo->procesador;
+        $this->memoria = $cargo->memoria;
+        $this->sistema_operativo = $cargo->sistema_operativo;
+        $this->mac_dispositivo = $cargo->mac_dispositivo;
+        $this->modo = 'edit';
+        $this->title_modal = 'Editar Cargo';
+        $this->button_modal = 'Actualizar Cargo';
+        $this->resetErrorBag();
+        $this->resetValidation();
+    }
+
+
+    public function actualizarCargo(){
+        $cargo = Cargo::findOrFail($this->cargo_id);
+        $cargo->name_cargo = $this->name_cargo;
+        $cargo->area_ip_id  = $this->area;
+        $cargo->ip = $this->ip;
+        $cargo->apellido_paterno = $this->apellido_paterno;
+        $cargo->nombre = $this->nombre;
+        $cargo->dni = $this->dni;
+        $cargo->correo_electronico = $this->correo_electronico;
+        $cargo->nombre_equipo = $this->nombre_equipo;
+        $cargo->usuario_red = $this->usuario_red;
+        $cargo->procesador = $this->procesador;
+        $cargo->memoria = $this->memoria;
+        $cargo->sistema_operativo = $this->sistema_operativo;
+        $cargo->mac_dispositivo = $this->mac_dispositivo;
+        $cargo->save();
+        $this->limpiar_modal();
+        return redirect()->route('cargo.index');
+    }
+    public $mensaje;
+
+    public function eliminar_cargo($id)
+    {
+
+       $cargos = Cargo::find($id);
+        if ($cargos) {
+            $cargos->delete();
+            $this->mensaje = 'El área se ha eliminado correctamente';
+        } else {
+            $this->mensaje = 'No se pudo eliminar el área';
+        }
+
+        $this->limpiar_modal();
+    }
+
+
 
     public function render()
     {
