@@ -9,6 +9,7 @@ use App\Livewire\Configuracion\Permiso\Index as ConfiguracionPermisoIndex;
 use App\Livewire\Cargo\Index as CargoIndex;
 use App\Livewire\Ip\Index as IpIndex;
 use App\Livewire\Area\Index as AreaIndex;
+use App\Livewire\Asignar\Index as AsignarIndex;
 
 
 // ruta que redirige al home
@@ -41,7 +42,10 @@ Route::prefix('configuracion')->group(function () {
         ->middleware('auth')
         ->name('ip.index');
 
-
+    //ruta para AsigArea
+    Route::get('/asignar',AsignarIndex::class)
+    ->middleware('auth')
+    ->name('asignar.index');
 
         Route::post('/generar-ips', [IpIndex::class, 'generarYGuardarIPs'])
         ->middleware('auth')
