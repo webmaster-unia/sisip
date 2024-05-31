@@ -24,7 +24,25 @@
                 </div>
                 <div class="page-body">
                     <div class="container-xl">
-                        <h1>AQUI PONES LO QUE SE TE DE LA REGALADA GANA CTMRE </h1>
+                        <!-- Row para los cards -->
+                        <div class="row">
+                            <!-- Card 1 -->
+                            <div class="col-md-4 col-sm-6 mb-3">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Card title</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="text-secondary">This is some text within a card body.</p>
+                                    </div>
+                                    <a href="#" class="btn btn-square">
+                                        Detalles
+                                </a>
+                                </div>
+
+                            </div>
+                            
+                        </div>
                     </div>
                 </div>
             </div>
