@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Livewire\Asignar;
+use App\Models\Area;
 
 use Livewire\Component;
 
@@ -8,16 +9,17 @@ class Index extends Component
 {
 
     
-        public function mount()
-        {
-            $this->getArea();
-        }
+    public $areas;
 
-        public function getArea()
-        {
-            $this->ips = Ip::all();
-        }
-
+    public function mount()
+    {
+        $this->getArea();
+    }
+    
+    public function getArea()
+    {
+        $this->areas = Area::pluck('name');
+    }
 
 
 

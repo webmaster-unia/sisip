@@ -27,11 +27,12 @@
                         <!-- Row para los cards -->
                         <div class="row">
                             <!-- Card 1 -->
+                            @foreach($areas as $area)
                             <div class="col-md-4 col-sm-6 mb-3">
                                 <div class="card">
-                                    <div class="card-header">
-                                        <h3 class="card-title">Card title</h3>
-                                    </div>
+                                <div class="card-header">
+                                    <h3 class="card-title">{{ $area }}</h3>
+                                </div>
                                     <div class="card-body">
                                         <p class="text-secondary">This is some text within a card body.</p>
                                     </div>
@@ -39,8 +40,8 @@
                                         Detalles
                                 </a>
                                 </div>
-
                             </div>
+                            @endforeach
                             
                         </div>
                     </div>
