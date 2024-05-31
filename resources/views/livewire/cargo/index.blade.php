@@ -107,8 +107,6 @@
                                             <td>{{ $item->sistema_operativo ?? '-' }}</td>
                                             <td>{{ $item->mac_dispositivo ?? '-' }}</td>
                                             <td>
-                                            </td>
-                                            <td>
                                                 <div class="btn-list flex-nowrap justify-content-end">
                                                     <form wire:submit.prevent="eliminar_cargo({{ $item->id }})" style="display: inline;" class="d-inline">
                                                         @if (auth()->user()->permiso('cargo-delete'))
