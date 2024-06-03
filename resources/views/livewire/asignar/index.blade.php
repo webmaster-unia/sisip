@@ -1,5 +1,5 @@
 <div>
-    <div class="page-header d-print-none animate__animated animate__fadeIn animate__faster">
+    <div class="page-header d-print-none animate_animated animatefadeIn animate_faster">
         <div class="container-xl">
             <div class="row g-2 align-items-center">
                 <div class="col">
@@ -19,7 +19,7 @@
         <div class="page-body">
             <div class="container-xl">
                 <div
-                    class="alert alert-info bg-info-lt m-0 mb-3 fw-bold animate__animated animate__fadeIn animate__faster">
+                    class="alert alert-info bg-info-lt m-0 mb-3 fw-bold animate_animated animatefadeIn animate_faster">
                     A continuación se muestra la lista de los Cargos registrados en el sistema.
                 </div>
                 <div class="page-body">
@@ -31,21 +31,29 @@
                                 @foreach($areas as $area)
                                     <div class="col-md-4 mb-3">
                                         <div class="card">
+                                            <div class="ribbon ribbon-top {{ $area->is_active ? 'bg-green' : 'bg-red' }}">
+                                                @if ($area->is_active)
+
+                                                    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-check"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l5 5l10 -10" /></svg>
+                                                @else
+
+                                                    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-x"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M18 6l-12 12" /><path d="M6 6l12 12" /></svg>
+                                                @endif
+                                            </div>
+
                                             <div class="card-header">
                                                 <strong>{{ $area->name }}</strong>
                                             </div>
                                             <div class="card-body">
-                                                <p>Cantidad de ips asignadas: {{ $area->cantidad }}</p>
                                                 <p>Ip Inicio: {{ $area->ip_inicio }}</p>
                                                 <p>Ip Fin: {{ $area->ip_fin }}</p>
-                                                <p>Estado: {{ $area->is_active ? 'Activo' : 'Desactivado' }}</p>
-
                                                 <p>Total de IPs asignadas: {{ $area->ips->count() }}</p>
                                             </div>
-                                            <a class="btn btn-square" type="button" data-bs-toggle="modal"
-                                                wire:click="#" data-bs-target="#modal-detalle">
-                                                Detalles
-                                            </a>
+                                            <button type="button" class="btn btn-sm btn-outline-azure"
+                                                        data-bs-toggle="modal" data-bs-target="#modal-asig"
+                                                        wire:click="#">
+                                                        asignar
+                                            </button>
                                         </div>
                                     </div>
                                 @endforeach
@@ -54,32 +62,28 @@
 
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-    {{-- modal detalle --}}
-    <div class="modal fade modal-blur" id="modal-detalle" tabindex="-1" wire:ignore.self>
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">
 
-                    </h5>
-                  @foreach ($areas as $area  )
-                    <div>
-
-
-                        @foreach ( $area->ips as $ip )
-
-                            <p>
-                                {{$ip->ip}}
-                            </p>
-
-                        @endforeach
+                <div class="modal fade modal-blur" id="modal-asig" tabindex="-1" wire:ignore.self>
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">
+                                    IP
+                                </h5>
+                            </div>
+                                @foreach ($areas as $area )
+                                <div>
+                                    @foreach ($area->ips as $ip )
+                                        <div>
+                                            {{ $ip->ip }}
+                                        </div>
+                                    @endforeach
+                                </div>
+                                @endforeach
+                        </div>
                     </div>
-                  @endforeach
-
                 </div>
             </div>
         </div>
+    </div>
 </div>

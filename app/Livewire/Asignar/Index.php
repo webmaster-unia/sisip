@@ -22,6 +22,8 @@ class Index extends Component
         $this->areas = Area::with('ips')->get();
     }
 
+    
+
     public function render()
     {
         return view('livewire.asignar.index', ['areas' => $this->areas]);
