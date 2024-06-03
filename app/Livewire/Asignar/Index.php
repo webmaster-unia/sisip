@@ -13,7 +13,6 @@ class Index extends Component
     public function mount()
     {
         $this->getArea();
-        $this->getCargo();
     }
 
     public function getArea()

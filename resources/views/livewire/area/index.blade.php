@@ -90,7 +90,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-<<<<<<< Updated upstream
+
                                     @forelse ($areas as $item)
                                         <tr>
                                             <td>
@@ -180,7 +180,7 @@
                                             </tr>
                                         @endif
                                     @endforelse
-=======
+
                                     <tr>
                                         <td>
                                             <span class="text-secondary"></span>
@@ -241,13 +241,13 @@
                                         </td>
                                     </tr>
                                     @endif
->>>>>>> Stashed changes
+
                                 </tbody>
 
 
                             </table>
                         </div>
-<<<<<<< Updated upstream
+
                         <div class="card-footer {{ $areas->hasPages() ? 'py-0' : '' }}">
                             @if ($areas->hasPages())
                                 <div class="d-flex justify-content-between">
@@ -267,7 +267,7 @@
                                     </div>
                                 </div>
                             @endif
-=======
+
                         <div class="card-footer">
                             <div class="d-flex justify-content-between">
                                 <div class="d-flex align-items-center text-secondary">
@@ -281,7 +281,7 @@
                                     Mostrando  registros
                                 </div>
                             </div>
->>>>>>> Stashed changes
+
                         </div>
                     </div>
                 </div>
@@ -294,10 +294,10 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">
-<<<<<<< Updated upstream
+
                         {{ $title_modal }}
-=======
->>>>>>> Stashed changes
+
+
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                         wire:click="limpiar_modal"></button>

@@ -77,7 +77,6 @@
                             <table class="table card-table table-vcenter text-nowrap table-striped  datatable">
                                 <thead>
                                     <tr>
-<<<<<<< Updated upstream
                                         <th>Cargo</th>
                                         <th>Area</th>
                                         <th>IP</th>
@@ -252,10 +251,9 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">
-<<<<<<< Updated upstream
+
                         {{ $title_modal }}
-=======
->>>>>>> Stashed changes
+
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                         wire:click="limpiar_modal"></button>
@@ -402,11 +400,10 @@
                             Cancelar
                         </button>
                         <button type="submit" class="btn btn-cyan ms-auto">
-<<<<<<< Updated upstream
+
                             {{ $button_modal }}
-=======
+
                             {{ $button_Cargo }}
->>>>>>> Stashed changes
                         </button>
                     </div>
                 </form>
