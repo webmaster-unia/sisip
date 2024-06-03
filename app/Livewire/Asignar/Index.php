@@ -5,9 +5,12 @@ use App\Models\Area;
 
 use Livewire\Component;
 
+
 class Index extends Component
 {
+
     public $areas;
+
 
     public function mount()
     {
@@ -16,7 +19,7 @@ class Index extends Component
 
     public function getArea()
     {
-        $this->areas = Area::all();
+        $this->areas = Area::with('ips')->get();
     }
 
     public function render()
