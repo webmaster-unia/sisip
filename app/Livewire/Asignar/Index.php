@@ -9,7 +9,7 @@ use Livewire\Component;
 class Index extends Component
 {
 
-
+    //cards
     public $areas;
 
     public function mount()
@@ -20,22 +20,12 @@ class Index extends Component
 
     public function getArea()
     {
-        $this->areas = Area::pluck('name');
+        $this->areas = Area::with('ips')->get();
     }
-
-
-
-    public $cargos;
-    
-    public function getCargo()
-    {
-        $this->cargos = Cargo::pluck('name_cargo');
-    }
-
-
 
     public function render()
     {
         return view('livewire.asignar.index');
     }
-};
+
+}

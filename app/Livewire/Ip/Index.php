@@ -57,7 +57,7 @@ class Index extends Component
     $finArray = explode('.', $fin);
 
     // Iterar desde el número inicial hasta el número final
-    for ($i = $inicioArray[3]; $i <= $finArray[3]; $i++) {
+    for ($i = $inicioArray[0]; $i <= $finArray[3]; $i++) {
         // Construir la dirección IP actual
         $ip = $inicioArray[0] . '.' . $inicioArray[1] . '.' . $inicioArray[2] . '.' . $i;
 
