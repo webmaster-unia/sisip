@@ -46,7 +46,7 @@
     <div class="page-body">
         <div class="container-xl">
             <div class="alert alert-info bg-info-lt m-0 mb-3 fw-bold animate__animated animate__fadeIn animate__faster">
-                A continuación se muestra la lista de los Cargos registrados en el sistema.
+                A continuaciÃ³n se muestra la lista de los Cargos registrados en el sistema.
             </div>
             <div class="row g-3">
                 <div class="col-12">
@@ -110,7 +110,7 @@
                                                 <div class="btn-list flex-nowrap justify-content-end">
                                                     <form wire:submit.prevent="eliminar_cargo({{ $item->id }})" style="display: inline;" class="d-inline">
                                                         @if (auth()->user()->permiso('cargo-delete'))
-                                                        <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('¿Estás seguro de que quieres eliminar esta tarea?')">Eliminar</button>
+                                                        <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Â¿EstÃ¡s seguro de que quieres eliminar esta tarea?')">Eliminar</button>
                                                         @endif
                                                     </form>
                                                     @if (auth()->user()->permiso('cargo-edit'))
@@ -276,10 +276,10 @@
                                     placeholder="Ingrese mac_dispositivo" />
                             </div>
                             <div class="col-lg-12">
-                                <label for="area" class="form-label required">Seleccione un área</label>
+                                <label for="area" class="form-label required">Seleccione un Ã¡rea</label>
                                 <select class="form-select @error('area') is-invalid @enderror"
                                     id="area" wire:model.live="area">
-                                    <option value="">Seleccione un área</option>
+                                    <option value="">Seleccione un Ã¡rea</option>
                                     @foreach ($areas as $area)
                                         <option value="{{ $area->id }}">
                                             {{ $area->name }}

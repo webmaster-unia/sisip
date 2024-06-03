@@ -186,7 +186,7 @@ class Index extends Component
     {
         // Verificar si el filtro seleccionado es opcion 0,1,2 o  3
         if ($filtro === '172.16.0.1') {
-            // Filtrar todas las IPs que tengan el número 0 como penúltimo número yasi sucesivamente hasta el 3
+            // Filtrar todas las IPs que tengan el nÃºmero 0 como penÃºltimo nÃºmero yasi sucesivamente hasta el 3
             $this->filteredIps = Ip::whereRaw("substring_index(substring_index(ip, '.', -2), '.', 1) = '0'")->get();
         } elseif ($filtro === '172.16.0.2') {
 
@@ -277,9 +277,9 @@ class Index extends Component
         $areas = Area::find($id);
         if ($areas) {
             $areas->delete();
-            $this->mensaje = 'El área se ha eliminado correctamente';
+            $this->mensaje = 'El Ã¡rea se ha eliminado correctamente';
         } else {
-            $this->mensaje = 'No se pudo eliminar el área';
+            $this->mensaje = 'No se pudo eliminar el Ã¡rea';
         }
 
         $this->limpiar_modal();
