@@ -25,27 +25,31 @@
                 <div class="page-body">
                     <div class="container-xl">
                         <!-- Row para los cards -->
-                        <div class="row">
-                            <div class="col-md-4 col-sm-6 mb-3">
-                                <div class="card">
-                                <div class="card-header">
-                                </div>
-                                    <div class="card-body">
-                                        <ul>
-                                            @foreach($area->ips as $ip)
-                                                <li>{{ $ip->ip }}</li>
-                                            @endforeach
-                                        </ul>
-                                        <p>Total de IPs asignadas: {{ $area->ips->count() }}</p>
+                        <div>
+                            <h1>Áreas y sus IPs Asignadas</h1>
+                            <div class="row">
+                                @foreach($areas as $area)
+                                    <div class="col-md-4 mb-3">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <strong>{{ $area->name }}</strong>
+                                            </div>
+                                            <div class="card-body">
+                                                <p>Cantidad de ips asignadas: {{ $area->cantidad }}</p>
+                                                <p>Ip Inicio: {{ $area->ip_inicio }}</p>
+                                                <p>Ip Fin: {{ $area->ip_fin }}</p>
+                                                <p>Estado: {{ $area->is_active}}</p>
+                                                <p>Total de IPs asignadas: {{ $area->ips->count() }}</p>
+                                            </div>
+                                            <a href="#" class="btn btn-square">
+                                                Detalles
+                                            </a>
+                                        </div>
                                     </div>
-                                    <a href="#" class="btn btn-square">
-                                        Detalles
-                                </a>
-                                </div>
+                                @endforeach
                             </div>
-                            @endforeach
-
                         </div>
+
                     </div>
                 </div>
             </div>

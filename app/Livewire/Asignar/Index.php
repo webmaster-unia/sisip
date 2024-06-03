@@ -8,7 +8,6 @@ use Livewire\Component;
 class Index extends Component
 {
     public $areas;
-    public $selectedArea = null;
 
     public function mount()
     {
@@ -20,25 +19,9 @@ class Index extends Component
         $this->areas = Area::all();
     }
 
-    public function selectArea($areaId)
-    {
-        $this->selectedArea = Area::with('ips')->find($areaId);
-    }
-
-
-
-
-
-
-    public function limpiar_modal()
-    {
-        $this->resetErrorBag();
-        $this->resetValidation();
-    }
-
     public function render()
     {
-        return view('livewire.asignar.index');
+        return view('livewire.asignar.index', ['areas' => $this->areas]);
     }
 
 }
