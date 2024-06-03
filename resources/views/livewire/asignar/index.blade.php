@@ -38,7 +38,8 @@
                                                 <p>Cantidad de ips asignadas: {{ $area->cantidad }}</p>
                                                 <p>Ip Inicio: {{ $area->ip_inicio }}</p>
                                                 <p>Ip Fin: {{ $area->ip_fin }}</p>
-                                                <p>Estado: {{ $area->is_active}}</p>
+                                                <p>Estado: {{ $area->is_active ? 'Activo' : 'Desactivado' }}</p>
+
                                                 <p>Total de IPs asignadas: {{ $area->ips->count() }}</p>
                                             </div>
                                             <a href="#" class="btn btn-square">
