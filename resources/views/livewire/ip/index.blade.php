@@ -234,7 +234,7 @@
                         <button type="submit" class="btn btn-cyan ms-auto">
                             {{ $button_modal }}
                         </button>
-
+                        
                     </div>
                 </form>
             </div>
