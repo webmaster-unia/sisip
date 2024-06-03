@@ -49,11 +49,13 @@
                                                 <p>Ip Fin: {{ $area->ip_fin }}</p>
                                                 <p>Total de IPs asignadas: {{ $area->ips->count() }}</p>
                                             </div>
-                                            <button type="button" class="btn btn-sm btn-outline-azure"
+                                            @if (auth()->user()->permiso('asignar-detalle'))
+                                            <button type="button" class="btn btn-square"
                                                         data-bs-toggle="modal" data-bs-target="#modal-asig"
                                                         wire:click="#">
-                                                        asignar
+                                                        Detalles
                                             </button>
+                                            @endif
                                         </div>
                                     </div>
                                 @endforeach
