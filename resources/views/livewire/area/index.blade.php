@@ -47,7 +47,7 @@
     <div class="page-body">
         <div class="container-xl">
             <div class="alert alert-info bg-info-lt m-0 mb-3 fw-bold animate__animated animate__fadeIn animate__faster">
-                A continuación se muestra la lista de areas registrados en el sistema.
+                A continuaciÃ³n se muestra la lista de areas registrados en el sistema.
             </div>
             <div class="row g-3">
                 <div class="col-12">
@@ -90,7 +90,6 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-
                                     @forelse ($areas as $item)
                                         <tr>
                                             <td>
@@ -116,12 +115,12 @@
                                             </td>
                                             <td>
                                                 @if ($item->is_active == 1)
-                                                    <span class="status status-teal px-3 py-2" wire:confirm="¿ Estás seguro que desea cambiar el estado?"
+                                                    <span class="status status-teal px-3 py-2" wire:confirm="Â¿ EstÃ¡s seguro que desea cambiar el estado?"
                                                     wire:click="cambiar_estado({{ $item->id }}, true)" style="cursor: pointer;">
                                                     <span class="status-dot status-dot-animated"></span>
                                                     Activo</span>
                                                 @else
-                                                    <span class="status status-red px-3 py-2" wire:confirm="¿ Estás seguro que desea cambiar el estado?"
+                                                    <span class="status status-red px-3 py-2" wire:confirm="Â¿ EstÃ¡s seguro que desea cambiar el estado?"
                                                     wire:click="cambiar_estado({{ $item->id }}, false)" style="cursor: pointer;">
                                                     <span class="status-dot status-dot-animated"></span>
                                                     Inactivo</span>
@@ -131,7 +130,7 @@
                                                 <div class="btn-list flex-nowrap justify-content-end">
                                                     <form wire:submit.prevent="eliminar_area({{ $item->id }})" style="display: inline;" class="d-inline">
                                                         @if (auth()->user()->permiso('area-delete'))
-                                                        <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('¿Estás seguro de que quieres eliminar esta tarea?')">Eliminar</button>
+                                                        <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Â¿EstÃ¡s seguro de que quieres eliminar esta tarea?')">Eliminar</button>
                                                         @endif
                                                     </form>
                                                     @if (auth()->user()->permiso('area-edit'))
@@ -148,8 +147,6 @@
                                                     Asignar Ip
                                                     </button>
                                                     @endif
-
-
                                                 </div>
                                             </td>
                                         </tr>
@@ -180,74 +177,11 @@
                                             </tr>
                                         @endif
                                     @endforelse
-
-                                    <tr>
-                                        <td>
-                                            <span class="text-secondary"></span>
-                                        </td>
-                                        <td>
-                                            <span class="fw-bold">
-                                            </span>
-                                        </td>
-                                        <td>
-                                        </td>
-                                        <td>
-                                        </td>
-                                        <td>
-                                        </td>
-                                        <td>
-                                            <span class="status status-teal px-3 py-2">
-                                                <span class="status-dot status-dot-animated"></span>
-                                                Activo
-                                            </span>
-                                            <span class="status status-red px-3 py-2">
-                                                <span class="status-dot status-dot-animated"></span>
-                                                Inactivo
-                                            </span>
-                                        </td>
-                                        <td>
-                                            <div class="btn-list flex-nowrap justify-content-end">
-                                                {{-- <button type="button" class="btn btn-sm btn-outline"
-                                                    data-bs-toggle="modal" data-bs-target="#modal-ciclo-ver"
-                                                    wire:click="show({{ $item->id }})">
-                                                    Ver
-                                                </button> --}}
-                                                <button type="button" class="btn btn-sm btn-outline-azure"
-                                                    data-bs-toggle="modal" data-bs-target="#modal-usuario"
-                                                    wire:click="edit()">
-                                                    Editar
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    @if ($areas->count() == 0 && $search != '')
-                                    <tr>
-                                        <td colspan="7">
-                                            <div class="text-center" style="padding-bottom: 5rem; padding-top: 5rem;">
-                                                <span class="text-secondary">
-                                                    No se encontraron resultados para "<strong>{{ $search }}</strong>"
-                                                </span>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    @else
-                                    <tr>
-                                        <td colspan="7">
-                                            <div class="text-center" style="padding-bottom: 5rem; padding-top: 5rem;">
-                                                <span class="text-secondary">
-                                                    No hay areas registradas
-                                                </span>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    @endif
-
                                 </tbody>
 
 
                             </table>
                         </div>
-
                         <div class="card-footer {{ $areas->hasPages() ? 'py-0' : '' }}">
                             @if ($areas->hasPages())
                                 <div class="d-flex justify-content-between">
@@ -267,21 +201,6 @@
                                     </div>
                                 </div>
                             @endif
-
-                        <div class="card-footer">
-                            <div class="d-flex justify-content-between">
-                                <div class="d-flex align-items-center text-secondary">
-                                    Mostrando  registros
-                                </div>
-                                <div class="mt-3">
-                                </div>
-                            </div>
-                            <div class="d-flex justify-content-between">
-                                <div class="d-flex align-items-center text-secondary">
-                                    Mostrando  registros
-                                </div>
-                            </div>
-
                         </div>
                     </div>
                 </div>
@@ -294,10 +213,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">
-
                         {{ $title_modal }}
-
-
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                         wire:click="limpiar_modal"></button>
@@ -421,7 +337,7 @@
                     </div>
                     <form autocomplete="off" novalidate wire:submit.prevent="asignar_ips">
                         <div class="modal-body">
-                            <!-- Error si intenta crear un campo vacío -->
+                            <!-- Error si intenta crear un campo vacÃ­o -->
                             @if (session()->has('error'))
                                 <div class="alert alert-danger">
                                     {{ session('error') }}
