@@ -147,8 +147,6 @@
                                                     Asignar Ip
                                                     </button>
                                                     @endif
-
-
                                                 </div>
                                             </td>
                                         </tr>

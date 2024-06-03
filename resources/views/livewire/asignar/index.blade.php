@@ -35,22 +35,43 @@
                                 </div>
                                     <div class="card-body">
                                         <ul>
-                                            @foreach($area->ips as $ip)
-                                                <li>{{ $ip->ip }}</li>
-                                            @endforeach
+                                            <p>Cantidad de IPS: {{ $area->cantidad }}</p>
+                                            <p>Ip inicio: {{ $area->ip_inicio }}</p>
+                                            <p>Ip fin: {{ $area->ip_fin }}</p>
+                                            <p>Estado: {{ $area->is_active }}</p>
                                         </ul>
                                         <p>Total de IPs asignadas: {{ $area->ips->count() }}</p>
                                     </div>
-                                    <a href="#" class="btn btn-square">
+                                    <button type="button" class="btn btn-square"
+                                        data-bs-toggle="modal" data-bs-target="#modal-asig"
+                                        wire:click="#">
                                         Detalles
-                                </a>
+                                    </button>
                                 </div>
                             </div>
                             @endforeach
-
                         </div>
                     </div>
                 </div>
+
+                <!--modal detalles -->
+                <div class="modal fade" id="modal-asig" tabindex="-1" role="dialog" aria-labelledby="cargoModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="cargoModalLabel">Cargos</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
             </div>
         </div>
     </div>

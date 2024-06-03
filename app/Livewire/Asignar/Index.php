@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Asignar;
 use App\Models\Area;
-
+use App\Models\Cargo;
 use Livewire\Component;
 
 class Index extends Component
@@ -10,6 +10,7 @@ class Index extends Component
 
 
     public $areas;
+    public $selectedArea = null;
 
     public function mount()
     {
@@ -18,7 +19,23 @@ class Index extends Component
 
     public function getArea()
     {
-        $this->areas = Area::with('ips')->get();
+        $this->areas = Area::all();
+    }
+
+    public function selectArea($areaId)
+    {
+        $this->selectedArea = Area::with('ips')->find($areaId);
+    }
+
+
+
+
+
+
+    public function limpiar_modal()
+    {
+        $this->resetErrorBag();
+        $this->resetValidation();
     }
 
     public function render()
