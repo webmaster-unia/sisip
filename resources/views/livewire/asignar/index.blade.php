@@ -34,15 +34,15 @@
                                     <h3 class="card-title">{{ $area }}</h3>
                                 </div>
                                     <div class="card-body">
-                                        <p class="text-secondary">This is some text within a card body.</p>
+                                        <p class="text-secondary">Chupame la Verga</p>
                                     </div>
-                                    <a href="#" class="btn btn-square">
+                                    <button href="#" class="btn btn-square">
                                         Detalles
-                                </a>
+                                    </button>
                                 </div>
                             </div>
                             @endforeach
-                            
+
                         </div>
                     </div>
                 </div>

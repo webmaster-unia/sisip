@@ -61,3 +61,16 @@ Route::prefix('configuracion')->group(function () {
         ->name('cargo.index');
 });
 
+
+
+
+
+
+
+
+
+
+
+
+
+
