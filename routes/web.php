@@ -49,7 +49,80 @@ Route::prefix('configuracion')->group(function () {
 
         Route::post('/generar-ips', [IpIndex::class, 'generarYGuardarIPs'])
         ->middleware('auth')
-        ->name('ip.generar_ips');
+        ->name('ip.genera
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        r_ips');
 
         //Ruta para area
         Route::get('/area', AreaIndex::class)

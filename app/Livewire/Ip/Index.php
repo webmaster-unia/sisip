@@ -50,14 +50,14 @@ class Index extends Component
 {
     // Puedes utilizar el script proporcionado anteriormente
     $inicio = '172.16.0.1';
-    $fin = '172.16.3.225';
+    $fin = '172.16.0.225';
 
     // Convertir las cadenas de inicio y fin en arrays
     $inicioArray = explode('.', $inicio);
     $finArray = explode('.', $fin);
 
     // Iterar desde el número inicial hasta el número final
-    for ($i = $inicioArray[3]; $i <= $finArray[3]; $i++) {
+    for ($i = $inicioArray[0]; $i <= $finArray[3]; $i++) {
         // Construir la dirección IP actual
         $ip = $inicioArray[0] . '.' . $inicioArray[1] . '.' . $inicioArray[2] . '.' . $i;
 
