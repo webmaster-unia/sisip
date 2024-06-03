@@ -50,7 +50,7 @@ class Index extends Component
 {
     // Puedes utilizar el script proporcionado anteriormente
     $inicio = '172.16.0.1';
-    $fin = '172.16.3.225';
+    $fin = '172.16.0.225';
 
     // Convertir las cadenas de inicio y fin en arrays
     $inicioArray = explode('.', $inicio);

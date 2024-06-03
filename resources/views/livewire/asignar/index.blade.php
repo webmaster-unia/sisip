@@ -31,15 +31,52 @@
                             <div class="col-md-4 col-sm-6 mb-3">
                                 <div class="card">
                                 <div class="card-header">
-                                    <h3 class="card-title">{{ $area->name }}</h3>
+                                    <h3 class="card-title">{{ $area }}</h3>
+                                </div>
+                                    <div class="card-body">
+                                        <p class="text-secondary">This is some text within a card body.</p>
+                                    </div>
+                                    <a href="#" class="btn btn-square">
+                                        Detalles
+                                    </a>
+                                </div>
+                            </div>
+                            @endforeach
+
+                        </div>
+                    </div>
+                </div>
+                <div class="page-body">
+                    <div class="container-xl">
+                        <div class="row">
+                            @foreach($cargos as $cargo)
+                            <div class="col-md-4 col-sm-6 mb-3">
+                                <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">{{ $cargo->name_cargo }}</h3>
                                 </div>
                                     <div class="card-body">
                                         <ul>
-                                            @foreach($area->ips as $ip)
-                                                <li>{{ $ip->ip }}</li>
+                                            @foreach ($cargo->areas as $cargo)
+                                            <li>{{ $cargos->areas }}</li>
+                                            <p>Total de Cargos {{ $cargos->areas->count()}}</p>
                                             @endforeach
                                         </ul>
-                                        <p>Total de IPs asignadas: {{ $area->ips->count() }}</p>
+                                    </div>
+                                    <div class="col-md-4 col-sm-6 mb-3">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h3 class="card-title">{{ $cargo->area_ip }}</h3>
+                                            </div>
+                                            <div class="card-body">
+                                                <ul>
+                                                    @foreach ($cargo->area_ip as $cargo)
+                                                    <li>{{ $cargos->area_ip }}</li>
+                                                    <p>Total de Cargos {{ $cargos->area_ip->count()}}</p>
+                                                    @endforeach
+                                                </ul>
+                                            </div>
+                                        </div>
                                     </div>
                                     <a href="#" class="btn btn-square">
                                         Detalles
@@ -47,7 +84,6 @@
                                 </div>
                             </div>
                             @endforeach
-
                         </div>
                     </div>
                 </div>
