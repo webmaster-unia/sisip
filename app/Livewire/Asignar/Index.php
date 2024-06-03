@@ -8,7 +8,7 @@ use Livewire\Component;
 class Index extends Component
 {
 
-    
+    //cards
     public $areas;
 
     public function mount()
@@ -21,6 +21,8 @@ class Index extends Component
         $this->areas = Area::pluck('name');
     }
 
+    
+    //find cards
 
 
     public function render()
