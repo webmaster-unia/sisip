@@ -31,15 +31,29 @@
                                 @foreach($areas as $area)
                                     <div class="col-md-4 mb-3">
                                         <div class="card">
+                                            <div class="ribbon ribbon-top {{ $area->is_active ? 'bg-green' : 'bg-red' }}">
+                                                @if ($area->is_active)
+                                                    <!-- Ícono de slash si está activo -->
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                        <path d="M4 8l12 12"></path>
+                                                    </svg>
+                                                @else
+                                                    <!-- Ícono de x si está inactivo -->
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                                                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                                                    </svg>
+                                                @endif
+                                            </div>
+
                                             <div class="card-header">
                                                 <strong>{{ $area->name }}</strong>
                                             </div>
                                             <div class="card-body">
-                                                <p>Cantidad de ips asignadas: {{ $area->cantidad }}</p>
                                                 <p>Ip Inicio: {{ $area->ip_inicio }}</p>
                                                 <p>Ip Fin: {{ $area->ip_fin }}</p>
-                                                <p>Estado: {{ $area->is_active ? 'Activo' : 'Desactivado' }}</p>
-
                                                 <p>Total de IPs asignadas: {{ $area->ips->count() }}</p>
                                             </div>
                                             <a href="#" class="btn btn-square">
