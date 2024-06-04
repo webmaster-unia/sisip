@@ -64,10 +64,10 @@
                                             </div>
                                             <button type="button" class="btn btn-sm btn-outline-azure"
                                                         data-bs-toggle="modal" data-bs-target="#modal-asig"
-                                                        wire:click="#">
+                                                        wire:click="loadIps({{ $area->id }})">
                                                         asignar
                                             </button>
-                                            @endif
+
                                         </div>
                                     </div>
                                 @endforeach
