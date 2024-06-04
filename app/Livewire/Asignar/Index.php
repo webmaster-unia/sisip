@@ -10,7 +10,7 @@ class Index extends Component
 {
 
     public $areas;
-
+    public $selectedIps = [];
 
     public function mount()
     {
@@ -22,7 +22,12 @@ class Index extends Component
         $this->areas = Area::with('ips')->get();
     }
 
-    
+    public function loadIps($areaId)
+    {
+        $this->selectedIps = Area::find($areaId)->ips;
+    }
+
+
 
     public function render()
     {
