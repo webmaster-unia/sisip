@@ -11,6 +11,7 @@ class Index extends Component
 
     public $areas;
     public $selectedIps = [];
+    public $selectedAreaCargos = [];
 
     public function mount()
     {
@@ -21,6 +22,8 @@ class Index extends Component
     {
         $this->areas = Area::with('ips')->get();
     }
+
+    
 
     public function loadIps($areaId)
     {

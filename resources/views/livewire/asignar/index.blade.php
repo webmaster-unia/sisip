@@ -62,10 +62,10 @@
                                                 <p>Ip Fin: {{ $area->ip_fin }}</p>
                                                 <p>Total de IPs asignadas: {{ $area->ips->count() }}</p>
                                             </div>
-                                            <button type="button" class="btn btn-sm btn-outline-azure"
+                                            <button type="button" class="btn btn-square"
                                                         data-bs-toggle="modal" data-bs-target="#modal-asig"
                                                         wire:click="loadIps({{ $area->id }})">
-                                                        asignar
+                                                        Detalles
                                             </button>
 
                                         </div>
@@ -82,7 +82,7 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title">
-                                    IP
+                                    IPS Asignadas a esta Area
                                 </h5>
                             </div>
                             @if ($selectedIps)

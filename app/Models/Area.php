@@ -34,6 +34,7 @@ class Area extends Model
     public function ips(): BelongsToMany {
         return $this->belongsToMany(Ip::class, 'area_ips', 'area_id', 'ip_id')->withPivot('id', 'is_active')->withTimestamps();
     }
+    
 
     protected static function boot() {
         parent::boot();
